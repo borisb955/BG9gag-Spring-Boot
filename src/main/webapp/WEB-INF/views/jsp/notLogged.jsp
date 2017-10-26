@@ -20,9 +20,9 @@
 	
 		<jsp:include page="headerNotLogged.jsp"></jsp:include>
 
-	<!-- 	<div id="parent">
+	 	<div id="parent">
 			<div id="child">
-				<c:forEach items="${requestScope.allPosts}" var="post" >
+				<c:forEach items="${ allPosts }" var="post" >
 				
 				<div>
 					<h1><c:out value="${ post.description }">no description</c:out></h1><br>
@@ -42,7 +42,7 @@
 				<a href="showPostWithComment?postId=${ post.postId }&userId=${post.user.id}">Comments</a>
 				</c:forEach>
 			</div>
-		</div> -->
+		</div>
 	
 	</body>
 </html>

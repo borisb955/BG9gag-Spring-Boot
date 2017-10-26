@@ -22,13 +22,12 @@ import com.example.model.UserDao;
 
 
 @Controller
-
 public class WelcomeController {
 	
 	@Autowired
 	PostDao pd;
 
-	@RequestMapping(method = RequestMethod.GET)
+	@RequestMapping(value = "/main", method = RequestMethod.GET)
 	public String welcome(Model m, HttpSession s) {
 		Object o = s.getAttribute("logged");
 		boolean logged = (o != null && ((boolean) o));
@@ -36,6 +35,30 @@ public class WelcomeController {
 		try {
 			HashSet<Post> allPosts = pd.getAllPosts();
 			m.addAttribute("allPosts", allPosts);
+			System.out.println(allPosts);
+			
+		} catch (SQLException e) {
+			e.getMessage();
+//			req.setAttribute("error", e.getMessage());
+//			req.getRequestDispatcher("WEB-INF/errorPage.jsp").forward(req, resp);
+		}
+		
+		if(s.isNew() || !logged) {
+			return "notLogged";
+		}else {
+			return "logged";  
+		}
+	}
+	
+	@RequestMapping(value = "/main", method = RequestMethod.POST)
+	public String welcome2(Model m, HttpSession s) {
+		Object o = s.getAttribute("logged");
+		boolean logged = (o != null && ((boolean) o));
+		
+		try {
+			HashSet<Post> allPosts = pd.getAllPosts();
+			m.addAttribute("allPosts", allPosts);
+			System.out.println(allPosts);
 			
 		} catch (SQLException e) {
 			e.getMessage();
@@ -79,21 +102,21 @@ public class WelcomeController {
 				
 				s.setAttribute("user", u);
 				s.setAttribute("logged", true);
-				return "logged";
+				return "forward : /main ";
 			}
 		} catch (SQLException e) {
 			req.setAttribute("error", e.getMessage());
 //			req.getRequestDispatcher("WEB-INF/errorPage.jsp").forward(req, resp);
 		}
 	
-		
+
 		return "login";
 	}
 	
 	@RequestMapping(value = "/logout", method = RequestMethod.POST)
 	public String logout(HttpSession s) {
 		s.invalidate();
-		return "notLogged";
+		return "forward : /main";
 	}
 	
 	
