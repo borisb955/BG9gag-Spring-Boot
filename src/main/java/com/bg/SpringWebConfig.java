@@ -20,7 +20,7 @@ import org.springframework.web.servlet.view.JstlView;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan("com.example")
+@ComponentScan("com.bg")
 public class SpringWebConfig extends WebMvcConfigurerAdapter {
 	
     @Override
@@ -41,10 +41,10 @@ public class SpringWebConfig extends WebMvcConfigurerAdapter {
 		return resolver;
 	}
 	
-//	  @Override
-//	  public void addViewControllers(ViewControllerRegistry registry) {
-//	    registry.addViewController("/").setViewName("forward : main");
-//	  }
+	  @Override
+	  public void addViewControllers(ViewControllerRegistry registry) {
+	    registry.addViewController("/").setViewName("MyProject");
+	  }
 	
 	// localization configuration
 	@Bean

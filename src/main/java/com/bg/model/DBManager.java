@@ -9,13 +9,9 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class DBManager {
-	
+	Connection conn;
 
 	public DBManager() {
-	}
-	
-	
-	public Connection getConn() {
 		final String DB_IP = "localhost";
 		final String DB_PORT = "3306";
 		final String DB_DBNAME = "9gag";
@@ -28,25 +24,29 @@ public class DBManager {
 			e.printStackTrace();
 		}
 		
-		Connection conn = null;
 		try {
 			conn = DriverManager.getConnection("jdbc:mysql://"+DB_IP+":"+DB_PORT+"/"+DB_DBNAME
 						,DB_USER, DB_PASS);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
-		System.out.println("VLizash li bret");
-		return conn;
 	}
 	
-//	public void closeConnection() {
-//		if(conn != null) {
-//			try {
-//				conn.close();
-//			} catch (SQLException e) {
-//				e.printStackTrace();
-//			}
-//		}
-//	}
+	
+	public Connection getConn() {
+//		System.out.println("vliza");
+//		System.out.println("vliza");
+//		System.out.println("vliza");
+		return this.conn;
+	}
+	
+	public void closeConnection() {
+		if(conn != null) {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 }
