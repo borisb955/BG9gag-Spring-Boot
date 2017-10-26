@@ -27,7 +27,7 @@ public class WelcomeController {
 	@Autowired
 	PostDao pd;
 
-	@RequestMapping(value = "/main", method = RequestMethod.GET)
+	@RequestMapping( method = RequestMethod.GET)
 	public String welcome(Model m, HttpSession s) {
 		Object o = s.getAttribute("logged");
 		boolean logged = (o != null && ((boolean) o));
@@ -50,7 +50,7 @@ public class WelcomeController {
 		}
 	}
 	
-	@RequestMapping(value = "/main", method = RequestMethod.POST)
+	@RequestMapping(method = RequestMethod.POST)
 	public String welcome2(Model m, HttpSession s) {
 		Object o = s.getAttribute("logged");
 		boolean logged = (o != null && ((boolean) o));
@@ -102,7 +102,7 @@ public class WelcomeController {
 				
 				s.setAttribute("user", u);
 				s.setAttribute("logged", true);
-				return "forward : /main ";
+				return "forward:/";
 			}
 		} catch (SQLException e) {
 			req.setAttribute("error", e.getMessage());
@@ -116,7 +116,7 @@ public class WelcomeController {
 	@RequestMapping(value = "/logout", method = RequestMethod.POST)
 	public String logout(HttpSession s) {
 		s.invalidate();
-		return "forward : /main";
+		return "forward:/";
 	}
 	
 	
