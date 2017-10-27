@@ -8,28 +8,20 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<title>Insert title here</title>
 	<style type="text/css">
+		#container{width: 800px; margin: 40px auto 0 200px; position: relative; display: inline-flex; }
+		#leftContainer{ padding-left: 0px; background-color: red;}
 		#rightContainer{ margin-left: 200px;}
+		.ulLeft{list-style-type: none; position: absolute;}
 		.rightContainerHeader{font-size: 260%;}
 	</style>
 </head>
 	<body>
 		<jsp:include page="sideBarSettings.jsp"></jsp:include>
-
 			
 			<div id="rightContainer">
-				<h1 class="rightContainerHeader">Account</h1>
+				<h1 class="rightContainerHeader">Profile</h1>
 				<f:form commandName="user">
-					<p>change username</p>
-					<f:input path="username"/>
 					
-					<p>change email</p>
-					<f:input path="email"/>
-					
-					<!-- TODO: compare from DB -->
-					<p>hide upvotes</p>
-					<input type="checkbox"  name="email"><br><br>
-					
-					<input type="submit" value="Save Changes">
 				</f:form>	
 			</div>
 			

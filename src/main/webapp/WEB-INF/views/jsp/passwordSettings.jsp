@@ -14,23 +14,18 @@
 </head>
 	<body>
 		<jsp:include page="sideBarSettings.jsp"></jsp:include>
-
 			
 			<div id="rightContainer">
-				<h1 class="rightContainerHeader">Account</h1>
-				<f:form commandName="user">
-					<p>change username</p>
-					<f:input path="username"/>
+				<h1 class="rightContainerHeader">Password</h1>
+				
+				<form action="test" method="post">
+					<p>new password</p>
+					<input type="password" placeholder="new-password" name="pass1">
+					<p>re-type new-password</p>
+					<input type="password" placeholder="re-type new-password" name="pass2">
 					
-					<p>change email</p>
-					<f:input path="email"/>
-					
-					<!-- TODO: compare from DB -->
-					<p>hide upvotes</p>
-					<input type="checkbox"  name="email"><br><br>
-					
-					<input type="submit" value="Save Changes">
-				</f:form>	
+					<input type="submit">
+				</form>
 			</div>
 			
 		</div>

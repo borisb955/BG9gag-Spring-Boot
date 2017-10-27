@@ -124,6 +124,17 @@ public class UserDao {
 		ps.executeUpdate();
 	}
 	
+	public void changePassword(long userId, String pass) throws SQLException {
+		Connection conn = db.getConn();
+		
+		PreparedStatement ps = conn.prepareStatement("UPDATE 9gag.users "
+												   + "SET password = ? "
+												   + "WHERE user_id = ?");
+		ps.setString(1, Encrypter.encrypt(pass));
+		ps.setLong(2, userId);
+		ps.executeUpdate();
+	}
+	
 	//TODO: do we really need all the info when reg (collections)?
 	public User getFullUser(String username) throws SQLException {
 		Connection conn = db.getConn();

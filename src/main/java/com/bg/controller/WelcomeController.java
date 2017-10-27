@@ -16,6 +16,7 @@ import com.bg.model.Post;
 import com.bg.model.PostDao;
 import com.bg.model.User;
 import com.bg.model.UserDao;
+import com.bg.util.Validator;
 
 
 @Controller
@@ -25,13 +26,10 @@ public class WelcomeController {
 
 	@RequestMapping( method = RequestMethod.GET)
 	public String welcome(Model m, HttpSession s) {
-		Object o = s.getAttribute("logged");
-		boolean logged = (o != null && ((boolean) o));
 		
 		try {
 			HashSet<Post> allPosts = pd.getAllPosts();
 			m.addAttribute("allPosts", allPosts);
-			System.out.println(allPosts);
 			
 		} catch (SQLException e) {
 			e.getMessage();
@@ -39,22 +37,19 @@ public class WelcomeController {
 //			req.getRequestDispatcher("WEB-INF/errorPage.jsp").forward(req, resp);
 		}
 		
-		if(s.isNew() || !logged) {
+		if(Validator.notLogged(s)) {
 			return "notLogged";
 		}else {
-			return "logged";  
+			return "logged";
 		}
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
 	public String welcome2(Model m, HttpSession s) {
-		Object o = s.getAttribute("logged");
-		boolean logged = (o != null && ((boolean) o));
 		
 		try {
 			HashSet<Post> allPosts = pd.getAllPosts();
 			m.addAttribute("allPosts", allPosts);
-			System.out.println(allPosts);
 			
 		} catch (SQLException e) {
 			e.getMessage();
@@ -62,10 +57,10 @@ public class WelcomeController {
 //			req.getRequestDispatcher("WEB-INF/errorPage.jsp").forward(req, resp);
 		}
 		
-		if(s.isNew() || !logged) {
+		if(Validator.notLogged(s)) {
 			return "notLogged";
 		}else {
-			return "logged";  
+			return "logged";
 		}
 	}
 }
