@@ -23,8 +23,9 @@ public class SettingsController {
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public String settings(Model m, HttpSession s) {
-		String username = (String)s.getAttribute("username");
-		String email = (String)s.getAttribute("email");
+		User sessionUser = (User) s.getAttribute("user");
+		String username = sessionUser.getUsername();
+		String email = sessionUser.getEmail();
 		User u = new User(username, email);
 		m.addAttribute("user", u);
 		return "accountSettings";
@@ -34,16 +35,23 @@ public class SettingsController {
 	UserDao ud;
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public String saveSettings(@ModelAttribute User u, HttpSession s) {
-		String newUsername = u.getUsername();
-		String newEmail = u.getEmail();
+	public String saveSettings(@ModelAttribute User user, HttpSession s) {
+		String newUsername = user.getUsername();
+		String newEmail = user.getEmail();
+		
+		System.out.println(user);
+		System.out.println(user);
+		System.out.println(user.getUsername());
+		System.out.println(user.getEmail());
+		
 		boolean uIsChanged = false;
 		boolean eIsChanged = false;
+		User sessionUser =(User) s.getAttribute("user");
 		
-		if(!newUsername.isEmpty() && newUsername != null) {
+		if(newUsername != null && !newUsername.isEmpty()) {
 			try {
 				if(!ud.userExists(newUsername)) {
-					ud.changeUsername(u.getId(), newUsername);
+					ud.changeUsername(sessionUser.getId(), newUsername);
 					uIsChanged = true;
 				}else {
 					// User exists, please select another username
@@ -54,10 +62,10 @@ public class SettingsController {
 			}
 		}
 		
-		if(!newEmail.isEmpty() && newEmail != null) {
+		if(newEmail != null && !newEmail.isEmpty()) {
 			try {
 				if(!ud.emailExists(newEmail)) {
-					ud.changeEmail(u.getId(), newEmail);
+					ud.changeEmail(sessionUser.getId(), newEmail);
 					eIsChanged = true;
 				}else {
 					// User exists, please select another username
@@ -68,7 +76,6 @@ public class SettingsController {
 			}
 		}
 		
-		User sessionUser =(User) s.getAttribute("user");
 		
 		if(!uIsChanged) {
 			newUsername = sessionUser.getUsername();
@@ -78,11 +85,11 @@ public class SettingsController {
 		}
 		
 
-		u = new User(sessionUser.getId(), newUsername, sessionUser.getPassword(), newEmail, 
+		user = new User(sessionUser.getId(), newUsername, sessionUser.getPassword(), newEmail, 
 				sessionUser.getProfile(), sessionUser.getLikedPosts());
 		
 		s.removeAttribute("user");
-		s.setAttribute("user", u);
-		return "accountSettings";
+		s.setAttribute("user", user);
+		return "logged";
 	}
 }

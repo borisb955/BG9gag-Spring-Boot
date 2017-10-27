@@ -43,7 +43,7 @@ public class SpringWebConfig extends WebMvcConfigurerAdapter {
 	
 	  @Override
 	  public void addViewControllers(ViewControllerRegistry registry) {
-	    registry.addViewController("/").setViewName("MyProject");
+	    registry.addViewController("/").setViewName("9gag");
 	  }
 	
 	// localization configuration

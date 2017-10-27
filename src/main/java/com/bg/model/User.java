@@ -15,6 +15,10 @@ public class User {
 	private ArrayList<Post> posts;
 	private ArrayList<Comment> comments;
 	
+	public User() {
+		
+	}
+	
 	public User(long id, String username) {
 		this.id = id;
 		this.username = username;
@@ -36,7 +40,12 @@ public class User {
 	}
 	
 	
-	
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
 	public void setComments(ArrayList<Comment> comments) {
 		this.comments = comments;
 	}
