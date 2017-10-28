@@ -87,7 +87,7 @@
 					<form action="myProfile" method="get">
 						<input type="submit" value="My Profile"/>
 					</form>
-			    	<form action="settings" method="get">
+			    	<form action="settings/account" method="get">
 			    		<input type="submit" value="Settings"/>
 			    	</form>
 			    	<form action="logout" method="post">

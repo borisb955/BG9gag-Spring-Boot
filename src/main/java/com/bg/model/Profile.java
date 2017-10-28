@@ -1,15 +1,25 @@
 package com.bg.model;
 
+import java.util.Date;
+
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Size;
+
 public class Profile {
 	private long profileId;
 	private String avatarUrl;
 	private String fullName;
+	@Size(max=10, message = "gendet can't be more than {max} characters")
 	private String gender;
-	private String dateOfBirth;
+	@Past
+	private Date dateOfBirth;
+	@Size(max=50, message ="Please enter a brief description shorter than {max} characters")
 	private String info;
 	private SocialNetworking socNet;
 	
-	public Profile(String avatarUrl, String fullName, String gender, String dateOfBirth, String info,
+	public Profile() {}
+	
+	public Profile(String avatarUrl, String fullName, String gender, Date dateOfBirth, String info,
 			SocialNetworking socNet) {
 		this.avatarUrl = avatarUrl;
 		this.fullName = fullName;
@@ -19,7 +29,7 @@ public class Profile {
 		this.socNet = socNet;
 	}
 	
-	public Profile(long profileId,String avatarUrl, String fullName, String gender, String dateOfBirth, String info,
+	public Profile(long profileId,String avatarUrl, String fullName, String gender, Date dateOfBirth, String info,
 			SocialNetworking socNet) {
 		this(avatarUrl, fullName, gender, dateOfBirth, info, socNet);
 		this.profileId = profileId;
@@ -45,7 +55,7 @@ public class Profile {
 		return gender;
 	}
 
-	public String getDateOfBirth() {
+	public Date getDateOfBirth() {
 		return dateOfBirth;
 	}
 
@@ -55,5 +65,29 @@ public class Profile {
 
 	public SocialNetworking getSocNet() {
 		return socNet;
+	}
+	
+	public void setAvatarUrl(String avatarUrl) {
+		this.avatarUrl = avatarUrl;
+	}
+
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+	public void setDateOfBirth(Date dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
+	}
+
+	public void setInfo(String info) {
+		this.info = info;
+	}
+
+	public void setSocNet(SocialNetworking socNet) {
+		this.socNet = socNet;
 	}
 }

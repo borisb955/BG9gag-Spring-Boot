@@ -20,8 +20,22 @@
 			
 			<div id="rightContainer">
 				<h1 class="rightContainerHeader">Profile</h1>
-				<f:form commandName="user">
-					
+				<f:errors path="profile.*"/>
+				
+				<f:form commandName="profile">
+						<p>Your Name</p>
+						<f:input path="fullName"/>
+						
+						<p>Gender</p>
+						<f:input path="gender"/>
+						
+						<p>Birthday</p>
+						<f:input path="dateOfBirth"/>
+						
+						<p>Description</p>
+						<f:input path="info"/>
+						
+						<input type="submit" value="Save Changes">
 				</f:form>	
 			</div>
 			

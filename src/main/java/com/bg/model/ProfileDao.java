@@ -1,6 +1,7 @@
 package com.bg.model;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -23,7 +24,7 @@ public class ProfileDao {
 		ps.setString(1, p.getAvatarUrl());
 		ps.setString(2, p.getFullName());
 		ps.setString(3, p.getGender());
-		ps.setString(4, p.getDateOfBirth());
+		ps.setDate(4, (Date) p.getDateOfBirth());
 		ps.setString(5, p.getInfo());
 		ps.setLong(6, p.getSocNet().getSocNetId());
 		ps.executeUpdate();
@@ -47,7 +48,7 @@ public class ProfileDao {
 			return new Profile(rs.getString("avatar_url").isEmpty() ? null : rs.getString("avatar_url"), 
 					rs.getString("full_name").isEmpty() ? null : rs.getString("full_name"), 
 					rs.getString("gender").isEmpty() ? null : rs.getString("gender"),
-					rs.getString("birthday_date").isEmpty() ? null : rs.getString("birthday_date"), 
+					rs.getString("birthday_date").isEmpty() ? null : rs.getDate("birthday_date"), 
 					rs.getString("info").isEmpty() ? null : rs.getString("info"), 
 					snd.getSocNet(rs.getLong("social_net_id")));
 		}

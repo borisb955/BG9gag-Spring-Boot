@@ -4,13 +4,18 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.TreeSet;
 
+import javax.validation.constraints.Size;
+
+import com.bg.util.isValidEmail;
+
 public class User {
 	private long id;
 	private String username;
 	private String password;
+	@isValidEmail
+	@Size(min=5)
 	private String email;
 	private Profile profile;
-	//private ArrayList<Upvote> upvotes;
 	private HashSet<Post> likedPosts;
 	private ArrayList<Post> posts;
 	private ArrayList<Comment> comments;

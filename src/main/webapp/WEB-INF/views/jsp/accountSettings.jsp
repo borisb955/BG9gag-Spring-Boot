@@ -18,6 +18,8 @@
 			
 			<div id="rightContainer">
 				<h1 class="rightContainerHeader">Account</h1>
+				<f:errors path="user.*"/>
+				
 				<f:form commandName="user">
 					<p>change username</p>
 					<f:input path="username"/>

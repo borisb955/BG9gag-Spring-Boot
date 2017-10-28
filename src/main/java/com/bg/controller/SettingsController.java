@@ -1,20 +1,29 @@
 package com.bg.controller;
 
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.swing.plaf.synth.SynthSpinnerUI;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.bg.model.Post;
+import com.bg.model.Profile;
+import com.bg.model.ProfileDao;
 import com.bg.model.User;
 import com.bg.model.UserDao;
 import com.bg.util.Validator;
@@ -24,7 +33,14 @@ import com.bg.util.Validator;
 @RequestMapping(value = "/settings")
 public class SettingsController {
 	
-	@RequestMapping(method = RequestMethod.GET)
+	@InitBinder
+	public void initBinder(WebDataBinder binder) {
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyy");
+		binder.registerCustomEditor(Date.class, "dateOfBirth", new CustomDateEditor(sdf, false));
+	}
+	
+	@RequestMapping(value = "/account", method = RequestMethod.GET)
 	public String settings(Model m, HttpSession s) {
 		
 		if(Validator.notLogged(s)) {
@@ -43,10 +59,16 @@ public class SettingsController {
 	@Autowired
 	UserDao ud;
 	
-	@RequestMapping(method = RequestMethod.POST)
-	public String saveSettings(@ModelAttribute User user, HttpSession s) {
+	@RequestMapping(value = "/account", method = RequestMethod.POST)
+	public String saveSettings(@Valid @ModelAttribute("user") User user, BindingResult result, HttpSession s) {
+
+		
 		if(Validator.notLogged(s)) {
 			return "forward:/";
+		}
+		
+		if(result.hasErrors()) {
+			return "accountSettings";
 		}
 		
 		User sessionUser = (User) s.getAttribute("user");
@@ -59,7 +81,7 @@ public class SettingsController {
 		
 		if(newUsername != null && !newUsername.isEmpty()) {
 			try {
-				if(!ud.userExists(newUsername) && ud.isValidEmailAddress(newEmail)) {
+				if(!ud.userExists(newUsername)) {
 					ud.changeUsername(sessionUser.getId(), newUsername);
 					uIsChanged = true;
 				}else {
@@ -110,12 +132,12 @@ public class SettingsController {
 		if(Validator.notLogged(s)) {
 			return "forward:/";
 		}
-
+		
 		return "passwordSettings";
 	}
 	
-	@RequestMapping(value="/test", method = RequestMethod.POST)
-	public String passwordChange(HttpSession s, HttpServletRequest req) {
+	@RequestMapping(value="/password", method = RequestMethod.POST)
+	public String passwordChange(HttpSession s, HttpServletRequest req, Model m) {
 		
 		if(Validator.notLogged(s)) {
 			return "forward:/";
@@ -126,29 +148,57 @@ public class SettingsController {
 		String password1 = req.getParameter("pass1");
 		String password2 = req.getParameter("pass2");
 		
-		//Password verification needed
-		if(password1.equals(password2)) {
-			try {
-				System.out.println(password1);
-				System.out.println(password2);
-				ud.changePassword(sessionUser.getId(), password1);
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}else {
-			//error page -> passes don't match
+		if(!password1.equals(password2)) {
+			m.addAttribute("error", "passwords mismatch");
+			return "passwordError";
 		}
+		if(password1.length() < 5 || !password1.matches(".*[A-Za-z].*") || !password1.matches(".*[1-9].*")) {
+			m.addAttribute("error", "passwords must be at least 5 characters and must contain at least 1 number"
+					+ " and a letter");
+			return "passwordError";
+		}
+		
+
+		try {
+			System.out.println(password1);
+			System.out.println(password2);
+			ud.changePassword(sessionUser.getId(), password1);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
 
 		return "forward:/";
 	}
 	
+	@Autowired
+	ProfileDao pd;
+	
 	@RequestMapping(value="/profile", method = RequestMethod.GET)
-	public String profileSettings(HttpSession s) {
+	public String profileSettings(Model m, HttpSession s) {
+		
 		if(Validator.notLogged(s)) {
 			return "forward:/";
 		}
-
+		
+		User sessionUser = (User) s.getAttribute("user");
+		Profile p = null;
+		if(sessionUser.getProfile() == null) {
+			p = new Profile();
+		}else {
+			p = sessionUser.getProfile();
+		}
+		m.addAttribute("profile", p);
+		
 		return "profileSettings";
 	}
 	
+	@RequestMapping(value="/profile", method = RequestMethod.POST)
+	public String savePrSettings(@Valid @ModelAttribute("profile") Profile profile, BindingResult result) {
+		if(result.hasErrors()) {
+			return "profileSettings";
+		}
+		
+		return "forward:/";
+	}
 }
