@@ -2,12 +2,10 @@ package com.bg.controller;
 
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.swing.plaf.synth.SynthSpinnerUI;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +19,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.bg.model.Post;
 import com.bg.model.Profile;
 import com.bg.model.ProfileDao;
 import com.bg.model.User;
@@ -98,12 +95,8 @@ public class SettingsController {
 		
 		if(newEmail != null && !newEmail.isEmpty()) {
 			try {
-				if(!ud.emailExists(newEmail) && ud.isValidEmailAddress(newEmail)) {
-					ud.changeEmail(sessionUser.getId(), newEmail);
-					eIsChanged = true;
-				}else {
-					// User exists, please select another username
-				}
+				ud.changeEmail(sessionUser.getId(), newEmail);
+				eIsChanged = true;
 			} catch (SQLException e) {
 //				req.setAttribute("error", e.getMessage());
 //				req.getRequestDispatcher("WEB-INF/errorPage.jsp").forward(req, resp);
@@ -193,12 +186,58 @@ public class SettingsController {
 		return "profileSettings";
 	}
 	
+	@Autowired
+	ProfileDao profileDao;
 	@RequestMapping(value="/profile", method = RequestMethod.POST)
-	public String savePrSettings(@Valid @ModelAttribute("profile") Profile profile, BindingResult result) {
+	public String savePrSettings(@Valid @ModelAttribute("profile") Profile p, BindingResult result, 
+			HttpSession s) {
+		
+		if(Validator.notLogged(s)) {
+			return "forward:/";
+		}
+		
 		if(result.hasErrors()) {
 			return "profileSettings";
 		}
 		
+		User userSession = (User) s.getAttribute("user");
+		
+		if(userSession.getProfile() == null) {
+			userSession.setProfile(p);
+			try {
+				profileDao.insertProfile(p, userSession);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}else {
+			try {
+				if(p.getAvatarUrl() != null && !p.getAvatarUrl().isEmpty()) {
+					profileDao.changeAvatar(p.getAvatarUrl(), userSession);
+					userSession.getProfile().setAvatarUrl(p.getAvatarUrl());
+				}
+				if(p.getFullName() != null && !p.getFullName().isEmpty()) {
+					profileDao.changeFullName(p.getFullName(), userSession);
+					userSession.getProfile().setFullName(p.getFullName());
+				}
+				if(p.getGender() != null && !p.getGender().isEmpty()) {
+					profileDao.changeGender(p.getGender(), userSession);
+					userSession.getProfile().setGender(p.getGender());
+				}
+				if(p.getDateOfBirth() != null) {
+					profileDao.changeDateOfBirth(p.getDateOfBirth(), userSession);
+					userSession.getProfile().setDateOfBirth(p.getDateOfBirth());
+				}
+				if(p.getInfo() != null && !p.getInfo().isEmpty()) {
+					profileDao.changeInfo(p.getInfo(), userSession);
+					userSession.getProfile().setInfo(p.getInfo());
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		s.removeAttribute("user");
+		s.setAttribute("user", userSession);
 		return "forward:/";
 	}
 }

@@ -45,6 +45,20 @@ public class UserDao {
 		u.setId(rs.getLong(1));
 	}
 	
+	public void insertProfileId(User u, long profileId) throws SQLException {
+		Connection conn = db.getConn();
+		PreparedStatement ps = conn.prepareStatement("UPDATE 9gag.users "
+												   + "SET profile_id = ? "
+												   + "WHERE user_id = ?");
+		ps.setLong(1, profileId);
+		ps.setLong(2, u.getId());
+		ps.executeUpdate();
+		
+		System.out.println("user");
+		System.out.println("user");
+		System.out.println("user");
+	}
+	
 	public boolean isValidEmailAddress(String email) {
 		boolean result = true;
 		try {
@@ -167,6 +181,12 @@ public class UserDao {
 		u.setLikedPosts(ud.getLikedPosts(u));
 		u.setPosts(pd.getAllPostsForUser(u));
 		u.setComments(cd.getAllCommentsForUser(u));
+		
+		long profileId = rs.getLong("profile_id");
+		if(profileId != 0) {
+			u.setProfile(profiled.getProfile(profileId));
+		}
+
 		return u;
 	}
 	
@@ -183,7 +203,6 @@ public class UserDao {
 						rs.getString("username"), 
 						rs.getString("password"), 
 						rs.getString("email"), 
-						profiled.getProfile(userId),
 						ud.getLikedPosts(u)
 						);
 	}

@@ -19,21 +19,19 @@ public class Profile {
 	
 	public Profile() {}
 	
-	public Profile(String avatarUrl, String fullName, String gender, Date dateOfBirth, String info,
-			SocialNetworking socNet) {
+	public Profile(String avatarUrl, String fullName, String gender, Date dateOfBirth, String info) {
 		this.avatarUrl = avatarUrl;
 		this.fullName = fullName;
 		this.gender = gender;
 		this.dateOfBirth = dateOfBirth;
 		this.info = info;
-		this.socNet = socNet;
 	}
-	
-	public Profile(long profileId,String avatarUrl, String fullName, String gender, Date dateOfBirth, String info,
-			SocialNetworking socNet) {
-		this(avatarUrl, fullName, gender, dateOfBirth, info, socNet);
+	public Profile(long profileId,String avatarUrl, String fullName, String gender, Date dateOfBirth,
+			String info) {
+		this(avatarUrl, fullName, gender, dateOfBirth, info);
 		this.profileId = profileId;
 	}
+
 
 	public long getProfileId() {
 		return profileId;

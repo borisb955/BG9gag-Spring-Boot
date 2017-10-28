@@ -37,6 +37,12 @@ public class User {
 		this.password = password;
 		this.email = email;
 	}
+	public User(Long id, String username, String password, String email, HashSet<Post> likedPosts) {
+		this(username, password, email);
+		this.profile = profile;
+		this.id = id;
+		this.likedPosts=likedPosts;
+	}
 	public User(Long id, String username, String password, String email, Profile profile, HashSet<Post> likedPosts) {
 		this(username, password, email);
 		this.profile = profile;
@@ -84,5 +90,8 @@ public class User {
 	}
 	public HashSet<Post> getLikedPosts() {
 		return likedPosts;
+	}
+	public void setProfile(Profile profile) {
+		this.profile = profile;
 	}
 }

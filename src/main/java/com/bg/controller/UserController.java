@@ -46,14 +46,22 @@ public class UserController {
 			} else if (!ud.passwordMatch(email, pass)) {
 //				resp.getWriter().append("Incorrect password.");
 			} else {
+				System.out.println("edno");
+				System.out.println("edno");
+				System.out.println("edno");
+				
 				User u = ud.getFullUserByEmail(email);
 				
 				s.setAttribute("user", u);
 				s.setAttribute("logged", true);
+				System.out.println("dve");
+				System.out.println("dve");
+				System.out.println("dve");
 				return "forward:/";
 			}
 		} catch (SQLException e) {
-			req.setAttribute("error", e.getMessage());
+			e.printStackTrace();
+//			req.setAttribute("error", e.getMessage());
 //			req.getRequestDispatcher("WEB-INF/errorPage.jsp").forward(req, resp);
 		}
 	
