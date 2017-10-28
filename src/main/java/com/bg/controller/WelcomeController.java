@@ -24,7 +24,7 @@ public class WelcomeController {
 	@Autowired
 	PostDao pd;
 
-	@RequestMapping( method = RequestMethod.GET)
+	@RequestMapping(method = RequestMethod.GET)
 	public String welcome(Model m, HttpSession s) {
 		
 		try {

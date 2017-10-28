@@ -28,7 +28,7 @@
 				
 				<div>
 					<h1><c:out value="${ post.description }">no description</c:out></h1><br>
-				 <img src="postpic?postUrl=${ post.postUrl }#" width="50%" height="auto"> 
+				 <img src="postpic/postUrl=${ post.postUrl }" width="50%" height="auto"> 
 				</div>
 
 				<div id="tags">
@@ -42,7 +42,7 @@
 					<p>user: <c:out value="${ post.user.username }"></c:out></p>
 				</div>
 				
-				<a href="showPostWithComment?postId=${ post.postId }&userId=${post.user.id}">Comments</a>
+				<a href="postWithComments/postId=${ post.postId }/userId=${post.user.id}">Comments</a>
 					
 				</c:forEach>
 			</div>
