@@ -11,13 +11,13 @@
 	<name>MyProject</name>
 	<description>Demo project for Spring Boot</description>
 
-<repositories>
-    <repository>
-      <id>my-repo1</id>
-      <name>xuggle_repo</name>
-      <url>http://www.dcm4che.org/maven2/</url>
-    </repository>
-  </repositories>
+	<repositories>
+	    <repository>
+	      <id>my-repo1</id>
+	      <name>xuggle_repo</name>
+	      <url>http://www.dcm4che.org/maven2/</url>
+	    </repository>
+ 	</repositories>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
