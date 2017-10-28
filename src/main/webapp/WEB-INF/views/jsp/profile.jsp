@@ -22,7 +22,15 @@
 		<div id="myHeader">
 			<img class="img" src="avatar">
 			<p class="username"><c:out value="${ sessionScope.user.username }"></c:out></p>
-			<p class="funnyCollection">My funny collection</p>
+			<c:choose>
+			    <c:when test="${empty sessionScope.user.profile.info}">
+			    	<p class="funnyCollection">My funny collection</p>
+			    </c:when>
+			    <c:otherwise>
+			       <p class="funnyCollection"> <c:out value="${ sessionScope.user.profile.info }"></c:out> </p>
+			    </c:otherwise>
+			</c:choose>
+
 		</div>
 		
 		<div id="navigation">
