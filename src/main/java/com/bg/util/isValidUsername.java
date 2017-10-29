@@ -9,14 +9,13 @@ import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
-
 @Documented
-@Constraint(validatedBy = EmailValidator.class)
+@Constraint(validatedBy = UsernameValidator.class)
 @Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface isValidEmail {
+public @interface isValidUsername {
 	
-	String message() default "The email is not valid or already exists";
+	String message() default "This username already exists";
 
 	Class<?>[] groups() default { };
 

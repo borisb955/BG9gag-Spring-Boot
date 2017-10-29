@@ -19,10 +19,6 @@ import com.bg.model.UserDao;
 
 @Controller
 public class UserController {
-	@RequestMapping(value = "/register", method = RequestMethod.GET)
-	public String register() {
-		return "register";
-	}
 	
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login() {

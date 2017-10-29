@@ -4,25 +4,33 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.TreeSet;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import com.bg.util.isValidEmail;
+import com.bg.util.isValidUsername;
 
 public class User {
 	private long id;
+	@NotNull(message = "Please enter username")
+	@Size(min=4, message="username must be at least 4 characters")
+	@isValidUsername
 	private String username;
+	@NotNull(message = "Please enter password")
+	@Size(min=5, message="password must be at least 5 characters")
+	@Pattern(regexp="^(?=.*[0-9])(?=.*[a-z])([a-z0-9_-]+)$",
+				message="password must contains at least 1 letter and number")
 	private String password;
+	@NotNull(message = "Please enter email")
 	@isValidEmail
-	@Size(min=5)
 	private String email;
 	private Profile profile;
 	private HashSet<Post> likedPosts;
 	private ArrayList<Post> posts;
 	private ArrayList<Comment> comments;
 	
-	public User() {
-		
-	}
+	public User() {}
 	
 	public User(long id, String username) {
 		this.id = id;
