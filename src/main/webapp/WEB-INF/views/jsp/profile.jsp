@@ -38,7 +38,7 @@
 				<form action="/overview">
 					<input type="submit" value="OVERVIEW">
 				</form>
-				<form action="myProfile/posts">
+				<form action="/MyProject/myProfile/posts">
 					<input type="submit" value="POSTS">
 				</form>
 				<form action="/myupvotes">

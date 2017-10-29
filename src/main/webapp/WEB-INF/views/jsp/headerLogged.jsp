@@ -71,10 +71,9 @@
 		</div>
 		<div id="buttonsHeader">
 			<a class="header-links" href="">Hot</a>
-			<a class="header-links" href="">Trending</a>
-			<a class="header-links" href="">Fresh</a>
+			<a class="header-links" href="/MyProject/posts/fresh">Fresh</a>
 			<a class="header-links" href="">GIF</a>
-			<a class="header-links" href="">Video</a>
+
 		</div>
 		<div id="loginReg">
 		
