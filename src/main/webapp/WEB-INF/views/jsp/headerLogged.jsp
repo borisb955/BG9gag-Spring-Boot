@@ -84,19 +84,22 @@
 			<div class="dropdown">
 			  <button class="dropbtn">Dropdown</button>
 				<div class="dropdown-content">
-					<form action="myProfile" method="get">
+					<form action="/MyProject/myProfile" method="get">
 						<input type="submit" value="My Profile"/>
 					</form>
-			    	<form action="settings/account" method="get">
+			    	<form action="/MyProject/settings/account" method="get">
 			    		<input type="submit" value="Settings"/>
 			    	</form>
-			    	<form action="logout" method="post">
+			    	<form action="/MyProject/logout" method="post">
 			    		<input type="submit" value="Logout"/>
 			    	</form>
 				</div>
 			</div>
 
-			<button class="upload-button"><a class="button-links" href="upload">+ Upload</a></button>	
+			<form action="/MyProject/upload" method="get">
+	    		<input class="button-links" type="submit" value="+ Upload"/>
+	    	</form>
+
 	
 		</div>
 	</div>

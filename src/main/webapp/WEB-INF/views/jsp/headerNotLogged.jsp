@@ -31,8 +31,8 @@
 		<div id="loginReg">
 		Welcome<
 			<form>
-				<button><a href="login">Log in</a></button>
-				<button><a href="register">Sign up</a></button>	
+				<button><a href="/MyProject/login">Log in</a></button>
+				<button><a href="/MyProject/register">Sign up</a></button>	
 			</form>
 		</div>
 	</div>

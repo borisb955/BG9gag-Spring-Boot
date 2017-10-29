@@ -19,9 +19,9 @@
 		<div id="container">
 			<div id="leftContainer">
 				<ul class="ulLeft">
-					<li><a href="account">Account</a></li>
-					<li><a href="password">Password</a></li>
-					<li><a href="profile">Profile</a></li>
+					<li><a href="/MyProject/settings/account">Account</a></li>
+					<li><a href="/MyProject/settings/password">Password</a></li>
+					<li><a href="/MyProject/settings/profile">Profile</a></li>
 				</ul>
 			</div>
 	</body>

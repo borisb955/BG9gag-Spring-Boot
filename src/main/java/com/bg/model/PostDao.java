@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -29,7 +30,7 @@ public class PostDao {
 		
 		PreparedStatement ps = conn.prepareStatement("INSERT INTO 9gag.posts(description, post_url,"
 												+ " upload_date, user_id) "
-												+ "VALUES(?, ?, ?, ?)");
+												+ "VALUES(?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
 		ps.setString(1, p.getDescription());
 		ps.setString(2, p.getPostUrl());
 		ps.setTimestamp(3, Timestamp.valueOf(p.getDateTime()));
@@ -121,11 +122,13 @@ public class PostDao {
 		conn.setAutoCommit(false);
 		
 		try {
+
 			//inserting the post
 			insertPost(post);
 			
 			//inserting tags and posts-tags
 			for (String tag : tags) {
+				System.out.println(tag);
 				td.isertTagIfNew(tag, post);
 			}
 			
