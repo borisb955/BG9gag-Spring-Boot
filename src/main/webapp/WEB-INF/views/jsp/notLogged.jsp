@@ -22,13 +22,13 @@
 
 	 	<div id="parent">
 			<div id="child">
+			
 				<c:forEach items="${ allPosts }" var="post" >
 				
 				<div>
 					<h1><c:out value="${ post.description }">no description</c:out></h1><br>
-					<img src="postpic/postUrl=${ post.postUrl }" width="50%" height="auto">
+					<img src="postpic?pictureUrl=${post.postUrl}&userName=${post.user.username}" width="50%" height="auto">
 				</div>
-				
 				<div id="tags">
 					<c:forEach items="${post.tags}" var="tag" >
 						<a href=""> #<c:out value="${ tag.tagName }"></c:out></a>

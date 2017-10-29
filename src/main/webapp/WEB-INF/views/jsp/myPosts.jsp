@@ -16,7 +16,7 @@
 	</style>
 </head>
 	<body>
-	<jsp:include page="profile.jsp"></jsp:include>
+ 	<jsp:include page="profile.jsp"></jsp:include>  
 	
 		<div id="parent">
 			<div id="child">
@@ -24,7 +24,7 @@
 				
 				<div>
 					<h1><c:out value="${ post.description }">no description</c:out></h1><br>
-					<img src="postpicServlet?postId=${ post.postId }" width="100px" height="100px">
+					<img src="postpicServlet/postId=${ post.postUrl }" width="100px" height="100px">
 				</div>
 				
 				<div id="tags">

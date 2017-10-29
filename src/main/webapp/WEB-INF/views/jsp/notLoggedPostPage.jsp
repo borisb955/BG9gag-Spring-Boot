@@ -17,7 +17,7 @@
 						<a href=""> #<c:out value="${ tag.tagName }"></c:out></a>
 		</c:forEach>
 		<br>
-		<img src="postpic/postUrl=${ postPostPage.postUrl }" width="50%" height=auto>
+		<img src="/MyProject/postpic?pictureUrl=${postPostPage.postUrl}&userName=${userPostPage.username}" width="50%" height="auto">
 		<br>
 		<span>Points:<c:out value="${ postPostPage.points }"></c:out></span>
 		<h3>Comments:</h3>
@@ -34,8 +34,6 @@
 		<h2>No comments yet...</h2>
 		</c:if>
 		</div>
-			<form action="" method="post">
-			<input type="submit" value="BACK"/>
-			</form>
+		
 </body>
 </html>
