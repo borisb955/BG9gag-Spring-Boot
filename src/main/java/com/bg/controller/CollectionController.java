@@ -1,6 +1,7 @@
 package com.bg.controller;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.TreeSet;
@@ -25,7 +26,7 @@ public class CollectionController {
 	PostDao pd;
 	
 	@RequestMapping(value = "fresh", method = RequestMethod.GET)
-	public String fresh(HttpSession s, Model m) {
+	public String fresh(Model m) {
 		
 		HashSet<Post> posts = null;
 		try {
@@ -53,4 +54,22 @@ public class CollectionController {
 		
 		return "fresh";
 	}
+	
+	@RequestMapping(value = "/gifs", method = RequestMethod.GET)
+	public String gifs(Model m) {
+		
+		ArrayList<Post> gifs = new ArrayList<>();
+		
+		try {
+			gifs = pd.getAllGifs();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		m.addAttribute("posts", gifs);
+		
+		return "gifs";
+	}
+		
 }
