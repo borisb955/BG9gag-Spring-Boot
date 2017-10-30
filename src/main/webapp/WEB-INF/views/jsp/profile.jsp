@@ -44,7 +44,7 @@
 				<form action="/myupvotes">
 					<input type="submit" value="UPVOTES">
 				</form>
-				<form action="/mycomments">
+				<form action="/MyProject/myProfile/myCommentedPosts">
 					<input type="submit" value="COMMENTS">
 				</form>
 			</div>

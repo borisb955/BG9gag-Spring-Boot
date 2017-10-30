@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.TreeSet;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,8 @@ public class CommentDao {
 	PostDao pd;
 	@Autowired
 	UserDao ud;
+	@Autowired
+	PostTagDao ptd;
 	
 	public void insertComment(Comment com) throws SQLException {
 		Connection conn = db.getConn();
@@ -163,4 +166,31 @@ public class CommentDao {
 			return null;
 		}
 		
+		public HashSet<Post> getCommentedPostsByUser(User u) throws SQLException{
+			Connection conn = db.getConn();
+			PreparedStatement ps = conn.prepareStatement("SELECT p.post_id, p.description, p.post_url, p.points, "
+					+ "p.upload_date FROM 9gag.posts as p  "
+					+ "JOIN 9gag.comments as c "
+					+ "ON p.post_id = c.post_id "
+					+ "WHERE c.user_id = ? "
+					+ "GROUP BY post_id");
+			
+			ps.setLong(1, u.getId());
+			
+			ResultSet rs = ps.executeQuery();
+			
+			HashSet<Post> posts = new HashSet<>();
+			while(rs.next()) {
+				posts.add(new Post(rs.getLong("p.post_id"), 
+								   rs.getString("p.description"), 
+								   rs.getString("p.post_url"), 
+								   rs.getInt("p.points"), 
+								   rs.getTimestamp("p.upload_date").toLocalDateTime(), 
+								   u, 
+								   ptd.getTagsForPost(rs.getLong("p.post_id")),
+								   null));
+			}
+			
+			return posts;
+		}
 }
