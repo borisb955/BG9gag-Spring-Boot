@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.bg.SpringWebConfig;
 import com.bg.WebInitializer;
 import com.bg.model.Post;
 import com.bg.model.PostDao;
@@ -73,7 +74,9 @@ public class PicController {
 //		    System.out.println(folders.getAbsolutePath());
 			
 		    //TODO: make posts names unique and remove random
-			File f = new File( File.separator + u.getUsername()
+			File f = new File( WebInitializer.LOCATION 
+							+ File.separator
+							+ u.getUsername() 
 							+ new Random().nextInt(2_000_000_000) + ext);
 			
 			file.transferTo(f);
