@@ -24,7 +24,7 @@ public class CommentDao {
 	@Autowired
 	UserDao ud;
 	
-	public void insertComment(Comment com) throws SQLException {
+	public  void insertComment(Comment com) throws SQLException {
 		Connection conn = db.getConn();
 		if(com.getParrent_comment()!=null){
 		PreparedStatement ps = conn.prepareStatement("INSERT INTO 9gag.comments(comment, points, issue_date"

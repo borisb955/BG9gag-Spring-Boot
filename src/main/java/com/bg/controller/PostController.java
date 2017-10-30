@@ -6,6 +6,7 @@ import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,6 +22,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.bg.model.Comment;
+import com.bg.model.CommentDao;
 import com.bg.model.Post;
 import com.bg.model.PostDao;
 import com.bg.model.User;
@@ -33,9 +36,44 @@ public class PostController {
 	UserDao userDao;
 	@Autowired
 	PostDao postDao;
-
+	@Autowired
+	CommentDao commentDao; 
+		
 	private static String URL = "D:" + File.separator + "postPics" + File.separator;
-
+	@RequestMapping(value="/addComment",method=RequestMethod.POST)
+	public String addComment(HttpServletRequest request){
+		System.out.println("----------------------------------------------------------------");
+		HttpSession s = request.getSession();
+		Object o = s.getAttribute("logged");
+		boolean logged = (o != null && ((boolean) o));
+		
+		if(s.isNew() || !logged) {
+			return "notLogged";
+		}else {
+//			Post post = (Post) request.getAttribute("postPostPage");
+//			User user = (User) request.getAttribute("userPostPage");
+			Post post = (Post) s.getAttribute("postPostPage");
+			User user = (User) s.getAttribute("userPostPage");
+			String text = request.getParameter("commentText");
+			
+			System.out.println(post);
+			System.out.println(user);
+			System.out.println(text);
+			
+			try {
+				commentDao.insertComment(new Comment(text,LocalDateTime.now(),null,user,post));
+			} catch (SQLException e) {
+				request.setAttribute("error", e.getMessage());
+			}
+				
+			return "logged";
+		
+		}
+			
+	}
+	
+	
+	
 	@ResponseBody
 	@RequestMapping(value = "/postpic", method = RequestMethod.GET)
 	public void showPostWithComment(HttpSession s, Model model, HttpServletResponse response,
@@ -66,8 +104,10 @@ public class PostController {
 		try {
 			User user = userDao.getUserById(userId);
 			Post post = postDao.getPost(postId, user);
-			model.addAttribute("userPostPage", user);
-			model.addAttribute("postPostPage", post);
+			s.setAttribute("userPostPage", user);
+			s.setAttribute("postPostPage", post);
+//			model.addAttribute("userPostPage", user);
+//			model.addAttribute("postPostPage", post);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
