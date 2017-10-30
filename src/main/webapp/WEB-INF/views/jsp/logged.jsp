@@ -11,9 +11,7 @@
 	<title>9gag logged</title>
 </head>
 	<body>
-	
 		<jsp:include page="headerLogged.jsp"></jsp:include>
-
 		<jsp:include page="posts.jsp"></jsp:include>
 	</body>
 </html>
