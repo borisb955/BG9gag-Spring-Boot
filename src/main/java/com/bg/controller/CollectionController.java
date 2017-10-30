@@ -36,9 +36,9 @@ public class CollectionController {
 		}
 		
 		TreeSet<Post> sortedPosts = new TreeSet<>((p1, p2) -> {
-		       if (p1.getDateTime().isBefore(p2.getDateTime())) {
+		       if (p2.getDateTime().isBefore(p1.getDateTime())) {
 		            return -1;
-		        } else if (p1.getDateTime().isAfter(p2.getDateTime())) {
+		        } else if (p2.getDateTime().isAfter(p1.getDateTime())) {
 		            return 1;
 		        } else {
 		            return 0;
