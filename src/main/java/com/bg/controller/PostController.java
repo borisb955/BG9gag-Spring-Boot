@@ -107,6 +107,7 @@ public class PostController {
 	@RequestMapping(value = "/postWithComments/postId={postId}/userId={userId}", method = RequestMethod.GET)
 	public String showPostWithComment(@PathVariable("postId") int postId, @PathVariable("userId") int userId, HttpSession s, Model model) {
 		try {
+			
 			User user = userDao.getUserById(userId);
 			Post post = postDao.getPost(postId, user);
 			s.setAttribute("userPostPage", user);

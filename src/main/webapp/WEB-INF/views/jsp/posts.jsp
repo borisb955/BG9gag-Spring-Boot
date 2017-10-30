@@ -26,7 +26,9 @@
 		
 					<div id="tags">
 						<c:forEach items="${post.tags}" var="tag">
-							<a href=""> #<c:out value="${ tag.tagName }"></c:out></a>
+							<a href="/MyProject/posts/tag/tagName=${ tag.tagName }"> 
+							#<c:out value="${ tag.tagName }"></c:out>
+							</a>
 						</c:forEach>
 					</div>
 					<br>
@@ -36,7 +38,7 @@
 					</div>
 					<c:out value="${ post.dateTime }"></c:out>
 					
-					<a href="postWithComments/postId=${ post.postId }/userId=${post.user.id}">Comments</a>
+					<a href="/MyProject/postWithComments/postId=${ post.postId }/userId=${post.user.id}">Comments</a>
 				</c:forEach>
 			</div>
 		</div>

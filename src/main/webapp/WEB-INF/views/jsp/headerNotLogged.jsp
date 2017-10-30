@@ -27,7 +27,7 @@
 			<a class="header-links" href="/MyProject/posts/gifs">GIF</a>
 		</div>
 		<div id="loginReg">
-		Welcome<
+
 			<form>
 				<button><a href="/MyProject/login">Log in</a></button>
 				<button><a href="/MyProject/register">Sign up</a></button>	
