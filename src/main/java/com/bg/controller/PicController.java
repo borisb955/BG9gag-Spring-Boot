@@ -57,9 +57,10 @@ public class PicController {
 	    String tag1 = req.getParameter("tag1");
 		String tag2 = req.getParameter("tag2");
 		String tag3 = req.getParameter("tag3");
-//		String filePath = File.separator+ "users"
-//						 +File.separator + u.getUsername()
-//						 +File.separator + "postPics";
+		String filePath =WebInitializer.LOCATION 
+						 +File.separator+ "users"
+						 +File.separator + u.getUsername()
+						 +File.separator + "postPics";
 		
 		try {
 
@@ -68,20 +69,20 @@ public class PicController {
 			String ext = type.getExtension(); // .whatever
 			
 
-//		    File folders = new File( filePath );
-//		    folders.mkdirs();
-//		    
-//		    System.out.println(folders.getAbsolutePath());
+		    File folders = new File( filePath );
+		    folders.mkdirs();
+		    
+		    System.out.println(folders.getAbsolutePath());
 			
 		    //TODO: make posts names unique and remove random
-			File f = new File( WebInitializer.LOCATION 
-							+ File.separator
-							+ u.getUsername() 
-							+ new Random().nextInt(2_000_000_000) + ext);
+			File f = new File( filePath 
+							 + File.separator
+							 + u.getUsername() 
+							 + new Random().nextInt(2_000_000_000) + ext);
 			
 			file.transferTo(f);
 			
-		    Post post = new Post(description , f.getAbsolutePath() , LocalDateTime.now(), u);
+		    Post post = new Post(description , f.getName() , LocalDateTime.now(), u);
 		    
 		    System.out.println("Absolute path -> " + f.getAbsolutePath());
 		    

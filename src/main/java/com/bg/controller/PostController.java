@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.bg.WebInitializer;
 import com.bg.model.Comment;
 import com.bg.model.CommentDao;
 import com.bg.model.Post;
@@ -81,11 +82,15 @@ public class PostController {
 
 		String userName = request.getParameter("userName");
 		String pictureUrl = request.getParameter("pictureUrl");
-		String fullURL = URL + userName + File.separator + pictureUrl;
+		String fullURL =WebInitializer.LOCATION 
+				 		+File.separator+ "users"
+				 		+File.separator + userName
+				 		+File.separator + "postPics"
+				 		+ File.separator + pictureUrl;
 		System.out.println(fullURL);
 
 		if (pictureUrl == null || pictureUrl.isEmpty()) {
-			pictureUrl = "D:/postPics/defaultPic.png";
+			pictureUrl = "D:/BG9gag/defaultPic.png";
 		}
 
 		File myFile = new File(fullURL);
