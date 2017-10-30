@@ -150,7 +150,6 @@ public class PostDao {
 			
 			//inserting tags and posts-tags
 			for (String tag : tags) {
-				System.out.println(tag);
 				td.isertTagIfNew(tag, post);
 			}
 			
