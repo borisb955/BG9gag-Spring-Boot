@@ -12,5 +12,7 @@
 		<input type="password" placeholder="your password" name="pass"><br>
 		<input type="submit">
 	</form>
+	
+	<a href="/MyProject/forgottenPass">Forgotten password</a>
 </body>
 </html>
