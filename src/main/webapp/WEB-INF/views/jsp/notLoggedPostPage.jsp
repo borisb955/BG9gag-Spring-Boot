@@ -20,6 +20,12 @@
 		<img src="/MyProject/postpic?pictureUrl=${postPostPage.postUrl}&userName=${userPostPage.username}" width="50%" height="auto">
 		<br>
 		<span>Points:<c:out value="${ postPostPage.points }"></c:out></span>
+		<c:if test="">
+		<a href="/MyProject/likePost?postId=${ sessionScope.postPostPage.postId }&userId=${sessionScope.userPostPage.id}">Dislike</a>
+		</c:if>
+		<c:if test="">
+		<a href="/MyProject/dislikePost?postId=${ sessionScope.postPostPage.postId }&userId=${sessionScope.userPostPage.id }">Like</a>
+		</c:if>
 		<h3>Comments:</h3>
 		<c:if test="${ postPostPage.comments.size()>0 }">
 		<c:forEach items="${ postPostPage.comments }" var="comment" >

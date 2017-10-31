@@ -31,7 +31,7 @@
 				<c:forEach items="${ posts }" var="post">
 					<div>
 						<h1><c:out value="${ post.description }">no description</c:out></h1><br>
-						<img src="postpic/postUrl=${ post.postUrl }" width="50%" height="auto"> 
+						<img src="/MyProject/postpic?pictureUrl=${ post.postUrl }&userName=${post.user.username}" width="50%" height="auto"> 
 					</div>
 		
 					<div id="tags">

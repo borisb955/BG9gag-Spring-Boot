@@ -22,10 +22,7 @@ import com.bg.model.UserDao;
 
 
 
-<<<<<<< HEAD
-=======
 
->>>>>>> de66e470566395dffe94e7ef3d59c4b66e307c18
 @Controller
 @RequestMapping(value = "/register")
 public class RegisterController {

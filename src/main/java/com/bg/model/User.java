@@ -2,6 +2,7 @@ package com.bg.model;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.TreeSet;
 
 import javax.validation.constraints.NotNull;
@@ -27,6 +28,7 @@ public class User {
 	private String email;
 	private Profile profile;
 	private HashSet<Post> likedPosts;
+	private HashSet<Comment> likedComments;
 	private ArrayList<Post> posts;
 	private ArrayList<Comment> comments;
 	
@@ -45,13 +47,17 @@ public class User {
 		this.password = password;
 		this.email = email;
 	}
-	public User(Long id, String username, String password, String email, HashSet<Post> likedPosts) {
+	public User(long id, String username, String password, String email) {
+		this(username,password,email);
+		this.id=id;
+	}
+	public User(Long id, String username, String password, String email, HashSet<Post> likedPosts, HashSet<Comment> likedComments) {
 		this(username, password, email);
 		this.profile = profile;
 		this.id = id;
 		this.likedPosts=likedPosts;
 	}
-	public User(Long id, String username, String password, String email, Profile profile, HashSet<Post> likedPosts) {
+	public User(Long id, String username, String password, String email, Profile profile, HashSet<Post> likedPosts, HashSet<Comment> likedComments) {
 		this(username, password, email);
 		this.profile = profile;
 		this.id = id;
@@ -87,6 +93,9 @@ public class User {
 	public String getPassword() {
 		return password;
 	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
 	public String getEmail() {
 		return email;
 	}
@@ -102,4 +111,30 @@ public class User {
 	public void setProfile(Profile profile) {
 		this.profile = profile;
 	}
+	
+	public HashSet<Comment> getLikedComments() {
+		return likedComments;
+	}
+	public void setLikedComments(HashSet<Comment> likedComments) {
+		this.likedComments = likedComments;
+	}
+	
+	public boolean checkLikedPost(int idPost){
+		for (Iterator iterator = this.likedPosts.iterator(); iterator.hasNext();) {
+			Post post = (Post) iterator.next();
+			if(idPost==post.getPostId()){
+				return true;
+			}	
+		}
+		return false;
+	}
+	
+	public void addLikedPost(Post post){
+		this.likedPosts.add(post);
+	}
+	public void removeLikedPost(Post post){
+		this.likedPosts.remove(post);
+	}
+	
+	
 }

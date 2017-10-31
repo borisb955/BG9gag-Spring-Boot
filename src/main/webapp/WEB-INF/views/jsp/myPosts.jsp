@@ -24,7 +24,7 @@
 				
 				<div>
 					<h1><c:out value="${ post.description }">no description</c:out></h1><br>
-					<img src="postpicServlet/postId=${ post.postUrl }" width="100px" height="100px">
+					<img src="/MyProject/postpic?pictureUrl=${ post.postUrl }&userName=${post.user.username}" width="50%" height="auto"> 
 				</div>
 				
 				<div id="tags">

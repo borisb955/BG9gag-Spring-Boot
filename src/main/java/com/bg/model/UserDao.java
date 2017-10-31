@@ -202,8 +202,6 @@ public class UserDao {
 		return new User(userId, 
 						rs.getString("username"), 
 						rs.getString("password"), 
-						rs.getString("email"), 
-						ud.getLikedPosts(u)
-						);
+						rs.getString("email"));
 	}
 }

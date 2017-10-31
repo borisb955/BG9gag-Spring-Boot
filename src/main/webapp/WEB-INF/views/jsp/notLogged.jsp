@@ -39,6 +39,12 @@
 					<p class="points">points: <c:out value="${ post.points }"></c:out></p>
 					<p>user: <c:out value="${ post.user.username }"></c:out></p>
 				</div>
+					<c:if test="">
+					<a href="/MyProject/likePost?postId=${ sessionScope.postPostPage.postId }&userId=${sessionScope.userPostPage.id}">Dislike</a>
+					</c:if>
+					<c:if test="">
+					<a href="/MyProject/dislikePost?postId=${ sessionScope.postPostPage.postId }&userId=${sessionScope.userPostPage.id }">Like</a>
+					</c:if>
 				<a href="postWithComments/postId=${ post.postId }/userId=${post.user.id}">Comments</a>
 				</c:forEach>
 			</div>

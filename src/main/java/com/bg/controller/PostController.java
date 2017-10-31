@@ -42,7 +42,6 @@ public class PostController {
 	private static String URL = "D:" + File.separator + "postPics" + File.separator;
 	@RequestMapping(value="/addComment",method=RequestMethod.POST)
 	public String addComment(HttpServletRequest request){
-		System.out.println("----------------------------------------------------------------");
 		HttpSession s = request.getSession();
 		Object o = s.getAttribute("logged");
 		boolean logged = (o != null && ((boolean) o));
@@ -56,9 +55,6 @@ public class PostController {
 			User user = (User) s.getAttribute("userPostPage");
 			String text = request.getParameter("commentText");
 			
-			System.out.println(post);
-			System.out.println(user);
-			System.out.println(text);
 			
 			try {
 				commentDao.insertComment(new Comment(text,LocalDateTime.now(),null,user,post));

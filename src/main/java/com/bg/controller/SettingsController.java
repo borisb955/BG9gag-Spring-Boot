@@ -113,7 +113,7 @@ public class SettingsController {
 		
 
 		user = new User(sessionUser.getId(), newUsername, sessionUser.getPassword(), newEmail, 
-				sessionUser.getProfile(), sessionUser.getLikedPosts());
+				sessionUser.getProfile(), sessionUser.getLikedPosts(),sessionUser.getLikedComments());
 		
 		s.removeAttribute("user");
 		s.setAttribute("user", user);
@@ -153,8 +153,6 @@ public class SettingsController {
 		
 
 		try {
-			System.out.println(password1);
-			System.out.println(password2);
 			ud.changePassword(sessionUser.getId(), password1);
 		} catch (SQLException e) {
 			e.printStackTrace();

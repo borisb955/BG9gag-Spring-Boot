@@ -16,7 +16,7 @@ public class Comment {
 	public Comment(String comment, LocalDateTime dateTime, Comment parrent_comment, 
 					User user, Post post) {
 		this.comment = comment;
-		this.points = points;
+//		this.points = points;
 		this.dateTime = dateTime;
 		this.parrent_comment = parrent_comment;
 		this.user = user;
@@ -27,6 +27,15 @@ public class Comment {
 			User user, Post post){
 		this(comment, dateTime,parrent_comment,user,post);
 		this.comment_id=comment_id;
+	}
+	public Comment(long comment_id, String comment,int points,LocalDateTime dateTime, Comment parrent_comment, 
+			User user){
+		this.comment_id=comment_id;
+		this.comment=comment;
+		this.points=points;
+		this.dateTime=dateTime;
+		this.parrent_comment=parrent_comment;
+		this.user=user;
 	}
 	
 	public Comment(long comment_id, String comment, int points, LocalDateTime dateTime, Comment parrent_comment, 

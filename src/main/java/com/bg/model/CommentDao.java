@@ -165,6 +165,18 @@ public class CommentDao {
 			}
 			return null;
 		}
+		public Comment getCommentById(long id,User u) throws SQLException{
+			Connection conn = db.getConn();
+			PreparedStatement ps = conn.prepareStatement("SELECT  comment, points,issue_date, user_id"
+					+ " from comments"
+					+ " where comment_id=?;");	
+			ps.setLong(1, id);
+			ResultSet rs = ps.executeQuery();
+			if(rs.next()){
+				return new Comment(id,rs.getString("comment"),rs.getInt("points"),rs.getTimestamp("issue_date").toLocalDateTime(),null,u);
+			}
+			return null;
+		}
 		
 		public HashSet<Post> getCommentedPostsByUser(User u) throws SQLException{
 			Connection conn = db.getConn();

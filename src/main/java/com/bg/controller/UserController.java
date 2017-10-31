@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.bg.model.Post;
 import com.bg.model.PostDao;
+import com.bg.model.UpvoteDao;
 import com.bg.model.User;
 import com.bg.model.UserDao;
 
@@ -27,6 +28,9 @@ public class UserController {
 	
 	@Autowired
 	UserDao ud;
+	@Autowired
+	UpvoteDao upd;
+	
 	
 	@RequestMapping(value = "/logged", method = RequestMethod.POST)
 	public String logged(HttpServletRequest req, HttpSession s) throws SQLException {
@@ -39,24 +43,23 @@ public class UserController {
 		try {
 			if (!ud.emailExists(email)) {
 //				resp.getWriter().append("This email does not exist.");
-			} else if (!ud.passwordMatch(email, pass)) {
+				System.out.println("nqma takav email");
+			} else if (ud.passwordMatch(email, pass)) {
 //				resp.getWriter().append("Incorrect password.");
+				System.out.println("ne e sushtata parola");
 			} else {
-				System.out.println("edno");
-				System.out.println("edno");
-				System.out.println("edno");
 				
 				User u = ud.getFullUserByEmail(email);
 				
 				s.setAttribute("user", u);
 				s.setAttribute("logged", true);
-				System.out.println("dve");
-				System.out.println("dve");
-				System.out.println("dve");
+				s.setAttribute("likedPosts",upd.getLikedPosts(u));
+				s.setAttribute("likedComments", upd.getLikedComments(u));
 				return "forward:/";
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+			System.out.println("problem");
 //			req.setAttribute("error", e.getMessage());
 //			req.getRequestDispatcher("WEB-INF/errorPage.jsp").forward(req, resp);
 		}
