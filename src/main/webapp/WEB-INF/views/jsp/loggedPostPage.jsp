@@ -85,11 +85,34 @@
 				<a href="/MyProject/dislikeComment?commentId=${  comment.comment_id }&userId=${ sessionScope.user.id }">Dislike</a>
 				<a href="/MyProject/undislikeComment?commentId=${  comment.comment_id }&userId=${ sessionScope.user.id }">Undislike</a>	
 				<h2><c:out value="${ comment.comment }"></c:out></h2>
-				</div>
-				<form method = "POST" action = "/MyProject/addComment">
+				
+				<form method = "POST" action = "/MyProject/addChildComment">
+				<input type="text" value="${comment.comment_id}" name="parentCommentId" style="display:none">
+				<input type="text" value="${ comment.user.id}" name="parentCommentUserId" style="display:none">
 				<textarea name="commentText" path="" id="commentText" class="commentText" rows="6" cols="50" maxlength="1000" style="resize:none;" placeholder="Comment here..."></textarea>
 				<input type="submit"  value="Comment" onclick="postComment()">
 				</form>
+				</div>
+				<c:forEach items="${comment.childComments}" var="childComment">
+							<div>							
+								<h5><c:out value="${ childComment.user.username }"></c:out>
+								:DATE:<c:out value="${ childComment.dateTime }"></c:out>
+								:POINTS:<c:out value="${ childComment.points }"></c:out></h5>
+									<a href="/MyProject/likeComment?commentId=${ childComment.comment_id }&userId=${ sessionScope.user.id }">Like</a>
+									<a href="/MyProject/unlikeComment?commentId=${  childComment.comment_id }&userId=${ sessionScope.user.id }">Unlike</a>
+									<a href="/MyProject/dislikeComment?commentId=${  childComment.comment_id }&userId=${ sessionScope.user.id }">Dislike</a>
+									<a href="/MyProject/undislikeComment?commentId=${  childComment.comment_id }&userId=${ sessionScope.user.id }">Undislike</a>	
+								<h5><c:out value="${ childComment.comment }"></c:out></h5>
+								
+								<form method = "POST" action = "/MyProject/addChildComment">
+								<input type="text" value="${comment.comment_id}" name="parentCommentId" style="display:none">
+								<input type="text" value="${ childComment.user.id}" name="parentCommentUserId" style="display:none">
+								<textarea name="commentText" path="" id="commentText" class="commentText" rows="6" cols="50" maxlength="1000" style="resize:none;" placeholder="Comment here..."></textarea>
+								<input type="submit"  value="Comment" onclick="postComment()">
+								</form>
+							</div>							
+				</c:forEach>
+				
 		</c:forEach>
 		</c:if>
 		<c:if test="${  sessionScope.postPostPage.comments.size()==0 }">

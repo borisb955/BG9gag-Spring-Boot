@@ -30,16 +30,18 @@ public class CommentDao {
 	public  void insertComment(Comment com) throws SQLException {
 		Connection conn = db.getConn();
 		if(com.getParrent_comment()!=null){
-		PreparedStatement ps = conn.prepareStatement("INSERT INTO 9gag.comments(comment, points, issue_date"
-													+ "parrent_comment, user_id, post_id) "
+		PreparedStatement ps = conn.prepareStatement("INSERT INTO 9gag.comments(comment, points, issue_date,"
+													+ "parrent_comment, post_id, user_id) "
 													+ "VALUES(?, ?, ?, ?, ?, ?)", 
 													Statement.RETURN_GENERATED_KEYS);
+		
+		
 		ps.setString(1, com.getComment());
 		ps.setInt(2, com.getPoints());
 		ps.setTimestamp(3, Timestamp.valueOf(com.getDateTime()));
 		ps.setLong(4, com.getParrent_comment().getComment_id());
-		ps.setLong(5, com.getUser().getId());
-		ps.setLong(6, com.getPost().getPostId());
+		ps.setLong(5, com.getPost().getPostId());
+		ps.setLong(6, com.getUser().getId());
 		ps.executeUpdate();
 		
 		ResultSet rs = ps.getGeneratedKeys();
@@ -131,8 +133,8 @@ public class CommentDao {
 	
 		public ArrayList<Comment> getChildCommentsForComment(long id,Post post) throws SQLException{
 			Connection conn = db.getConn();
-			PreparedStatement ps = conn.prepareStatement("SELECT comment_id, comment, points,issue_date, user_id"
-					+ " from comments"
+			PreparedStatement ps = conn.prepareStatement("SELECT comment_id, comment, points, issue_date, user_id, post_id"
+					+ " from 9gag.comments"
 					+ " where parrent_comment=?;");
 			
 			ps.setLong(1, id);
@@ -140,6 +142,7 @@ public class CommentDao {
 		
 			ArrayList<Comment> childComments =new ArrayList<>();
 			while(rs.next()) {
+				System.out.println(rs.getInt("points"));
 				User u = ud.getUserById(rs.getLong("user_id"));
 					childComments.add(new Comment(rs.getLong("comment_id"),
 															rs.getString("comment"),
@@ -147,7 +150,7 @@ public class CommentDao {
 															rs.getTimestamp("issue_date").toLocalDateTime(),
 															getCommentById(id,u,post),
 															u,
-															pd.getPost(rs.getLong("c2.post_id"),u)
+															post
 															));
 			}
 			return childComments;
@@ -161,7 +164,7 @@ public class CommentDao {
 			ps.setLong(1, id);
 			ResultSet rs = ps.executeQuery();
 			if(rs.next()){
-				return new Comment(rs.getLong("id"),rs.getString("comment"),rs.getInt("points"),rs.getTimestamp("issue_date").toLocalDateTime(),null,u,p);
+				return new Comment(id,rs.getString("comment"),rs.getInt("points"),rs.getTimestamp("issue_date").toLocalDateTime(),null,u,p);
 			}
 			return null;
 		}

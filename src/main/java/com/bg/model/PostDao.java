@@ -76,7 +76,6 @@ public class PostDao {
 												+ ", upload_date "
 												+ "FROM 9gag.posts "
 												+ "WHERE user_id = ? ");
-//TODO: Why doesn't work						+ "ORDER BY upload_date");
 		ps.setLong(1, u.getId());
 		ResultSet rs = ps.executeQuery();
 		

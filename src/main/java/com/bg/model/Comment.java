@@ -26,6 +26,7 @@ public class Comment {
 	public Comment(long comment_id, String comment,int points,LocalDateTime dateTime, Comment parrent_comment, 
 			User user, Post post){
 		this(comment, dateTime,parrent_comment,user,post);
+		this.points=points;
 		this.comment_id=comment_id;
 	}
 	public Comment(long comment_id, String comment,int points,LocalDateTime dateTime, Comment parrent_comment, 

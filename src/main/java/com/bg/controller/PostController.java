@@ -7,6 +7,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -54,21 +56,49 @@ public class PostController {
 //			User user = (User) request.getAttribute("userPostPage");
 			Post post = (Post) s.getAttribute("postPostPage");
 			User user = (User) s.getAttribute("userPostPage");
-			String text = request.getParameter("commentText");
-			
-			
+			String text = request.getParameter("commentText");			
 			try {
 				commentDao.insertComment(new Comment(text,LocalDateTime.now(),null,user,post));
 			} catch (SQLException e) {
 				request.setAttribute("error", e.getMessage());
 			}
 				
-			return "logged";
+			return "loggedPostPage";
 		
 		}
 			
 	}
 	
+	@RequestMapping(value="/addChildComment",method=RequestMethod.POST)
+	public String addChildComment(HttpServletRequest request){
+		HttpSession s = request.getSession();
+		Object o = s.getAttribute("logged");
+		boolean logged = (o != null && ((boolean) o));
+		
+		if(s.isNew() || !logged) {
+			return "notLogged";
+		}else {
+			
+			int parentCommentId =Integer.parseInt(request.getParameter("parentCommentId"));
+			int parentCommentUserId = Integer.parseInt(request.getParameter("parentCommentUserId"));
+			String commentText = request.getParameter("commentText");
+			
+			Post post = (Post) s.getAttribute("postPostPage");
+			User user = (User) s.getAttribute("userPostPage");
+						
+			try {
+				User parentCommentUser = userDao.getUserById(parentCommentUserId);
+				Comment parentComment = commentDao.getCommentById(parentCommentId,parentCommentUser);
+				commentDao.insertComment(new Comment(commentText,LocalDateTime.now(),parentComment,user,post));
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+				
+			return "loggedPostPage";
+		
+		}
+			
+	}
 	
 	
 	@ResponseBody
@@ -106,8 +136,10 @@ public class PostController {
 			
 			User user = userDao.getUserById(userId);
 			Post post = postDao.getPost(postId, user);
+		ArrayList<Comment>mainComents =post.getComments();
 			s.setAttribute("userPostPage", user);
 			s.setAttribute("postPostPage", post);
+			
 //			model.addAttribute("userPostPage", user);
 //			model.addAttribute("postPostPage", post);
 		} catch (SQLException e) {
