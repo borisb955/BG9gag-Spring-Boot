@@ -162,4 +162,30 @@ public class PostDao {
 			conn.setAutoCommit(true);
 		}
 	}
+
+	public ArrayList<Post> searchWordInDesc(String searchedWord) throws SQLException {
+		Connection conn = db.getConn();
+		
+		PreparedStatement ps = conn.prepareStatement("SELECT * "
+												   + "FROM 9gag.posts "
+												   + "WHERE description "
+												   + "LIKE ?");
+		ps.setString(1, "%" + searchedWord + "%");
+		ResultSet rs = ps.executeQuery();
+		
+		ArrayList<Post> posts = new ArrayList<>();
+		int o = 0;
+		while(rs.next()) {
+			posts.add(new Post(rs.getLong("post_id"), 
+							   rs.getString("description"), 
+							   rs.getString("post_url"), 
+							   rs.getInt("points"), 
+							   rs.getTimestamp("upload_date").toLocalDateTime(), 
+							   ud.getUserById(rs.getLong("user_id")), 
+							   ptd.getTagsForPost(rs.getLong("post_id")), null));
+			o++;
+		}
+		System.out.println(o);
+		return posts;
+	}
 }

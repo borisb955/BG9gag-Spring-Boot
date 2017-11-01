@@ -200,16 +200,7 @@ public class UpvoteDao {
 				ps.setInt(1, points);
 				ps.setLong(2, comment.getComment_id());
 				ps.executeUpdate();
-		}
-		
-		
-		
-		
-		
-		
-		
-		
-		
+		}	
 	}
 
 	

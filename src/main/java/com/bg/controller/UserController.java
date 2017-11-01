@@ -44,11 +44,11 @@ public class UserController {
 			if (!ud.emailExists(email)) {
 //				resp.getWriter().append("This email does not exist.");
 				System.out.println("nqma takav email");
-			} else if (ud.passwordMatch(email, pass)) {
+			} else if (!ud.passwordMatch(email, pass)) {
 //				resp.getWriter().append("Incorrect password.");
 				System.out.println("ne e sushtata parola");
 			} else {
-				
+				System.out.println("VLIZAM");
 				User u = ud.getFullUserByEmail(email);
 				
 				s.setAttribute("user", u);

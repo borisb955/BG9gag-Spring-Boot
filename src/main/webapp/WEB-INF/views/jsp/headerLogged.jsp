@@ -73,6 +73,10 @@
 			<a class="header-links" href="">Hot</a>
 			<a class="header-links" href="/MyProject/posts/fresh">Fresh</a>
 			<a class="header-links" href="/MyProject/posts/gifs">GIF</a>
+			<form action="/MyProject/posts/search" method="get">
+				<input type="text" placeholder="search..." name="search">
+				<input type="submit">
+			</form>
 		</div>
 		<div id="loginReg">
 		
