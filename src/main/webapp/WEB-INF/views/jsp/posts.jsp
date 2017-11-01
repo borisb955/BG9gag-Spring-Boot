@@ -6,7 +6,7 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-	<title>Insert title here</title>
+	<title>Posts</title>
 	<style type="text/css">
 		#parent{  width: 900px; height: 20px;}
 		#child{width: 350px; float: right; }
@@ -22,7 +22,7 @@
 				<c:forEach items="${ posts }" var="post">
 					<div>
 						<h1><c:out value="${ post.description }">no description</c:out></h1><br>
-						<img src="postpic?pictureUrl=${post.postUrl}&userName=${post.user.username}" width="50%" height="auto">					</div>
+						<img src="/MyProject/postpic?pictureUrl=${post.postUrl}&userName=${post.user.username}" width="50%" height="auto">					</div>
 		
 					<div id="tags">
 						<c:forEach items="${post.tags}" var="tag">
@@ -38,7 +38,11 @@
 					</div>
 					<c:out value="${ post.dateTime }"></c:out>
 					
-					<a href="/MyProject/postWithComments/postId=${ post.postId }/userId=${post.user.id}">Comments</a>
+				<a href="/MyProject/postWithComments/postId=${ post.postId }/userId=${post.user.id}">Comments</a>
+				<a href="/MyProject/likePost?postId=${ post.postId }&userId=${sessionScope.user.id}">Like</a>
+				<a href="/MyProject/unlikePost?postId=${ post.postId }&userId=${sessionScope.user.id}">Unlike</a>
+				<a href="/MyProject/dislikePost?postId=${ post.postId }&userId=${sessionScope.user.id }">Dislike</a>
+				<a href="/MyProject/undislikePost?postId=${ post.postId }&userId=${sessionScope.user.id }">Undislike</a>
 				</c:forEach>
 			</div>
 		</div>

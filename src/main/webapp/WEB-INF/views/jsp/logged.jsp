@@ -12,7 +12,7 @@
 </head>
 	<body>
 		<jsp:include page="headerLogged.jsp"></jsp:include>
-<<<<<<< HEAD
+
 
 		<div id="parent">
 			<div id="child">
@@ -20,7 +20,7 @@
 				
 				<div>
 					<h1><c:out value="${ post.description }">no description</c:out></h1><br>
-				<img src="postpic?pictureUrl=${post.postUrl}&userName=${post.user.username}" width="50%" height="auto">
+				<img src="/MyProject/postpic?pictureUrl=${post.postUrl}&userName=${post.user.username}" width="50%" height="auto">
 				</div>
 
 				<div id="tags">
@@ -33,18 +33,12 @@
 					<p class="points">points: <c:out value="${ post.points }"></c:out></p>
 					<p>user: <c:out value="${ post.user.username }"></c:out></p>
 				</div>
-				
 				<a href="postWithComments/postId=${ post.postId }/userId=${post.user.id}">Comments</a>
 				<a href="/MyProject/likePost?postId=${ post.postId }&userId=${sessionScope.user.id}">Like</a>
 				<a href="/MyProject/unlikePost?postId=${ post.postId }&userId=${sessionScope.user.id}">Unlike</a>
 				<a href="/MyProject/dislikePost?postId=${ post.postId }&userId=${sessionScope.user.id }">Dislike</a>
 				<a href="/MyProject/undislikePost?postId=${ post.postId }&userId=${sessionScope.user.id }">Undislike</a>
-					<c:if test="">
-					<a href="/MyProject/likePost?postId=${ post.postId }&userId=${sessionScope.user.id}">Like</a>
-					</c:if>
-					<c:if test="">
-					<a href="/MyProject/dislikePost?postId=${ post.postId }&userId=${sessionScope.user.id }">Dislike</a>
-					</c:if>
+				
 				</c:forEach>
 			</div>
 		</div>

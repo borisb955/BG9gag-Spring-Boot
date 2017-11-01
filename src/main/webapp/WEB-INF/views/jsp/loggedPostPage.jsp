@@ -84,8 +84,12 @@
 				<a href="/MyProject/unlikeComment?commentId=${  comment.comment_id }&userId=${ sessionScope.user.id }">Unlike</a>
 				<a href="/MyProject/dislikeComment?commentId=${  comment.comment_id }&userId=${ sessionScope.user.id }">Dislike</a>
 				<a href="/MyProject/undislikeComment?commentId=${  comment.comment_id }&userId=${ sessionScope.user.id }">Undislike</a>	
-				<h1><c:out value="${ comment.comment }"></c:out></h1>
+				<h2><c:out value="${ comment.comment }"></c:out></h2>
 				</div>
+				<form method = "POST" action = "/MyProject/addComment">
+				<textarea name="commentText" path="" id="commentText" class="commentText" rows="6" cols="50" maxlength="1000" style="resize:none;" placeholder="Comment here..."></textarea>
+				<input type="submit"  value="Comment" onclick="postComment()">
+				</form>
 		</c:forEach>
 		</c:if>
 		<c:if test="${  sessionScope.postPostPage.comments.size()==0 }">

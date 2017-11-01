@@ -19,7 +19,7 @@
 	<body>
 	<div id="header">
 		<div id="logo">
-			<img src="https://upload.wikimedia.org/wikipedia/commons/9/97/9GAG_new_logo.svg" >
+			<a href="/MyProject"><img src="https://upload.wikimedia.org/wikipedia/commons/9/97/9GAG_new_logo.svg" ></a>
 		</div>
 		<div id="buttonsHeader">
 			<a class="header-links" href="">Hot</a>

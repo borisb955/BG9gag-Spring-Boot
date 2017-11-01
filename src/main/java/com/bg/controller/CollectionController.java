@@ -81,18 +81,11 @@ public class CollectionController {
 	public String tag(Model m, HttpServletRequest req, 
 			@PathVariable("tagName") String tagName) {
 		
-		System.out.println(tagName);
-		System.out.println(tagName);
-		System.out.println(tagName);
-		System.out.println("111");
-		System.out.println("111");
-		System.out.println("111");
 
 		ArrayList<Post> posts = new ArrayList<>();
 		try {
 			posts = ptd.getPostsForTag(tagName);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
