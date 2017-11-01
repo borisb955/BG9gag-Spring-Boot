@@ -53,7 +53,6 @@ public class User {
 	}
 	public User(Long id, String username, String password, String email, HashSet<Post> likedPosts, HashSet<Comment> likedComments) {
 		this(username, password, email);
-		this.profile = profile;
 		this.id = id;
 		this.likedPosts=likedPosts;
 	}
@@ -63,6 +62,7 @@ public class User {
 		this.id = id;
 		this.likedPosts=likedPosts;
 	}
+	
 	
 	
 	public void setUsername(String username) {
@@ -112,6 +112,7 @@ public class User {
 		this.profile = profile;
 	}
 	
+
 	public HashSet<Comment> getLikedComments() {
 		return likedComments;
 	}
@@ -136,5 +137,5 @@ public class User {
 		this.likedPosts.remove(post);
 	}
 	
-	
+
 }

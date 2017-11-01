@@ -1,20 +1,24 @@
 package com.bg.controller;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.TreeSet;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.bg.model.Post;
 import com.bg.model.PostDao;
+import com.bg.model.PostTagDao;
 import com.bg.util.Validator;
 
 @Controller
@@ -23,9 +27,11 @@ public class CollectionController {
 	
 	@Autowired
 	PostDao pd;
+	@Autowired
+	PostTagDao ptd;
 	
 	@RequestMapping(value = "fresh", method = RequestMethod.GET)
-	public String fresh(HttpSession s, Model m) {
+	public String fresh(Model m) {
 		
 		HashSet<Post> posts = null;
 		try {
@@ -53,4 +59,46 @@ public class CollectionController {
 		
 		return "fresh";
 	}
+	
+	@RequestMapping(value = "/gifs", method = RequestMethod.GET)
+	public String gifs(Model m) {
+		
+		ArrayList<Post> gifs = new ArrayList<>();
+		
+		try {
+			gifs = pd.getAllGifs();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		m.addAttribute("posts", gifs);
+		
+		return "gifs";
+	}
+	
+	@RequestMapping(value = "/tag/tagName={tagName}", method = RequestMethod.GET)
+	public String tag(Model m, HttpServletRequest req, 
+			@PathVariable("tagName") String tagName) {
+		
+		System.out.println(tagName);
+		System.out.println(tagName);
+		System.out.println(tagName);
+		System.out.println("111");
+		System.out.println("111");
+		System.out.println("111");
+
+		ArrayList<Post> posts = new ArrayList<>();
+		try {
+			posts = ptd.getPostsForTag(tagName);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		m.addAttribute("posts", posts);
+		
+		return "tagPosts";
+	}
+		
 }

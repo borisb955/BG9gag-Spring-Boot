@@ -11,21 +11,21 @@ import com.bg.model.User;
 
 
 @Service
-public class NotificationService {
+public class SendNewPass {
 
 	private JavaMailSender javaMailSender;
 	
 	@Autowired
-	public NotificationService(JavaMailSender javaMailSender) {
+	public SendNewPass(JavaMailSender javaMailSender) {
 		this.javaMailSender = javaMailSender;
 	}
 	
-	public void sendNotification(User u) throws MailException {
+	public void sendNewPass(String email, String newPass) throws MailException {
 		SimpleMailMessage mail = new SimpleMailMessage();
-		mail.setTo(u.getEmail());
+		mail.setTo(email);
 		mail.setFrom("bg9gag@gmail.com");
-		mail.setSubject("Welcome");
-		mail.setText("Hey " + u.getUsername() + " welcome to our website and we hope you enjoy it!");
+		mail.setSubject("New Password");
+		mail.setText("Your new password is " + newPass + ". Please change your password after you log in");
 		
 		javaMailSender.send(mail);
 	}

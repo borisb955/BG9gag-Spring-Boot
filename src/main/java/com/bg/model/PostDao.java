@@ -24,6 +24,8 @@ public class PostDao {
 	TagDao td;
 	@Autowired
 	PostTagDao ptd;
+	@Autowired
+	UserDao ud;
 	
 	public void insertPost(Post p) throws SQLException {
 		Connection conn = db.getConn();
@@ -116,6 +118,26 @@ public class PostDao {
 		return allPosts;
 	}
 	
+	public ArrayList<Post> getAllGifs() throws SQLException {
+		Connection conn = db.getConn();
+		PreparedStatement ps = conn.prepareStatement("SELECT * "
+												   + "FROM 9gag.posts "
+												   + "WHERE post_url "
+												   + "LIKE '%.gif'");
+		ResultSet rs = ps.executeQuery();
+		
+		ArrayList<Post> gifs = new ArrayList<>();
+		while(rs.next()) {
+			gifs.add(new Post(rs.getLong("post_id"), 
+							  rs.getString("description"), 
+							  rs.getString("post_url"), 
+							  rs.getInt("points"), 
+							  rs.getTimestamp("upload_date").toLocalDateTime(), 
+							  ud.getUserById(rs.getLong("user_id")), 
+							  ptd.getTagsForPost(rs.getLong("post_id")), null));
+		}
+		return gifs;
+	}
 	
 	public void insertInTransaction(Post post, ArrayList<String> tags) throws SQLException {
 		Connection conn = db.getConn();
@@ -128,7 +150,6 @@ public class PostDao {
 			
 			//inserting tags and posts-tags
 			for (String tag : tags) {
-				System.out.println(tag);
 				td.isertTagIfNew(tag, post);
 			}
 			
@@ -141,6 +162,5 @@ public class PostDao {
 		} finally {
 			conn.setAutoCommit(true);
 		}
-		
 	}
 }

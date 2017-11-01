@@ -19,8 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.bg.model.Profile;
 import com.bg.model.User;
 import com.bg.model.UserDao;
-
-
+import com.bg.util.NotificationService;
 
 
 @Controller
@@ -39,21 +38,14 @@ public class RegisterController {
 		return "register";
 	}
 	
-//	@Autowired
-//	private NotificationService notificationService;
+	@Autowired
+	private NotificationService notificationService;
 	
 	@RequestMapping(method = RequestMethod.POST)
 	public String registered(@Valid @ModelAttribute("user") User u, BindingResult result) {
 		
 		
-//		notificationService.sendNotification(u);
-		
-		System.out.println("Username " + u.getUsername());
-		System.out.println("Email " + u.getEmail());
-		System.out.println("Password " + u.getPassword());
-		
 
-		
 		if(result.hasErrors()) {
 			return "register";
 		}
@@ -61,6 +53,7 @@ public class RegisterController {
 		if(!u.getUsername().isEmpty() && !u.getEmail().isEmpty() && !u.getPassword().isEmpty()) {
 			try {
 				ud.insertUser(u);
+				notificationService.sendNotification(u);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}

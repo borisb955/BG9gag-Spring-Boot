@@ -9,18 +9,10 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>9gag logged</title>
-	<style type="text/css">
-		#parent{  width: 900px; height: 20px;}
-		#child{width: 350px; float: right; }
-		#namePoints{background-color: red; display: inline-flex; margin-top: 0px; padding-top: 0px; }
-		.points{margin-right: 5px;}
-		#tags{display: inline-flex;}
-
-	</style>
 </head>
 	<body>
-	
 		<jsp:include page="headerLogged.jsp"></jsp:include>
+<<<<<<< HEAD
 
 		<div id="parent">
 			<div id="child">
@@ -56,5 +48,6 @@
 				</c:forEach>
 			</div>
 		</div>
+		<jsp:include page="posts.jsp"></jsp:include>
 	</body>
 </html>

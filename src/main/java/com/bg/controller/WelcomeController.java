@@ -28,8 +28,8 @@ public class WelcomeController {
 	public String welcome(Model m, HttpSession s) {
 		
 		try {
-			HashSet<Post> allPosts = pd.getAllPosts();
-			m.addAttribute("allPosts", allPosts);
+			HashSet<Post> posts = pd.getAllPosts();
+			m.addAttribute("posts", posts);
 			
 		} catch (SQLException e) {
 			e.getMessage();
@@ -48,8 +48,8 @@ public class WelcomeController {
 	public String welcome2(Model m, HttpSession s) {
 		
 		try {
-			HashSet<Post> allPosts = pd.getAllPosts();
-			m.addAttribute("allPosts", allPosts);
+			HashSet<Post> posts = pd.getAllPosts();
+			m.addAttribute("posts", posts);
 			
 		} catch (SQLException e) {
 			e.getMessage();

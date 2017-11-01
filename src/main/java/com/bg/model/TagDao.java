@@ -44,6 +44,17 @@ public class TagDao {
 		return count > 0;
 	}
 	
+	public Tag getTagByName(String tagName) throws SQLException {
+		Connection conn = db.getConn();
+		
+		PreparedStatement ps = conn.prepareStatement("Select tag_id "
+												   + "FROM 9gag.tags "
+												   + "WHERE tag_name =?");
+		ps.setString(1, tagName);
+		ResultSet rs = ps.executeQuery();
+		rs.next();
+		return new Tag(rs.getLong("tag_id"), tagName);
+	}
 
 	//TODO: We should take 10-15 most popular tags sorted by sum(posts.points)
 	public ArrayList<Tag> getAllTags() throws SQLException{

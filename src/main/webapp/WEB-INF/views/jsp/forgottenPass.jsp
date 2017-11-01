@@ -7,20 +7,18 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 		<title>Insert title here</title>
+		<style type="text/css">
+			.error{color: red;}
+		</style>
 	</head>
 	<body>
 	
-		<c:choose>
-		  <c:when test="${sessionScope.logged}">
-		    <jsp:include page="headerLogged.jsp"></jsp:include>
-		  </c:when>
-		  <c:otherwise>
-		    <jsp:include page="headerNotLogged.jsp"></jsp:include>
-		  </c:otherwise>
-		</c:choose>
+		<f:form commandName="user">
+			<p>email</p>
+			<f:input path="email"/><br>
+			<f:errors class="error" path="email"/>
+			<input type="submit" value="Send new password">
+		</f:form>	
 		
-		<jsp:include page="posts.jsp"></jsp:include>
-
-	
 	</body>
 </html>
