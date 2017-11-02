@@ -10,9 +10,12 @@
 	<style type="text/css">
 		#parent{  width: 900px; height: 20px;}
 		#child{width: 350px; float: right; }
-		#namePoints{background-color: red; display: inline-flex; margin-top: 0px; padding-top: 0px; }
+		#namePoints{background-color: red; display: inline-flex; margin-top: 0px; padding-top: 0px; margin-right: 5px; }
 		.points{margin-right: 5px;}
 		#tags{display: inline-flex;}
+		h1{
+		text-align:center;
+		}
 	</style>
 </head>
 	<body>
@@ -22,7 +25,8 @@
 				<c:forEach items="${ posts }" var="post">
 					<div>
 						<h1><c:out value="${ post.description }">no description</c:out></h1><br>
-						<img src="/MyProject/postpic?pictureUrl=${post.postUrl}&userName=${post.user.username}" width="50%" height="auto">					</div>
+						<img src="/MyProject/postpic?pictureUrl=${post.postUrl}&userName=${post.user.username}" width="100%" height="auto">					
+						</div>
 		
 					<div id="tags">
 						<c:forEach items="${post.tags}" var="tag">
@@ -35,14 +39,15 @@
 					<div id="namePoints">
 						<p class="points">points: <c:out value="${ post.points }"></c:out></p>
 						<p>user: <c:out value="${ post.user.username }"></c:out></p>
+						<p><c:out value="${ post.dateTime }"></c:out></p>
 					</div>
-					<c:out value="${ post.dateTime }"></c:out>
-					
-				<a href="/MyProject/postWithComments/postId=${ post.postId }/userId=${post.user.id}">Comments</a>
-				<a href="/MyProject/likePost?postId=${ post.postId }&userId=${sessionScope.user.id}">Like</a>
-				<a href="/MyProject/unlikePost?postId=${ post.postId }&userId=${sessionScope.user.id}">Unlike</a>
-				<a href="/MyProject/dislikePost?postId=${ post.postId }&userId=${sessionScope.user.id }">Dislike</a>
-				<a href="/MyProject/undislikePost?postId=${ post.postId }&userId=${sessionScope.user.id }">Undislike</a>
+					<a href="/MyProject/postWithComments/postId=${ post.postId }/userId=${post.user.id}">Comments</a>
+					<a href="/MyProject/likePost?postId=${ post.postId }&userId=${sessionScope.user.id}">Like</a>
+					<a href="/MyProject/unlikePost?postId=${ post.postId }&userId=${sessionScope.user.id}">Unlike</a>
+					<a href="/MyProject/dislikePost?postId=${ post.postId }&userId=${sessionScope.user.id }">Dislike</a>
+					<a href="/MyProject/undislikePost?postId=${ post.postId }&userId=${sessionScope.user.id }">Undislike</a>
+				<br>
+				<br>
 				</c:forEach>
 			</div>
 		</div>

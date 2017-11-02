@@ -18,9 +18,9 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
 import com.bg.model.Profile;
 import com.bg.model.ProfileDao;
+import com.bg.model.UpvoteDao;
 import com.bg.model.User;
 import com.bg.model.UserDao;
 import com.bg.util.Validator;
@@ -29,6 +29,9 @@ import com.bg.util.Validator;
 @Controller
 @RequestMapping(value = "/settings")
 public class SettingsController {
+	
+	@Autowired
+	UpvoteDao upvoteDao;
 	
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
@@ -88,8 +91,6 @@ public class SettingsController {
 				}
 			} catch (SQLException e) {
 				e.getMessage();
-//				req.setAttribute("error", e.getMessage());
-//				req.getRequestDispatcher("WEB-INF/errorPage.jsp").forward(req, resp);
 			}
 		}
 		
@@ -117,6 +118,15 @@ public class SettingsController {
 		
 		s.removeAttribute("user");
 		s.setAttribute("user", user);
+		try {
+			s.setAttribute("likedPosts", upvoteDao.getLikedPosts(user));
+			s.setAttribute("likedComments", upvoteDao.getLikedComments(user));
+			s.setAttribute("dislikedPosts", upvoteDao.getDislikedPosts(user));
+			s.setAttribute("dislikedComments", upvoteDao.getDislikedComments(user));
+			//TODO
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return "forward:/";
 	}
 	

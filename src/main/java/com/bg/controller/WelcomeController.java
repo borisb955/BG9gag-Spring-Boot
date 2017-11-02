@@ -33,8 +33,6 @@ public class WelcomeController {
 			
 		} catch (SQLException e) {
 			e.getMessage();
-//			req.setAttribute("error", e.getMessage());
-//			req.getRequestDispatcher("WEB-INF/errorPage.jsp").forward(req, resp);
 		}
 		
 		if(Validator.notLogged(s)) {
@@ -50,11 +48,8 @@ public class WelcomeController {
 		try {
 			HashSet<Post> posts = pd.getAllPosts();
 			m.addAttribute("posts", posts);
-			
 		} catch (SQLException e) {
 			e.getMessage();
-//			req.setAttribute("error", e.getMessage());
-//			req.getRequestDispatcher("WEB-INF/errorPage.jsp").forward(req, resp);
 		}
 		
 		if(Validator.notLogged(s)) {

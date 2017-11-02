@@ -136,7 +136,6 @@ public class PostController {
 			
 			User user = userDao.getUserById(userId);
 			Post post = postDao.getPost(postId, user);
-		ArrayList<Comment>mainComents =post.getComments();
 			s.setAttribute("userPostPage", user);
 			s.setAttribute("postPostPage", post);
 			

@@ -38,7 +38,7 @@ public class LikeController2 {
 	@RequestMapping(value = "/likePost", method = RequestMethod.GET)//raboti
 	public String likePost(HttpSession s, Model m,HttpServletRequest request) {
 		if(Validator.notLogged(s)) {
-			return "notLogged";
+			return "login";
 		}
 		long userId = Long.parseLong((request.getParameter("userId")));
 		int postId = Integer.parseInt(request.getParameter("postId"));
@@ -47,17 +47,12 @@ public class LikeController2 {
 			User user = usd.getUserById(userId);
 			Post post = pd.getPost(postId, user);
 			ud.insertLikedPost(user, post);
-			user=(User) s.getAttribute("user");
-			HashSet<Post> likedPosts = (HashSet<Post>) s.getAttribute("likedPosts");
-				likedPosts.add(post);
-				s.setAttribute("likedPosts", likedPosts);
-			user.addLikedPost(post);
+				((HashSet<Post>) s.getAttribute("likedPosts")).add(post);
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return "logged";
-		
 	}
 	
 	
@@ -75,10 +70,7 @@ public class LikeController2 {
 			User user = usd.getUserById(userId);
 			Post post = pd.getPost(postId, user);
 			ud.removeLikedPost(user, post);
-			user=(User) s.getAttribute("user");
-			HashSet<Post> likedPosts = (HashSet<Post>) s.getAttribute("likedPosts");
-			likedPosts.remove(post);
-			user.removeLikedPost(post);
+			((HashSet<Post>) s.getAttribute("likedPosts")).remove(post);
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -101,8 +93,8 @@ public class LikeController2 {
 			User user = usd.getUserById(userId);
 			Post post = pd.getPost(postId, user);
 			ud.dislikePost(user, post);
-			user=(User) s.getAttribute("user");
-			//user.addLikedPost(post);
+			
+			
 			
 		} catch (SQLException e) {
 			e.printStackTrace();

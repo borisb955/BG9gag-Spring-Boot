@@ -26,7 +26,7 @@
 				<a href="/MyProject/dislikePost?postId=${  sessionScope.postPostPage.postId }&userId=${sessionScope.user.id }">Dislike</a>
 				<a href="/MyProject/undislikePost?postId=${  sessionScope.postPostPage.postId }&userId=${sessionScope.user.id }">Undislike</a>
 		</form>
-		<button id="likeButton" value="Like" style="background-color: green" onclick="handleLike()">Like</button>
+		<!--<button id="likeButton" value="Like" style="background-color: green" onclick="handleLike()">Like</button> -->
 		<p style="display: none;"><c:out value="${ sessionScope.postPostPage.postId }"></c:out></p>
 		<p style="display: none;"><c:out value="${ sessionScope.userPostPage.id }"></c:out></p>
 		<h3>Comments:</h3>

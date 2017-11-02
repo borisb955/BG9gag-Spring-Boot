@@ -297,8 +297,8 @@ public class UpvoteDao {
 	
 	public HashSet<Post> getLikedPosts(User user) throws SQLException{
 		Connection conn = db.getConn();
-		PreparedStatement ps = conn.prepareStatement("SELECT post_id, upvote_date FROM 9gag.upvotes "
-													+ "WHERE user_id = ?");
+		PreparedStatement ps = conn.prepareStatement("SELECT post_id FROM 9gag.upvotes "
+													+ "WHERE user_id = ? and type = 1;");
 		ps.setLong(1, user.getId());
 		ResultSet rs = ps.executeQuery();
 		rs.next();
@@ -306,31 +306,61 @@ public class UpvoteDao {
 		
 		HashSet<Post> likedPosts = new HashSet<>();
 		while(rs.next()) {
-			String ldt = rs.getDate("upvote_date").toString();
-			//
-			//Is there a point to add the user in the constructor?
 			likedPosts.add(pd.getPost(rs.getLong("post_id"), user));
 		}
 		return likedPosts;
 	}
 	public HashSet<Comment> getLikedComments(User user) throws SQLException{
 		Connection conn = db.getConn();
-		PreparedStatement ps = conn.prepareStatement("SELECT comment_id, upvote_date FROM 9gag.upvotes_comments "
-													+ "WHERE user_id = ?");
+		PreparedStatement ps = conn.prepareStatement("SELECT comment_id FROM 9gag.upvotes_comments "
+													+ "WHERE user_id = ? and type = 1;");
 		
 		ps.setLong(1, user.getId());
 		ResultSet rs = ps.executeQuery();
 		rs.next();
-		
-		
+	
 		HashSet<Comment> likedComments = new HashSet<>();
 		while(rs.next()) {
-			String ldt = rs.getDate("upvote_date").toString();
 			likedComments.add(cd.getCommentById(rs.getLong("comment_id"), user));
 		}
 		return likedComments;
 	}
 
+	public HashSet<Post> getDislikedPosts(User user) throws SQLException{
+		Connection conn = db.getConn();
+		PreparedStatement ps = conn.prepareStatement("SELECT post_id FROM 9gag.upvotes "
+													+ "WHERE user_id = ? and type = -1");
+		ps.setLong(1, user.getId());
+		ResultSet rs = ps.executeQuery();
+		rs.next();
+		
+		
+		HashSet<Post> likedPosts = new HashSet<>();
+		while(rs.next()) {
+			likedPosts.add(pd.getPost(rs.getLong("post_id"), user));
+		}
+		return likedPosts;
+	}
+	
+	public HashSet<Post> getDislikedComments(User user) throws SQLException{
+		Connection conn = db.getConn();
+		PreparedStatement ps = conn.prepareStatement("SELECT post_id, upvote_date FROM 9gag.upvotes_comments "
+													+ "WHERE user_id = ? and type = -1");
+		ps.setLong(1, user.getId());
+		ResultSet rs = ps.executeQuery();
+		rs.next();
+		
+		
+		HashSet<Post> likedPosts = new HashSet<>();
+		while(rs.next()) {
+			likedPosts.add(pd.getPost(rs.getLong("post_id"), user));
+		}
+		return likedPosts;
+	}
+	
 }
+
+
+
 
 //PostDao.getInstance().getPost(rs.getLong("post_id"), u), rs.getTimestamp("upvote_date").toLocalDateTime()
