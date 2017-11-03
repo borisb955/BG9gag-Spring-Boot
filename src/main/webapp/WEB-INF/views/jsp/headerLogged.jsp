@@ -11,11 +11,12 @@
 		#header{width: 98%; height: 26px; background: black; padding: 10px; text-align: left;}
 		#logo img{margin-top:-10px; height: 45px; widght: 45px; float: left; border:}
 		#loginReg{width: 180px; float: right; }
-		#buttonsHeader{float: left; padding-left: 25px;}
+		#buttonsHeader{float: left; padding-left: 25px;display: inline-flex;}
 		.header-links{color: gray; padding-left: 35px; text-decoration: none; font-weight: bold;}
 		.upload-button{background: blue; cursor: pointer; border: none; font-size: 16px;}
 		.button-links{color: white; text-decoration: none;}
 		.username{color: white}
+		.box{display: inline-flex;}
 		a:hover{color: white}
 		
 		
@@ -73,12 +74,16 @@
 			<a class="header-links" href="">Hot</a>
 			<a class="header-links" href="/MyProject/posts/fresh">Fresh</a>
 			<a class="header-links" href="/MyProject/posts/gifs">GIF</a>
+			<form action="/MyProject/posts/search" method="get">
+				<input type="text" placeholder="search..." name="search">
+				<input type="submit">
+			</form>
 		</div>
 		<div id="loginReg">
 		
 	<!-- <p class="username">Welcome <c:out value="${ sessionScope.user.username }"></c:out> -->	
 		
-			
+		<div class="box">
 			<div class="dropdown">
 			  <button class="dropbtn">Dropdown</button>
 				<div class="dropdown-content">
@@ -95,9 +100,9 @@
 			</div>
 
 			<form action="/MyProject/upload" method="get">
-	    		<input class="button-links" type="submit" value="+ Upload"/>
+	    		<input style="background-color: blue;" class="button-links" type="submit" value="+ Upload"/>
 	    	</form>
-
+		</div>
 	
 		</div>
 	</div>

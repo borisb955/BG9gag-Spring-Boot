@@ -2,6 +2,7 @@ package com.bg.controller;
 
 import java.sql.SQLException;
 import java.util.HashSet;
+import java.util.Iterator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -12,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.bg.model.Comment;
 import com.bg.model.Post;
 import com.bg.model.PostDao;
 import com.bg.model.UpvoteDao;
@@ -44,17 +46,20 @@ public class UserController {
 			if (!ud.emailExists(email)) {
 //				resp.getWriter().append("This email does not exist.");
 				System.out.println("nqma takav email");
-			} else if (ud.passwordMatch(email, pass)) {
+			} else if (!ud.passwordMatch(email, pass)) {
 //				resp.getWriter().append("Incorrect password.");
 				System.out.println("ne e sushtata parola");
 			} else {
+				System.out.println("VLIZAM");
+				User user = ud.getFullUserByEmail(email);
 				
-				User u = ud.getFullUserByEmail(email);
-				
-				s.setAttribute("user", u);
+				s.setAttribute("user", user);
 				s.setAttribute("logged", true);
-				s.setAttribute("likedPosts",upd.getLikedPosts(u));
-				s.setAttribute("likedComments", upd.getLikedComments(u));
+				s.setAttribute("likedPosts", upd.getLikedPosts(user));
+				s.setAttribute("likedComments", upd.getLikedComments(user));
+				s.setAttribute("dislikedPosts", upd.getDislikedPosts(user));
+				s.setAttribute("dislikedComments", upd.getDislikedComments(user));
+						
 				return "forward:/";
 			}
 		} catch (SQLException e) {

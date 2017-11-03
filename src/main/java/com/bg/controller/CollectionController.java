@@ -93,5 +93,19 @@ public class CollectionController {
 		
 		return "tagPosts";
 	}
+	
+	@RequestMapping(value="/search", method = RequestMethod.GET)
+	public String search(HttpServletRequest req, Model m) {
+		String searchedWord = req.getParameter("search");
+		
+		try {
+			ArrayList<Post> posts = pd.searchWordInDesc(searchedWord);
+			m.addAttribute("posts", posts);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return "searchByDesc";
+	}
 		
 }

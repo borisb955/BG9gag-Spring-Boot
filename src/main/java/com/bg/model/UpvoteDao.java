@@ -200,16 +200,7 @@ public class UpvoteDao {
 				ps.setInt(1, points);
 				ps.setLong(2, comment.getComment_id());
 				ps.executeUpdate();
-		}
-		
-		
-		
-		
-		
-		
-		
-		
-		
+		}	
 	}
 
 	
@@ -301,7 +292,6 @@ public class UpvoteDao {
 													+ "WHERE user_id = ? and type = 1;");
 		ps.setLong(1, user.getId());
 		ResultSet rs = ps.executeQuery();
-		rs.next();
 		
 		
 		HashSet<Post> likedPosts = new HashSet<>();
@@ -317,7 +307,6 @@ public class UpvoteDao {
 		
 		ps.setLong(1, user.getId());
 		ResultSet rs = ps.executeQuery();
-		rs.next();
 	
 		HashSet<Comment> likedComments = new HashSet<>();
 		while(rs.next()) {
@@ -332,7 +321,6 @@ public class UpvoteDao {
 													+ "WHERE user_id = ? and type = -1");
 		ps.setLong(1, user.getId());
 		ResultSet rs = ps.executeQuery();
-		rs.next();
 		
 		
 		HashSet<Post> likedPosts = new HashSet<>();
@@ -342,20 +330,18 @@ public class UpvoteDao {
 		return likedPosts;
 	}
 	
-	public HashSet<Post> getDislikedComments(User user) throws SQLException{
+	public HashSet<Comment> getDislikedComments(User user) throws SQLException{
 		Connection conn = db.getConn();
-		PreparedStatement ps = conn.prepareStatement("SELECT post_id, upvote_date FROM 9gag.upvotes_comments "
+		PreparedStatement ps = conn.prepareStatement("SELECT comment_id FROM 9gag.upvotes_comments "
 													+ "WHERE user_id = ? and type = -1");
 		ps.setLong(1, user.getId());
 		ResultSet rs = ps.executeQuery();
-		rs.next();
 		
-		
-		HashSet<Post> likedPosts = new HashSet<>();
+		HashSet<Comment> likedComments = new HashSet<>();
 		while(rs.next()) {
-			likedPosts.add(pd.getPost(rs.getLong("post_id"), user));
+			likedComments.add(cd.getCommentById(rs.getLong("comment_id"), user));
 		}
-		return likedPosts;
+		return likedComments;
 	}
 	
 }

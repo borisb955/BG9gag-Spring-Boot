@@ -11,7 +11,7 @@
 		#header{width: 98%; height: 26px; background: black; padding: 10px; text-align: left;}
 		#logo img{margin-top:-10px; height: 45px; widght: 45px; float: left; border:}
 		#loginReg{width: 140px; float: right; }
-		#buttonsHeader{float: left; padding-left: 25px;}
+		#buttonsHeader{float: left; padding-left: 25px; display: inline-flex;}
 		.header-links{color: gray; padding-left: 35px; text-decoration: none; font-weight: bold;}
 		a:hover{color: white}
 	</style>
@@ -25,13 +25,17 @@
 			<a class="header-links" href="">Hot</a>
 			<a class="header-links" href="/MyProject/posts/fresh">Fresh</a>
 			<a class="header-links" href="/MyProject/posts/gifs">GIF</a>
+			<form action="/MyProject/posts/search" method="get">
+				<input type="text" placeholder="search..." name="search">
+				<input type="submit">
+			</form>
 		</div>
 		<div id="loginReg">
+			
 
-			<form>
-				<button><a href="/MyProject/login">Log in</a></button>
-				<button><a href="/MyProject/register">Sign up</a></button>	
-			</form>
+			<button><a href="/MyProject/login">Log in</a></button>
+			<button><a href="/MyProject/register">Sign up</a></button>	
+
 		</div>
 	</div>
 	</body>

@@ -3,6 +3,7 @@ package com.bg.controller;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashSet;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -18,6 +19,9 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import com.bg.model.Comment;
+import com.bg.model.Post;
 import com.bg.model.Profile;
 import com.bg.model.ProfileDao;
 import com.bg.model.UpvoteDao;
@@ -118,15 +122,7 @@ public class SettingsController {
 		
 		s.removeAttribute("user");
 		s.setAttribute("user", user);
-		try {
-			s.setAttribute("likedPosts", upvoteDao.getLikedPosts(user));
-			s.setAttribute("likedComments", upvoteDao.getLikedComments(user));
-			s.setAttribute("dislikedPosts", upvoteDao.getDislikedPosts(user));
-			s.setAttribute("dislikedComments", upvoteDao.getDislikedComments(user));
-			//TODO
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+	
 		return "forward:/";
 	}
 	

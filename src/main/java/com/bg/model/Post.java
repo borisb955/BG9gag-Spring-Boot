@@ -65,5 +65,29 @@ public class Post{
 	public ArrayList<Comment> getComments() {
 		return comments;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (int) (postId ^ (postId >>> 32));
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Post other = (Post) obj;
+		if (postId != other.postId)
+			return false;
+		return true;
+	}
+
+	
 	
 }

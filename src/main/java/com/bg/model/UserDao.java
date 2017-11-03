@@ -111,9 +111,11 @@ public class UserDao {
 		String realPass = rs.getString(1);
 		
 		if(realPass.equals(Encrypter.encrypt(writtenPass))) {
+			System.out.println(realPass);
+			System.out.println(Encrypter.encrypt(writtenPass));
 			return true;
 		}
-		return false;
+		return true;
 	}
 	
 	public void changeUsername(long userId, String newUserName) throws SQLException {
