@@ -13,18 +13,21 @@ import com.bg.util.isValidEmail;
 import com.bg.util.isValidUsername;
 
 public class User {
+	public interface changeAccount{
+		// validation group marker interface
+	}
 	private long id;
 	@NotNull(message = "Please enter username")
-	@Size(min=4, message="username must be at least 4 characters")
-	@isValidUsername
+	@Size(min=4, message="username must be at least 4 characters", groups = {changeAccount.class})
+	@isValidUsername(groups = {changeAccount.class})
 	private String username;
 	@NotNull(message = "Please enter password")
 	@Size(min=5, message="password must be at least 5 characters")
 	@Pattern(regexp="^(?=.*[0-9])(?=.*[a-z])([a-z0-9_-]+)$",
 				message="password must contains at least 1 letter and number")
 	private String password;
-	@NotNull(message = "Please enter email")
-	@isValidEmail
+	@NotNull(message = "Please enter email", groups = {changeAccount.class})
+	@isValidEmail(groups = {changeAccount.class})
 	private String email;
 	private Profile profile;
 	private HashSet<Post> likedPosts;

@@ -23,7 +23,7 @@ public class UsernameValidator implements ConstraintValidator<isValidUsername, S
 	@Override
 	public boolean isValid(String username, ConstraintValidatorContext ctx) {
 		try {
-			if(ud.userExists(username)) {
+			if(ud.userExists(username) || username.trim().isEmpty()) {
 				return false;
 			}
 		} catch (SQLException e) {

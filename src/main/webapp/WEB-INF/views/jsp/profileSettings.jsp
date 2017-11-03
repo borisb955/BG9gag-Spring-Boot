@@ -1,12 +1,13 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
 <%@ taglib prefix="f" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-	<title>Insert title here</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Profile Settings</title>
 	<style type="text/css">
 		#container{width: 800px; margin: 40px auto 0 200px; position: relative; display: inline-flex; }
 		#leftContainer{ padding-left: 0px; background-color: red;}
@@ -20,23 +21,23 @@
 		<jsp:include page="sideBarSettings.jsp"></jsp:include>
 			
 			<div id="rightContainer">
-				<h1 class="rightContainerHeader">Profile</h1>
+				<h1 class="rightContainerHeader"><s:message code="Profile"></s:message></h1>
 				<f:errors class="errors" path="profile.*"/>
 				
 				<f:form commandName="profile" enctype="multipart/form-data">
-						<p>Upload Avatar</p>
+						<p><s:message code="upAvatar"></s:message></p>
 						<input type="file" name="failche">
 						
-						<p>Your Name</p>
+						<p><s:message code="yourName"></s:message></p>
 						<f:input path="fullName"/>
 						
-						<p>Gender</p>
+						<p><s:message code="Gender"></s:message></p>
 						<f:input path="gender"/>
 						
-						<p>Birthday</p>
+						<p><s:message code="Birthday"></s:message></p>
 						<f:input path="dateOfBirth"/>
 						
-						<p>Description</p>
+						<p><s:message code="Description"></s:message></p>
 						<f:input path="info"/>
 						
 						<input type="submit" value="Save Changes">

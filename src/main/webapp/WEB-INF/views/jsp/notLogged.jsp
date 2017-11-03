@@ -6,7 +6,7 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>9gag logged</title>
+	<title>9gag</title>
 	<style type="text/css">
 		#parent{  width: 900px; height: 20px;}
 		#child{width: 350px; float: right; }

@@ -12,6 +12,7 @@
 		</style>
 	</head>
 	<body>
+	<jsp:include page="headerNotLogged.jsp"></jsp:include>
 		
 		<f:form commandName="user">
 			<p>username</p>

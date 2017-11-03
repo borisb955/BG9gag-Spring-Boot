@@ -120,12 +120,12 @@ public class CollectionController {
 		}
 		
 		TreeSet<Post> sortedPosts = new TreeSet<>((p1, p2) -> {
-		       if (p1.getPoints() < p2.getPoints()) {
+		       if (p1.getPoints() > p2.getPoints()) {
 		            return -1;
 		        } else {
 		            return 1;
 		        } 
-		}) ;
+		});
 		
 		for (Post post : posts) {
 			sortedPosts.add(post);
