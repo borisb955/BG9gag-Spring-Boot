@@ -13,6 +13,7 @@
 		#rightContainer{ margin-left: 200px;}
 		.ulLeft{list-style-type: none; position: absolute;}
 		.rightContainerHeader{font-size: 260%;}
+		.errors{color: red;}
 	</style>
 </head>
 	<body>
@@ -20,9 +21,12 @@
 			
 			<div id="rightContainer">
 				<h1 class="rightContainerHeader">Profile</h1>
-				<f:errors path="profile.*"/>
+				<f:errors class="errors" path="profile.*"/>
 				
-				<f:form commandName="profile">
+				<f:form commandName="profile" enctype="multipart/form-data">
+						<p>Upload Avatar</p>
+						<input type="file" name="failche">
+						
 						<p>Your Name</p>
 						<f:input path="fullName"/>
 						

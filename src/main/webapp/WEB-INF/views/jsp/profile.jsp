@@ -11,7 +11,7 @@
 		#myHeader{height: 200px; width: 100%; background-color: #2d2d2d; margin-top:0px; display: block;}
 		.username{font-size: 200%;  text-align: center; color: white; margin: 10px;}
 		.funnyCollection{font-size: 110%; text-align: center; color: #b5b5b5; margin:-22px; margin:0;}
-		.img{width: 100px; height: 100px; display: block; margin: 0 auto;}
+		.img{width: 100px; height: 100px; display: block; margin: 0 630px; }
 		#navigation{border-bottom: 3px ridge; width: 100%; margin-top: 10px;}
 		.navButtons{display: inline-flex; margin-left: 70px; }
 	</style>
@@ -20,7 +20,7 @@
 		<jsp:include page="headerLogged.jsp"></jsp:include>
 		
 		<div id="myHeader">
-			<img class="img" src="avatar">
+			<img class="img" src="/MyProject/myProfile/avatar">
 			<p class="username"><c:out value="${ sessionScope.user.username }"></c:out></p>
 			<c:choose>
 			    <c:when test="${empty sessionScope.user.profile.info}">

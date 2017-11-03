@@ -10,12 +10,14 @@ import java.util.Random;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.swing.plaf.synth.SynthSpinnerUI;
 
 import org.apache.tika.mime.MimeType;
 import org.apache.tika.mime.MimeTypeException;
 import org.apache.tika.mime.MimeTypes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -47,20 +49,34 @@ public class PicController {
 
 	@RequestMapping(method=RequestMethod.POST)
 	public String zapishiSnimka(@RequestParam("failche") MultipartFile file, HttpServletRequest req,
-			 HttpSession s){
+			 HttpSession s, Model m){
 		if(Validator.notLogged(s)) {
 			return "forward:/";
 		}
 		
 		User u = (User) s.getAttribute("user");
 		String description = req.getParameter("description");
-	    String tag1 = req.getParameter("tag1");
-		String tag2 = req.getParameter("tag2");
-		String tag3 = req.getParameter("tag3");
+		String[] tags = req.getParameter("tags").split(" ");
 		String filePath =WebInitializer.LOCATION 
 						 +File.separator+ "users"
 						 +File.separator + u.getUsername()
 						 +File.separator + "postPics";
+		
+		System.out.println(tags);
+		
+		if(description == null || description.trim().isEmpty()) {
+			m.addAttribute("error", "You must write a description");
+			return "upload";
+		}
+		if(tags == null || req.getParameter("tags").trim().isEmpty()) {
+			m.addAttribute("error", "You must write at least one tag");
+			return "upload";
+		}
+		if(file.isEmpty()) {
+			m.addAttribute("error", "You must upload a pic");
+			return "upload";
+		}
+		
 		
 		try {
 
@@ -72,7 +88,6 @@ public class PicController {
 		    File folders = new File( filePath );
 		    folders.mkdirs();
 		    
-		    System.out.println(folders.getAbsolutePath());
 			
 		    //TODO: make posts names unique and remove random
 			File f = new File( filePath 
@@ -83,14 +98,6 @@ public class PicController {
 			file.transferTo(f);
 			
 		    Post post = new Post(description , f.getName() , LocalDateTime.now(), u);
-		    
-		    System.out.println("Absolute path -> " + f.getAbsolutePath());
-		    
-		    
-			ArrayList<String> tags = new ArrayList<>();
-			tags.add(tag1);
-			tags.add(tag2);
-			tags.add(tag3);
 			
 			pd.insertInTransaction(post, tags);
 		    

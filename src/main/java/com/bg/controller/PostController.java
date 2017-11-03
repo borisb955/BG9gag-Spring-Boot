@@ -113,7 +113,6 @@ public class PostController {
 				 		+File.separator + userName
 				 		+File.separator + "postPics"
 				 		+ File.separator + pictureUrl;
-		System.out.println(fullURL);
 
 		if (pictureUrl == null || pictureUrl.isEmpty()) {
 			pictureUrl = "D:/BG9gag/defaultPic.png";

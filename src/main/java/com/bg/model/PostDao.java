@@ -14,6 +14,8 @@ import java.util.TreeSet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.mysql.fabric.xmlrpc.base.Array;
+
 @Component
 public class PostDao {
 	@Autowired
@@ -138,7 +140,7 @@ public class PostDao {
 		return gifs;
 	}
 	
-	public void insertInTransaction(Post post, ArrayList<String> tags) throws SQLException {
+	public void insertInTransaction(Post post, String[] tags) throws SQLException {
 		Connection conn = db.getConn();
 		conn.setAutoCommit(false);
 		
@@ -148,8 +150,8 @@ public class PostDao {
 			insertPost(post);
 			
 			//inserting tags and posts-tags
-			for (String tag : tags) {
-				td.isertTagIfNew(tag, post);
+			for (int i = 0; i < tags.length; i++) {
+				td.isertTagIfNew(tags[i], post);
 			}
 			
 			conn.commit();

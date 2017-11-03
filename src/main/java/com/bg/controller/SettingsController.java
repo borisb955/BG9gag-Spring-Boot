@@ -1,12 +1,20 @@
 package com.bg.controller;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Random;
 
+import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +27,12 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.bg.model.Comment;
 import com.bg.model.Post;
+import com.bg.WebInitializer;
 import com.bg.model.Profile;
 import com.bg.model.ProfileDao;
 import com.bg.model.UpvoteDao;
@@ -34,6 +45,7 @@ import com.bg.util.Validator;
 @RequestMapping(value = "/settings")
 public class SettingsController {
 	
+
 	@Autowired
 	UpvoteDao upvoteDao;
 	
@@ -43,6 +55,7 @@ public class SettingsController {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyy");
 		binder.registerCustomEditor(Date.class, "dateOfBirth", new CustomDateEditor(sdf, false));
 	}
+
 	
 	@RequestMapping(value = "/account", method = RequestMethod.GET)
 	public String settings(Model m, HttpSession s) {
@@ -193,8 +206,9 @@ public class SettingsController {
 	@Autowired
 	ProfileDao profileDao;
 	@RequestMapping(value="/profile", method = RequestMethod.POST)
-	public String savePrSettings(@Valid @ModelAttribute("profile") Profile p, BindingResult result, 
-			HttpSession s) {
+	public String savePrSettings(@RequestParam("failche") MultipartFile file, 
+			@Valid @ModelAttribute("profile") Profile p, BindingResult result, 
+			HttpSession s, HttpServletRequest req) {
 		
 		if(Validator.notLogged(s)) {
 			return "forward:/";
@@ -205,6 +219,24 @@ public class SettingsController {
 		}
 		
 		User userSession = (User) s.getAttribute("user");
+		String filePath =WebInitializer.LOCATION 
+				 +File.separator+ "users"
+				 +File.separator + userSession.getUsername()
+				 +File.separator + "avatar";
+	    File folders = new File( filePath );
+	    folders.mkdirs();
+	    File f = new File(filePath
+	    					+File.separator + "avatar.jpg");
+	    if(!file.isEmpty()) {
+		    try {
+				file.transferTo(f);
+			} catch (IllegalStateException | IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+	    }
+
+		
 		
 		if(userSession.getProfile() == null) {
 			userSession.setProfile(p);
@@ -215,15 +247,16 @@ public class SettingsController {
 			}
 		}else {
 			try {
-				if(p.getAvatarUrl() != null && !p.getAvatarUrl().isEmpty()) {
-					profileDao.changeAvatar(p.getAvatarUrl(), userSession);
-					userSession.getProfile().setAvatarUrl(p.getAvatarUrl());
+
+				if(!file.isEmpty()) {
+					profileDao.changeAvatar("avatar.jpg", userSession);
+					userSession.getProfile().setAvatarUrl("avatar.jpg");
 				}
-				if(p.getFullName() != null && !p.getFullName().isEmpty()) {
+				if(p.getFullName() != null && !p.getFullName().trim().isEmpty()) {
 					profileDao.changeFullName(p.getFullName(), userSession);
 					userSession.getProfile().setFullName(p.getFullName());
 				}
-				if(p.getGender() != null && !p.getGender().isEmpty()) {
+				if(p.getGender() != null && !p.getGender().trim().isEmpty()) {
 					profileDao.changeGender(p.getGender(), userSession);
 					userSession.getProfile().setGender(p.getGender());
 				}
@@ -231,7 +264,7 @@ public class SettingsController {
 					profileDao.changeDateOfBirth(p.getDateOfBirth(), userSession);
 					userSession.getProfile().setDateOfBirth(p.getDateOfBirth());
 				}
-				if(p.getInfo() != null && !p.getInfo().isEmpty()) {
+				if(p.getInfo() != null && !p.getInfo().trim().isEmpty()) {
 					profileDao.changeInfo(p.getInfo(), userSession);
 					userSession.getProfile().setInfo(p.getInfo());
 				}
