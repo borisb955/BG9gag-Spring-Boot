@@ -10,6 +10,7 @@
 	<style type="text/css">
 		#rightContainer{ margin-left: 200px;}
 		.rightContainerHeader{font-size: 260%;}
+		.errors{color: red;}
 	</style>
 </head>
 	<body>
@@ -18,7 +19,7 @@
 			
 			<div id="rightContainer">
 				<h1 class="rightContainerHeader">Account</h1>
-				<f:errors path="user.*"/>
+				<f:errors calss="errors" path="user.*"/>
 				
 				<f:form commandName="user">
 					<p>change username</p>

@@ -27,7 +27,7 @@
 			<a class="header-links" href="/MyProject/posts/gifs">GIF</a>
 			<form action="/MyProject/posts/search" method="get">
 				<input type="text" placeholder="search..." name="search">
-				<input type="submit">
+				<input type="submit" value="search">
 			</form>
 		</div>
 		<div id="loginReg">

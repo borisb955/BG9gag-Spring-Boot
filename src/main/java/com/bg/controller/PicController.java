@@ -10,12 +10,14 @@ import java.util.Random;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.swing.plaf.synth.SynthSpinnerUI;
 
 import org.apache.tika.mime.MimeType;
 import org.apache.tika.mime.MimeTypeException;
 import org.apache.tika.mime.MimeTypes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -47,7 +49,7 @@ public class PicController {
 
 	@RequestMapping(method=RequestMethod.POST)
 	public String zapishiSnimka(@RequestParam("failche") MultipartFile file, HttpServletRequest req,
-			 HttpSession s){
+			 HttpSession s, Model m){
 		if(Validator.notLogged(s)) {
 			return "forward:/";
 		}
@@ -62,6 +64,16 @@ public class PicController {
 						 +File.separator + u.getUsername()
 						 +File.separator + "postPics";
 		
+		if(description != null && description.trim().isEmpty()) {
+			System.out.println("vlizam");
+			System.out.println("vlizam");
+			System.out.println("vlizam");
+			m.addAttribute("error", "You must select a file");
+			return "upload";
+		}
+		
+		System.out.println(file.getName());
+		
 		try {
 
 			MimeTypes allTypes = MimeTypes.getDefaultMimeTypes();
@@ -72,7 +84,6 @@ public class PicController {
 		    File folders = new File( filePath );
 		    folders.mkdirs();
 		    
-		    System.out.println(folders.getAbsolutePath());
 			
 		    //TODO: make posts names unique and remove random
 			File f = new File( filePath 

@@ -23,9 +23,14 @@ public class ProfileDao {
 		Connection conn = db.getConn();
 		PreparedStatement ps = conn.prepareStatement("INSERT INTO 9gag.profiles(avatar_url, full_name, gender, "
 				+ "date_of_birth, info ) VALUES (?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
-		
+		if(p.getDateOfBirth() != null) {
+			
+		}
 		java.util.Date utilDate = p.getDateOfBirth();
-		java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+		java.sql.Date sqlDate = null;
+		if(utilDate != null) {
+			sqlDate = new java.sql.Date(utilDate.getTime());
+		}
 		ps.setString(1, p.getAvatarUrl());
 		ps.setString(2, p.getFullName());
 		ps.setString(3, p.getGender());

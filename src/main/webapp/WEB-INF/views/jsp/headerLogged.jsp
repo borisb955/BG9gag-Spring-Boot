@@ -11,7 +11,7 @@
 		#header{width: 98%; height: 26px; background: black; padding: 10px; text-align: left;}
 		#logo img{margin-top:-10px; height: 45px; widght: 45px; float: left; border:}
 		#loginReg{width: 180px; float: right; }
-		#buttonsHeader{float: left; padding-left: 25px;}
+		#buttonsHeader{float: left; padding-left: 25px;display: inline-flex;}
 		.header-links{color: gray; padding-left: 35px; text-decoration: none; font-weight: bold;}
 		.upload-button{background: blue; cursor: pointer; border: none; font-size: 16px;}
 		.button-links{color: white; text-decoration: none;}
@@ -75,7 +75,7 @@
 			<a class="header-links" href="/MyProject/posts/gifs">GIF</a>
 			<form action="/MyProject/posts/search" method="get">
 				<input type="text" placeholder="search..." name="search">
-				<input type="submit">
+				<input type="submit" value="search">
 			</form>
 		</div>
 		<div id="loginReg">

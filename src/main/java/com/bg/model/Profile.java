@@ -3,15 +3,20 @@ package com.bg.model;
 import java.util.Date;
 
 import javax.validation.constraints.Past;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 public class Profile {
 	private long profileId;
 	private String avatarUrl;
+	@Pattern(regexp="^[a-zA-Z]+$", message="Your name must contains only letters")
 	private String fullName;
-	@Size(max=10, message = "gendet can't be more than {max} characters")
+	@Size(max=10, message = "gender can't be more than {max} characters")
 	private String gender;
-	@Past
+	@Past(message = "You have entered a date in the future ...")
+	@DateTimeFormat(pattern="dd/MM/yyyy")
 	private Date dateOfBirth;
 	@Size(max=50, message ="Please enter a brief description shorter than {max} characters")
 	private String info;

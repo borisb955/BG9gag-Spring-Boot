@@ -10,6 +10,7 @@
 	<body>
 		<jsp:include page="headerLogged.jsp"></jsp:include>
 		
+		<c:out value="${ error }"></c:out>
 		<form action="upload" method="post" enctype="multipart/form-data">
 			<!-- TODO: Style this -->
 			<br>
