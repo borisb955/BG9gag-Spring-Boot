@@ -107,5 +107,32 @@ public class CollectionController {
 		
 		return "searchByDesc";
 	}
+	
+	@RequestMapping(value = "hot", method = RequestMethod.GET)
+	public String hot(Model m) {
 		
+		HashSet<Post> posts = null;
+		try {
+			posts = pd.getAllPosts();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		TreeSet<Post> sortedPosts = new TreeSet<>((p1, p2) -> {
+		       if (p1.getPoints() < p2.getPoints()) {
+		            return -1;
+		        } else {
+		            return 1;
+		        } 
+		}) ;
+		
+		for (Post post : posts) {
+			sortedPosts.add(post);
+		}
+		
+		m.addAttribute("posts", sortedPosts);
+		
+		return "hotPosts";
+	}
 }
