@@ -56,23 +56,27 @@ public class PicController {
 		
 		User u = (User) s.getAttribute("user");
 		String description = req.getParameter("description");
-	    String tag1 = req.getParameter("tag1");
-		String tag2 = req.getParameter("tag2");
-		String tag3 = req.getParameter("tag3");
+		String[] tags = req.getParameter("tags").split(" ");
 		String filePath =WebInitializer.LOCATION 
 						 +File.separator+ "users"
 						 +File.separator + u.getUsername()
 						 +File.separator + "postPics";
 		
-		if(description != null && description.trim().isEmpty()) {
-			System.out.println("vlizam");
-			System.out.println("vlizam");
-			System.out.println("vlizam");
-			m.addAttribute("error", "You must select a file");
+		System.out.println(tags);
+		
+		if(description == null || description.trim().isEmpty()) {
+			m.addAttribute("error", "You must write a description");
+			return "upload";
+		}
+		if(tags == null || req.getParameter("tags").trim().isEmpty()) {
+			m.addAttribute("error", "You must write at least one tag");
+			return "upload";
+		}
+		if(file.isEmpty()) {
+			m.addAttribute("error", "You must upload a pic");
 			return "upload";
 		}
 		
-		System.out.println(file.getName());
 		
 		try {
 
@@ -94,14 +98,6 @@ public class PicController {
 			file.transferTo(f);
 			
 		    Post post = new Post(description , f.getName() , LocalDateTime.now(), u);
-		    
-		    System.out.println("Absolute path -> " + f.getAbsolutePath());
-		    
-		    
-			ArrayList<String> tags = new ArrayList<>();
-			tags.add(tag1);
-			tags.add(tag2);
-			tags.add(tag3);
 			
 			pd.insertInTransaction(post, tags);
 		    
