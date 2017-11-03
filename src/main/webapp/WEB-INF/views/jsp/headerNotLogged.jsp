@@ -22,7 +22,7 @@
 			<a href="/MyProject"><img src="https://upload.wikimedia.org/wikipedia/commons/9/97/9GAG_new_logo.svg" ></a>
 		</div>
 		<div id="buttonsHeader">
-			<a class="header-links" href="">Hot</a>
+			<a class="header-links" href="/MyProject/posts/hot">Hot</a>
 			<a class="header-links" href="/MyProject/posts/fresh">Fresh</a>
 			<a class="header-links" href="/MyProject/posts/gifs">GIF</a>
 			<form action="/MyProject/posts/search" method="get">
