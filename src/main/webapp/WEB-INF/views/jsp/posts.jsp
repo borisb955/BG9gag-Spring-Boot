@@ -41,11 +41,35 @@
 						<p>user: <c:out value="${ post.user.username }"></c:out></p>
 						<p><c:out value="${ post.dateTime }"></c:out></p>
 					</div>
+					
+					
 					<a href="/MyProject/postWithComments/postId=${ post.postId }/userId=${post.user.id}">Comments</a>
-					<a href="/MyProject/likePost?postId=${ post.postId }&userId=${sessionScope.user.id}">Like</a>
-					<a href="/MyProject/unlikePost?postId=${ post.postId }&userId=${sessionScope.user.id}">Unlike</a>
-					<a href="/MyProject/dislikePost?postId=${ post.postId }&userId=${sessionScope.user.id }">Dislike</a>
-					<a href="/MyProject/undislikePost?postId=${ post.postId }&userId=${sessionScope.user.id }">Undislike</a>
+					
+		<c:set var="isLiked" value="false" />
+		<c:set var="isDisliked" value="false" />
+		<c:forEach var="postLiked" items="${sessionScope.likedPosts}">
+		<c:if test="${postLiked.postId eq post.postId }">
+			<c:set var="isLiked" value="true" />
+		</c:if>
+		</c:forEach>
+		<c:forEach var="postDisliked" items="${sessionScope.dislikedPosts}">
+		<c:if test="${postDisliked.postId eq post.postId }">
+			<c:set var="isDisliked" value="true" />
+		</c:if>
+		</c:forEach>
+		
+		<c:if test="${isLiked}">
+		<a href="/MyProject/unlikePost?postId=${  post.postId }&userId=${sessionScope.user.id}">Unlike</a>
+		</c:if>
+		<c:if test="${!isLiked}">
+		<a href="/MyProject/likePost?postId=${ post.postId }&userId=${sessionScope.user.id}">Like</a>
+		</c:if>
+		<c:if test="${isDisliked}">
+		<a href="/MyProject/undislikePost?postId=${  post.postId }&userId=${sessionScope.user.id }">Undislike</a>
+		</c:if>
+		<c:if test="${!isDisliked}">
+			<a href="/MyProject/dislikePost?postId=${  post.postId }&userId=${sessionScope.user.id }">Dislike</a>
+		</c:if>
 				<br>
 				<br>
 				</c:forEach>
