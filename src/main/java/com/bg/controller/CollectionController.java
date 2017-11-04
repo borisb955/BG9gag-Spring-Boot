@@ -77,6 +77,22 @@ public class CollectionController {
 		return "gifs";
 	}
 	
+	@RequestMapping(value = "/video", method = RequestMethod.GET)
+	public String video(Model m) {
+		
+		ArrayList<Post> videos = new ArrayList<>();
+		
+		try {
+			videos = pd.getAllVideos();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		m.addAttribute("posts", videos);
+		
+		return "videos";
+	}
+	
 	@RequestMapping(value = "/tag/tagName={tagName}", method = RequestMethod.GET)
 	public String tag(Model m, HttpServletRequest req, 
 			@PathVariable("tagName") String tagName) {

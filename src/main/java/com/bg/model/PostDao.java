@@ -194,4 +194,26 @@ public class PostDao {
 		}
 		return posts;
 	}
+	
+	public ArrayList<Post> getAllVideos() throws SQLException {
+		Connection conn = db.getConn();
+		PreparedStatement ps = conn.prepareStatement("SELECT * "
+												   + "FROM 9gag.posts "
+												   + "WHERE is_video "
+												   + "IS true");
+		ResultSet rs = ps.executeQuery();
+		
+		ArrayList<Post> videos = new ArrayList<>();
+		while(rs.next()) {
+			videos.add(new Post(rs.getLong("post_id"), 
+							  rs.getString("description"), 
+							  rs.getString("post_url"), 
+							  rs.getInt("points"), 
+							  rs.getTimestamp("upload_date").toLocalDateTime(), 
+							  rs.getBoolean("is_video"),
+							  ud.getUserById(rs.getLong("user_id")),
+							  ptd.getTagsForPost(rs.getLong("post_id")), null));
+		}
+		return videos;
+	}
 }

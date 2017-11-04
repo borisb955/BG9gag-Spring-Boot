@@ -31,7 +31,7 @@ import com.bg.util.Validator;
 @Component
 @MultipartConfig
 @RequestMapping(value = "upload")
-public class PicController {
+public class UploadController {
 	@Autowired
 	PostDao pd;
 	
@@ -43,7 +43,6 @@ public class PicController {
 		return "upload";
 	}
 	
-
 	@RequestMapping(method=RequestMethod.POST)
 	public String zapishiSnimka(@RequestParam("failche") MultipartFile file, HttpServletRequest req,
 			 HttpSession s, Model m){
@@ -59,8 +58,6 @@ public class PicController {
 						 +File.separator + u.getUsername()
 						 +File.separator + "postPics";
 		
-		System.out.println(tags);
-		
 		if(description == null || description.trim().isEmpty()) {
 			m.addAttribute("error", "You must write a description");
 			return "upload";
@@ -70,10 +67,9 @@ public class PicController {
 			return "upload";
 		}
 		if(file.isEmpty()) {
-			m.addAttribute("error", "You must upload a pic");
+			m.addAttribute("error", "You must upload a pic or video");
 			return "upload";
 		}
-		
 		
 		try {
 
@@ -81,6 +77,19 @@ public class PicController {
 			MimeType type = allTypes.forName(file.getContentType());
 			String ext = type.getExtension(); // .whatever
 			
+			String[] allowedExt = new String[] {".mp4", ".jpg", "jpeg", ".png", ".bmp", ".gif", ".tiff" };
+			boolean isAllowed = false;
+			
+			for (String string : allowedExt) {
+				if(ext.contains(string)) {
+					isAllowed = true;
+				}
+			}
+			
+			if(!isAllowed) {
+				m.addAttribute("error", "You must upload a pic or video from one of the given extensions");
+				return "upload";
+			}
 
 		    File folders = new File( filePath );
 		    folders.mkdirs();
@@ -113,7 +122,6 @@ public class PicController {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
 		
 		return "upload";
 	}
