@@ -23,6 +23,7 @@ import com.bg.WebInitializer;
 import com.bg.model.CommentDao;
 import com.bg.model.Post;
 import com.bg.model.PostDao;
+import com.bg.model.UpvoteDao;
 import com.bg.model.User;
 import com.bg.util.Validator;
 
@@ -33,6 +34,8 @@ public class ProfileController {
 	PostDao pd;
 	@Autowired
 	CommentDao cd;
+	@Autowired
+	UpvoteDao uvd;
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public String myProfile(HttpSession s, Model m) {
@@ -74,6 +77,27 @@ public class ProfileController {
 		HashSet<Post> posts = null;
 		try {
 			posts = cd.getCommentedPostsByUser(u);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		m.addAttribute("posts", posts);
+		
+		return "myCommentedPosts";
+	}
+	
+	@RequestMapping(value ="/myLikedPosts", method = RequestMethod.GET)
+	public String myLikes(HttpSession s, Model m) {
+		if(Validator.notLogged(s)) {
+			return "forward:/";
+		}
+		
+		User u = (User) s.getAttribute("user");
+		
+		HashSet<Post> posts = null;
+		try {
+			posts = uvd.getLikedPosts(u);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

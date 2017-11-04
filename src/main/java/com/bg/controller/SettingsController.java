@@ -22,6 +22,7 @@ import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -38,6 +39,7 @@ import com.bg.model.ProfileDao;
 import com.bg.model.UpvoteDao;
 import com.bg.model.User;
 import com.bg.model.UserDao;
+import com.bg.model.User.changeAccount;
 import com.bg.util.Validator;
 
 
@@ -77,12 +79,15 @@ public class SettingsController {
 	UserDao ud;
 	
 	@RequestMapping(value = "/account", method = RequestMethod.POST)
-	public String saveSettings(@Valid @ModelAttribute("user") User user, BindingResult result, HttpSession s) {
+	public String saveSettings(@Validated({changeAccount.class}) @ModelAttribute("user") User user, BindingResult result, HttpSession s) {
 
-		
+		System.out.println(user.getEmail());
+		System.out.println(user.getEmail());
+		System.out.println(user.getEmail());
 		if(Validator.notLogged(s)) {
 			return "forward:/";
 		}
+		
 		
 		if(result.hasErrors()) {
 			return "accountSettings";
@@ -162,12 +167,12 @@ public class SettingsController {
 		
 		if(!password1.equals(password2)) {
 			m.addAttribute("error", "passwords mismatch");
-			return "passwordError";
+			return "passwordSettings";
 		}
 		if(password1.length() < 5 || !password1.matches(".*[A-Za-z].*") || !password1.matches(".*[1-9].*")) {
 			m.addAttribute("error", "passwords must be at least 5 characters and must contain at least 1 number"
 					+ " and a letter");
-			return "passwordError";
+			return "passwordSettings";
 		}
 		
 
@@ -275,6 +280,10 @@ public class SettingsController {
 		
 		s.removeAttribute("user");
 		s.setAttribute("user", userSession);
-		return "forward:/";
+		System.out.println("i");
+		System.out.println("i");
+		System.out.println("i");
+		System.out.println("i");
+		return "redirect:profile";
 	}
 }

@@ -11,7 +11,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class Profile {
 	private long profileId;
 	private String avatarUrl;
-	@Pattern(regexp="^[a-zA-Z]+$", message="Your name must contains only letters")
+	@Pattern(regexp="^[\\p{L} .'-]+$", message="Your name must contains only letters")
 	private String fullName;
 	@Size(max=10, message = "gender can't be more than {max} characters")
 	private String gender;

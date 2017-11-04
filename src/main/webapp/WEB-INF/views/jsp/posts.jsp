@@ -1,11 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
 <%@ taglib prefix="f" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>Posts</title>
 	<style type="text/css">
 		#parent{  width: 900px; height: 20px;}
@@ -37,8 +38,8 @@
 					</div>
 					<br>
 					<div id="namePoints">
-						<p class="points">points:<span id=${ post.postId}><c:out value="${ post.points }"></span></c:out></p>
-						<p>user: <c:out value="${ post.user.username }"></c:out></p>
+						<p class="points"><s:message code="points"></s:message><span id=${ post.postId}><c:out value="${ post.points }"></span></c:out></p>
+						<p><s:message code="user"></s:message><c:out value="${ post.user.username }"></c:out></p>
 						<p><c:out value="${ post.dateTime }"></c:out></p>
 					</div>
 										

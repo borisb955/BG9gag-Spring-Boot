@@ -1,10 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>Insert title here</title>
 	<style>
 		body{background: white; margin: 0px;}
@@ -21,11 +22,13 @@
 		
 		
 			/* Dropdown Button */
-		.dropbtn {
+		.dropimg {
 		    background-color: white;
 		    color: black;
 		    font-size: 16px;
 		    border: none;
+		    width: 30px;
+		    height: 30px;
 		    cursor: pointer;
 		}
 		
@@ -71,36 +74,38 @@
 			<a href="/MyProject"><img src="https://upload.wikimedia.org/wikipedia/commons/9/97/9GAG_new_logo.svg" ></a>
 		</div>
 		<div id="buttonsHeader">
-			<a class="header-links" href="">Hot</a>
-			<a class="header-links" href="/MyProject/posts/fresh">Fresh</a>
+			<a class="header-links" href="/MyProject/posts/hot"><s:message code="hot"></s:message></a>
+			<a class="header-links" href="/MyProject/posts/fresh"><s:message code="fresh"></s:message></a>
 			<a class="header-links" href="/MyProject/posts/gifs">GIF</a>
 			<form action="/MyProject/posts/search" method="get">
-				<input type="text" placeholder="search..." name="search">
-				<input type="submit" value="search">
+				<input type="text" placeholder="<s:message code="search..."></s:message>" name="search">
+				<input type="submit" value="<s:message code="search"></s:message>">
 			</form>
 		</div>
-		<div id="loginReg">
 		
-	<!-- <p class="username">Welcome <c:out value="${ sessionScope.user.username }"></c:out> -->	
+		<a href="?language=bg">Български</a>
+		<a href="?language=en">English</a>	
+		
+		<div id="loginReg">
 		
 		<div class="box">
 			<div class="dropdown">
-			  <button class="dropbtn">Dropdown</button>
+			  <img class="dropimg" src="/MyProject/myProfile/avatar">
 				<div class="dropdown-content">
 					<form action="/MyProject/myProfile" method="get">
-						<input type="submit" value="My Profile"/>
+						<input type="submit" value="<s:message code="myProfile"></s:message>"/>
 					</form>
 			    	<form action="/MyProject/settings/account" method="get">
-			    		<input type="submit" value="Settings"/>
+			    		<input type="submit" value="<s:message code="settings"></s:message>"/>
 			    	</form>
 			    	<form action="/MyProject/logout" method="post">
-			    		<input type="submit" value="Logout"/>
+			    		<input type="submit" value="<s:message code="logout"></s:message>"/>
 			    	</form>
 				</div>
 			</div>
 
 			<form action="/MyProject/upload" method="get">
-	    		<input style="background-color: blue;" class="button-links" type="submit" value="+ Upload"/>
+	    		<input style="background-color: blue;" class="button-links" type="submit" value="+ <s:message code="upload"></s:message>"/>
 	    	</form>
 		</div>
 	

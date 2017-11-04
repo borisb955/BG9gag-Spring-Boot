@@ -115,7 +115,7 @@ public class UserDao {
 			System.out.println(Encrypter.encrypt(writtenPass));
 			return true;
 		}
-		return true;
+		return false;
 	}
 	
 	public void changeUsername(long userId, String newUserName) throws SQLException {
