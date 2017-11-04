@@ -37,11 +37,92 @@
 					</div>
 					<br>
 					<div id="namePoints">
-						<p class="points">points: <c:out value="${ post.points }"></c:out></p>
+						<p class="points">points:<span id=${ post.postId}><c:out value="${ post.points }"></span></c:out></p>
 						<p>user: <c:out value="${ post.user.username }"></c:out></p>
 						<p><c:out value="${ post.dateTime }"></c:out></p>
 					</div>
-					
+										
+						<script type="text/javascript">
+								function handleLike(postId){
+									let button = document.getElementById("likeButton"+postId);
+									if(button.innerHTML=="Like"){
+										likePost(postId);
+									}else if(button.innerHTML=="Unlike"){					
+										unlikePost(postId);
+									}								
+								}
+								function handleDislike(postId){
+									let button = document.getElementById("dislikeButton"+postId);
+									if(button.innerHTML=="Dislike"){
+										dislikePost(postId);
+									}else if(button.innerHTML="Undislike"){
+										undislikePost(postId);
+									}
+								}
+								function likePost(postId) {
+										let request =new XMLHttpRequest();
+										request.onreadystatechange = function() {			
+											if(this.readyState == 4 && this.status == 200){
+												let button = document.getElementById("likeButton"+postId);
+												button.innerHTML="Unlike";
+												button.style.backgroundColor  = "red";
+												document.getElementById(""+postId).innerHTML=request.responseText;
+												let button2 = document.getElementById("dislikeButton"+postId);
+												if(button2.innerHTML=="Undislike"){
+													button2.innerHTML="Dislike";
+													button2.style.backgroundColor = "red";
+												}
+											}									
+										}
+										request.open("post","/MyProject/likePost?postId="+postId,true);
+										request.send();				
+								}
+										  function unlikePost(postId) {
+												let request =new XMLHttpRequest();	
+												request.onreadystatechange = function() {
+													if(this.readyState == 4 && this.status == 200){
+														let button = document.getElementById("likeButton"+postId);
+														button.innerHTML="Like";
+														button.style.backgroundColor = "green";
+														document.getElementById(""+postId).innerHTML=request.responseText;
+													}												
+												}
+												request.open("post","/MyProject/unlikePost?postId="+postId,true);
+												request.send();
+												}
+										  
+										  function dislikePost(postId) {
+												let request =new XMLHttpRequest();	
+												request.onreadystatechange = function() {
+													if(this.readyState == 4 && this.status == 200){
+														let button = document.getElementById("dislikeButton"+postId);
+														button.innerHTML="Undislike";
+														button.style.backgroundColor  = "green";
+														document.getElementById(""+postId).innerHTML=request.responseText;
+														let button2 = document.getElementById("likeButton"+postId);
+														if(button2.innerHTML=="Unlike"){
+															button2.innerHTML="Like";
+															button2.style.backgroundColor = "green";
+														}
+													}												
+												}
+												request.open("post","/MyProject/dislikePost?postId="+postId,true);
+												request.send();
+												}
+										  function undislikePost(postId) {
+												let request =new XMLHttpRequest();	
+												request.onreadystatechange = function() {
+													if(this.readyState == 4 && this.status == 200){
+														let button = document.getElementById("dislikeButton"+postId);
+														button.innerHTML="Dislike";
+														button.style.backgroundColor  = "red";
+														document.getElementById(""+postId).innerHTML=request.responseText;
+													}												
+												}
+												request.open("post","/MyProject/undislikePost?postId="+postId,true);
+												request.send();
+												}						
+							</script>
 					
 					<a href="/MyProject/postWithComments/postId=${ post.postId }/userId=${post.user.id}">Comments</a>
 					
@@ -59,16 +140,20 @@
 		</c:forEach>
 		
 		<c:if test="${isLiked}">
-		<a href="/MyProject/unlikePost?postId=${  post.postId }&userId=${sessionScope.user.id}">Unlike</a>
+		<button id="likeButton${post.postId}"  style="background-color: green" onclick="handleLike(${post.postId})">Unlike</button>
+		<!--<a href="/MyProject/unlikePost?postId=${  post.postId }&userId=${sessionScope.user.id}">Unlike</a>-->
 		</c:if>
 		<c:if test="${!isLiked}">
-		<a href="/MyProject/likePost?postId=${ post.postId }&userId=${sessionScope.user.id}">Like</a>
+		<button id="likeButton${post.postId}" style="background-color: green" onclick="handleLike(${post.postId})">Like</button>
+		<!--  <a href="/MyProject/likePost?postId=${ post.postId }&userId=${sessionScope.user.id}">Like</a>-->
 		</c:if>
 		<c:if test="${isDisliked}">
-		<a href="/MyProject/undislikePost?postId=${  post.postId }&userId=${sessionScope.user.id }">Undislike</a>
+		<button id="dislikeButton${post.postId}"  style="background-color: green" onclick="handleDislike(${post.postId})">Undislike</button>
+		<!--<a href="/MyProject/undislikePost?postId=${  post.postId }&userId=${sessionScope.user.id }">Undislike</a>-->
 		</c:if>
 		<c:if test="${!isDisliked}">
-			<a href="/MyProject/dislikePost?postId=${  post.postId }&userId=${sessionScope.user.id }">Dislike</a>
+		<button id="dislikeButton${post.postId}" style="background-color: red" onclick="handleDislike(${post.postId})">Dislike</button>
+			<!--<a href="/MyProject/dislikePost?postId=${  post.postId }&userId=${sessionScope.user.id }">Dislike</a>-->
 		</c:if>
 				<br>
 				<br>
