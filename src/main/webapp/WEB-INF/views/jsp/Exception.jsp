@@ -19,4 +19,6 @@
 		<body>
 			<h1>Exception occurred </h1>
 		</body>
+		
+		<c:out value="${ error }"></c:out>
 	</html>

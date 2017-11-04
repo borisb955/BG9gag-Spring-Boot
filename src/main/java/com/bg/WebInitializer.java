@@ -33,7 +33,6 @@ public class WebInitializer extends AbstractAnnotationConfigDispatcherServletIni
 		return multipartConfigElement;
 	}
 
-//    public static final String LOCATION = "/Users/PC/Dekstop/9gag"; -> [C:\Users\PC\Workspace3\.metadata\.plugins\org.eclipse.wst.server.core\tmp2\work\Catalina\localhost\MyProject\Users\PC\Dekstop\9gag]
     public static final String LOCATION = "D:\\BG9gag"; // Temporary location where files will be stored
  
     private static final long MAX_FILE_SIZE = 5242880; // 5MB : Max file size.

@@ -8,21 +8,24 @@ public class Post{
 	private String description;
 	private String postUrl;
 	private int points;
+	private boolean isVideo;
 	private LocalDateTime dateTime;
 	private User user;
 	private ArrayList<Tag> tags;
 	private ArrayList<Comment> comments;
 	
-	public Post(String text, String postUrl, LocalDateTime dateTime, User user) {
+	public Post(String text, String postUrl, LocalDateTime dateTime, Boolean isVideo ,User user) {
 		this.description = text;
 		this.postUrl = postUrl;
 		this.dateTime = dateTime;
+		this.isVideo = isVideo;
 		this.user = user;
 		this.points = 0;
 	}
 
-	public Post(long postId, String text, String postUrl, int points, LocalDateTime dateTime, User user, ArrayList<Tag> tags, ArrayList<Comment> comments) {
-		this(text, postUrl, dateTime, user);
+	public Post(long postId, String text, String postUrl, int points, LocalDateTime dateTime, 
+			boolean isVideo, User user, ArrayList<Tag> tags, ArrayList<Comment> comments) {
+		this(text, postUrl, dateTime, isVideo, user);
 		this.postId = postId;
 		this.points = points;
 		this.tags = tags;
@@ -57,6 +60,10 @@ public class Post{
 	
 	public int getPoints() {
 		return points;
+	}
+	
+	public boolean isVideo() {
+		return isVideo;
 	}
 	
 	public ArrayList<Tag> getTags() {

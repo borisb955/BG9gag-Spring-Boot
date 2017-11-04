@@ -4,13 +4,11 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Random;
 
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.swing.plaf.synth.SynthSpinnerUI;
 
 import org.apache.tika.mime.MimeType;
 import org.apache.tika.mime.MimeTypeException;
@@ -23,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.bg.SpringWebConfig;
 import com.bg.WebInitializer;
 import com.bg.model.Post;
 import com.bg.model.PostDao;
@@ -97,7 +94,13 @@ public class PicController {
 			
 			file.transferTo(f);
 			
-		    Post post = new Post(description , f.getName() , LocalDateTime.now(), u);
+			boolean isVideo = false;
+			
+			if(ext.contains(".mp4")) {
+				isVideo = true;
+			}
+			
+		    Post post = new Post(description , f.getName() , LocalDateTime.now(), isVideo, u);
 			
 			pd.insertInTransaction(post, tags);
 		    

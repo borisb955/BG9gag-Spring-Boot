@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
 <%@ taglib prefix="f" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -13,6 +14,7 @@
 		#child{width: 350px; float: right; }
 		#namePoints{background-color: red; display: inline-flex; margin-top: 0px; padding-top: 0px; margin-right: 5px; }
 		.points{margin-right: 5px;}
+		.video{width: 100%; height: auto;}
 		#tags{display: inline-flex;}
 		h1{
 		text-align:center;
@@ -26,8 +28,19 @@
 				<c:forEach items="${ posts }" var="post">
 					<div>
 						<h1><c:out value="${ post.description }">no description</c:out></h1><br>
-						<img src="/MyProject/postpic?pictureUrl=${post.postUrl}&userName=${post.user.username}" width="100%" height="auto">					
-						</div>
+						
+						<c:choose>
+						  <c:when test="${post.video}">
+						    <video class="video" controls>
+							  <source src="/MyProject/postpic?pictureUrl=${post.postUrl}&userName=${post.user.username}" type="video/mp4">
+							</video>
+						  </c:when>
+						  <c:otherwise>
+						  	<img src="/MyProject/postpic?pictureUrl=${post.postUrl}&userName=${post.user.username}" width="100%" height="auto">
+						  </c:otherwise>
+						</c:choose>
+						
+					</div>
 		
 					<div id="tags">
 						<c:forEach items="${post.tags}" var="tag">

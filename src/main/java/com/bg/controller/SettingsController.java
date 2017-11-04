@@ -81,9 +81,7 @@ public class SettingsController {
 	@RequestMapping(value = "/account", method = RequestMethod.POST)
 	public String saveSettings(@Validated({changeAccount.class}) @ModelAttribute("user") User user, BindingResult result, HttpSession s) {
 
-		System.out.println(user.getEmail());
-		System.out.println(user.getEmail());
-		System.out.println(user.getEmail());
+
 		if(Validator.notLogged(s)) {
 			return "forward:/";
 		}

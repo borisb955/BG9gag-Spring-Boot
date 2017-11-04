@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,8 +37,7 @@ public class PostTagDao {
 	public ArrayList<Post> getAllPostsForTag(Tag tag) throws SQLException {
 		Connection conn = db.getConn();
 		//tags <-> posts_tags <-> posts
-		PreparedStatement ps = conn.prepareStatement("SELECT p.post_id, p.description, p.post_url, p.points,"
-												+ " p.upload_date, p.user_id "
+		PreparedStatement ps = conn.prepareStatement("SELECT p.*"
 												+ "FROM 9gag.tags as t "
 												+ "JOIN 9gag.posts_tags as pt "
 												+ "ON t.tag_id = pt.tag_id "
@@ -58,6 +56,7 @@ public class PostTagDao {
 							   rs.getString("post_url"), 
 							   rs.getInt("p.points"), 
 							   rs.getTimestamp("p.upload_date").toLocalDateTime(), 
+							   rs.getBoolean("is_video"),
 							   ud.getUserById(rs.getLong("p.user_id")),
 							   getTagsForPost(postId),null));
 		}
@@ -100,7 +99,8 @@ public class PostTagDao {
 					  rs.getString("p.description"), 
 					  rs.getString("p.post_url"), 
 					  rs.getInt("p.points"), 
-					  rs.getTimestamp("p.upload_date").toLocalDateTime(), 
+					  rs.getTimestamp("p.upload_date").toLocalDateTime(),
+					  rs.getBoolean("is_video"),
 					  ud.getUserById(rs.getLong("p.user_id")), 
 					  getTagsForPost(rs.getLong("p.post_id")), null));
 		}

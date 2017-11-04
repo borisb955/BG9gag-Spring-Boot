@@ -7,6 +7,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title><c:out value="${  sessionScope.postPostPage.description }"></c:out></title>
+<style type="text/css">
+		.video{width: 100%; height: auto;}
+
+</style>
 </head>
 <body>
 				<jsp:include page="headerLogged.jsp"></jsp:include>
@@ -16,7 +20,19 @@
 						<a href=""> #<c:out value="${ tag.tagName }"></c:out></a>
 		</c:forEach>
 		<br>
-		<img src="/MyProject/postpic?pictureUrl=${sessionScope.postPostPage.postUrl}&userName=${sessionScope.userPostPage.username}" width="50%" height="auto">
+		
+		
+			<c:choose>
+			  <c:when test="${sessionScope.postPostPage.video}">
+			    <video class="video" controls>
+				  <source src="/MyProject/postpic?pictureUrl=${sessionScope.postPostPage.postUrl}&userName=${sessionScope.userPostPage.username}" type="video/mp4">
+				</video>
+			  </c:when>
+			  <c:otherwise>
+			  	<img src="/MyProject/postpic?pictureUrl=${sessionScope.postPostPage.postUrl}&userName=${sessionScope.userPostPage.username}" width="50%" height="auto">
+			  </c:otherwise>
+			</c:choose>
+		
 		<br>
 		Points:<span id="post${sessionScope.postPostPage.postId }"><c:out value="${ sessionScope.postPostPage.points }"></c:out></span>
 		

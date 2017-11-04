@@ -9,12 +9,10 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.TreeSet;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.mysql.fabric.xmlrpc.base.Array;
 
 @Component
 public class PostDao {
@@ -33,12 +31,13 @@ public class PostDao {
 		Connection conn = db.getConn();
 		
 		PreparedStatement ps = conn.prepareStatement("INSERT INTO 9gag.posts(description, post_url,"
-												+ " upload_date, user_id) "
-												+ "VALUES(?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+												+ " upload_date, is_video, user_id) "
+												+ "VALUES(?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
 		ps.setString(1, p.getDescription());
 		ps.setString(2, p.getPostUrl());
 		ps.setTimestamp(3, Timestamp.valueOf(p.getDateTime()));
-		ps.setLong(4, p.getUser().getId());
+		ps.setBoolean(4, p.isVideo());
+		ps.setLong(5, p.getUser().getId());
 		
 		ps.executeUpdate();
 		ResultSet rs = ps.getGeneratedKeys();
@@ -49,7 +48,7 @@ public class PostDao {
 	public Post getPost(long postId, User u) throws SQLException{
 		Connection conn = db.getConn();
 		
-		PreparedStatement ps = conn.prepareStatement("SELECT description, post_url, points , upload_date "
+		PreparedStatement ps = conn.prepareStatement("SELECT description, post_url, points , upload_date, is_video "
 													+ "FROM 9gag.posts "
 													+ "WHERE post_id = ?");
 		ps.setLong(1, postId);
@@ -60,21 +59,23 @@ public class PostDao {
 		String description = rs.getString("description");
 		String url =rs.getString("post_url");
 		int points = rs.getInt("points");
+		boolean isVideo = rs.getBoolean("is_video");
 		LocalDateTime time= rs.getTimestamp("upload_date").toLocalDateTime();
 		return new Post(postId,
 						description, 
 						url, 
 						points,
 						time, 
+						isVideo,
 						u,
 						tags,
-						cd.getMainCommentsForPost(new Post(postId,description,url,points,time,u,tags,null)));
+						cd.getMainCommentsForPost(new Post(postId,description,url,points,time,isVideo,u,tags,null)));
 	}
 
 	public ArrayList<Post> getAllPostsForUser(User u) throws SQLException {
 		Connection conn = db.getConn();
 		
-		PreparedStatement ps = conn.prepareStatement("SELECT post_id, description, post_url, points"
+		PreparedStatement ps = conn.prepareStatement("SELECT post_id, description, post_url, points, is_video "
 												+ ", upload_date "
 												+ "FROM 9gag.posts "
 												+ "WHERE user_id = ? ");
@@ -89,6 +90,7 @@ public class PostDao {
 							   rs.getString("post_url"),
 							   rs.getInt("points"),
 							   rs.getTimestamp("upload_date").toLocalDateTime(),
+							   rs.getBoolean("is_video"),
 							   u,
 							   ptd.getTagsForPost(postId), null)
 							
@@ -113,6 +115,7 @@ public class PostDao {
 								  rs.getString("p.post_url"), 
 								  rs.getInt("p.points"), 
 								  rs.getTimestamp("p.upload_date").toLocalDateTime(), 
+								  rs.getBoolean("p.is_video"),
 								  new User(rs.getLong("p.user_id"), rs.getString("u.username")),
 								  ptd.getTagsForPost(postId),null));
 		}
@@ -134,7 +137,8 @@ public class PostDao {
 							  rs.getString("post_url"), 
 							  rs.getInt("points"), 
 							  rs.getTimestamp("upload_date").toLocalDateTime(), 
-							  ud.getUserById(rs.getLong("user_id")), 
+							  rs.getBoolean("is_video"),
+							  ud.getUserById(rs.getLong("user_id")),
 							  ptd.getTagsForPost(rs.getLong("post_id")), null));
 		}
 		return gifs;
@@ -145,7 +149,9 @@ public class PostDao {
 		conn.setAutoCommit(false);
 		
 		try {
-
+			System.out.println(post.isVideo());
+			System.out.println(post.isVideo());
+			System.out.println(post.isVideo());
 			//inserting the post
 			insertPost(post);
 			
@@ -176,18 +182,16 @@ public class PostDao {
 		ResultSet rs = ps.executeQuery();
 		
 		ArrayList<Post> posts = new ArrayList<>();
-		int o = 0;
 		while(rs.next()) {
 			posts.add(new Post(rs.getLong("post_id"), 
 							   rs.getString("description"), 
 							   rs.getString("post_url"), 
 							   rs.getInt("points"), 
 							   rs.getTimestamp("upload_date").toLocalDateTime(), 
+							   rs.getBoolean("is_video"),
 							   ud.getUserById(rs.getLong("user_id")), 
 							   ptd.getTagsForPost(rs.getLong("post_id")), null));
-			o++;
 		}
-		System.out.println(o);
 		return posts;
 	}
 }
