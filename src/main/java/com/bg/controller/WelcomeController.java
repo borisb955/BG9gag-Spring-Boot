@@ -6,6 +6,7 @@ import java.util.HashSet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.aop.ThrowsAdvice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,6 +27,11 @@ public class WelcomeController {
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String welcome(Model m, HttpSession s) {
+		
+	if(true) {
+		throw new NullPointerException();
+	}
+
 		
 		try {
 			HashSet<Post> posts = pd.getAllPosts();
