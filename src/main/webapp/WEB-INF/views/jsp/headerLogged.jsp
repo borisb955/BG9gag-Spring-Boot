@@ -78,6 +78,7 @@
 			<a class="header-links" href="/MyProject/posts/fresh"><s:message code="fresh"></s:message></a>
 			<a class="header-links" href="/MyProject/posts/gifs">GIF</a>
 			<a class="header-links" href="/MyProject/posts/video">Video</a>
+			<a class="header-links" href="/MyProject/posts/videoYoutube">YTvideos</a>
 			<form action="/MyProject/posts/search" method="get">
 				<input type="text" placeholder="<s:message code="search..."></s:message>" name="search">
 				<input type="submit" value="<s:message code="search"></s:message>">

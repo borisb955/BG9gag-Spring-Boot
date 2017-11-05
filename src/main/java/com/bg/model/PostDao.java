@@ -200,12 +200,22 @@ public class PostDao {
 		return posts;
 	}
 	
-	public ArrayList<Post> getAllVideos() throws SQLException {
+	public ArrayList<Post> getAllVideos(boolean fromYoutube) throws SQLException {
 		Connection conn = db.getConn();
-		PreparedStatement ps = conn.prepareStatement("SELECT * "
-												   + "FROM 9gag.posts "
-												   + "WHERE is_video "
-												   + "IS true");
+		PreparedStatement ps = null;
+		if(!fromYoutube) {
+			ps = conn.prepareStatement("SELECT * "
+					   + "FROM 9gag.posts "
+					   + "WHERE is_video "
+					   + "AND youtube "
+					   + "IS false");
+		}else {
+			ps = conn.prepareStatement("SELECT * "
+					   + "FROM 9gag.posts "
+					   + "WHERE is_video "
+					   + "AND youtube");
+		}
+		
 		ResultSet rs = ps.executeQuery();
 		
 		ArrayList<Post> videos = new ArrayList<>();

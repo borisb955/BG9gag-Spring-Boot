@@ -83,7 +83,23 @@ public class CollectionController {
 		ArrayList<Post> videos = new ArrayList<>();
 		
 		try {
-			videos = pd.getAllVideos();
+			videos = pd.getAllVideos(false);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		m.addAttribute("posts", videos);
+		
+		return "videos";
+	}
+	
+	@RequestMapping(value = "/videoYoutube", method = RequestMethod.GET)
+	public String videoYoutube(Model m) {
+		
+		ArrayList<Post> videos = new ArrayList<>();
+		
+		try {
+			videos = pd.getAllVideos(true);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
