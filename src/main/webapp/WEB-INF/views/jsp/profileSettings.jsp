@@ -23,6 +23,7 @@
 			<div id="rightContainer">
 				<h1 class="rightContainerHeader"><s:message code="Profile"></s:message></h1>
 				<f:errors class="errors" path="profile.*"/>
+				<p class="errors"><c:out value="${ error }"></c:out></p>
 				
 				<f:form commandName="profile" enctype="multipart/form-data">
 						<p><s:message code="upAvatar"></s:message></p>

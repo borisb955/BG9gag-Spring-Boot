@@ -17,6 +17,9 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 import javax.validation.Valid;
 
+import org.apache.tika.mime.MimeType;
+import org.apache.tika.mime.MimeTypeException;
+import org.apache.tika.mime.MimeTypes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -211,7 +214,7 @@ public class SettingsController {
 	@RequestMapping(value="/profile", method = RequestMethod.POST)
 	public String savePrSettings(@RequestParam("failche") MultipartFile file, 
 			@Valid @ModelAttribute("profile") Profile p, BindingResult result, 
-			HttpSession s, HttpServletRequest req) {
+			HttpSession s, HttpServletRequest req, Model m) {
 		
 		if(Validator.notLogged(s)) {
 			return "forward:/";
@@ -226,16 +229,43 @@ public class SettingsController {
 				 +File.separator+ "users"
 				 +File.separator + userSession.getUsername()
 				 +File.separator + "avatar";
+		
+		
 	    File folders = new File( filePath );
 	    folders.mkdirs();
 	    File f = new File(filePath
 	    					+File.separator + "avatar.jpg");
 	    if(!file.isEmpty()) {
 		    try {
+				MimeTypes allTypes = MimeTypes.getDefaultMimeTypes();
+				MimeType type;
+				
+					type = allTypes.forName(file.getContentType());
+				
+				String ext = type.getExtension(); // .whatever
+				
+				String[] allowedExt = new String[] {".jpg", "jpeg", ".png", ".bmp", ".gif", ".tiff" };
+				boolean isAllowed = false;
+				
+				for (String string : allowedExt) {
+					if(ext.contains(string)) {
+						isAllowed = true;
+					}
+				}
+				
+				if(!isAllowed) {
+					m.addAttribute("error", "You must upload a pic");
+					return "profileSettings";
+				}
+				
+		    	
 				file.transferTo(f);
 			} catch (IllegalStateException | IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
+			} catch (MimeTypeException e2) {
+				// TODO Auto-generated catch block
+				e2.printStackTrace();
 			}
 	    }
 

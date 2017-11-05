@@ -9,23 +9,26 @@ public class Post{
 	private String postUrl;
 	private int points;
 	private boolean isVideo;
+	private boolean youtube;
 	private LocalDateTime dateTime;
 	private User user;
 	private ArrayList<Tag> tags;
 	private ArrayList<Comment> comments;
 	
-	public Post(String text, String postUrl, LocalDateTime dateTime, Boolean isVideo ,User user) {
+	public Post(String text, String postUrl, LocalDateTime dateTime, boolean isVideo, 
+			boolean youtube,User user) {
 		this.description = text;
 		this.postUrl = postUrl;
 		this.dateTime = dateTime;
 		this.isVideo = isVideo;
+		this.youtube = youtube;
 		this.user = user;
 		this.points = 0;
 	}
 
 	public Post(long postId, String text, String postUrl, int points, LocalDateTime dateTime, 
-			boolean isVideo, User user, ArrayList<Tag> tags, ArrayList<Comment> comments) {
-		this(text, postUrl, dateTime, isVideo, user);
+			boolean isVideo, boolean youtube,User user, ArrayList<Tag> tags, ArrayList<Comment> comments) {
+		this(text, postUrl, dateTime, isVideo, youtube, user);
 		this.postId = postId;
 		this.points = points;
 		this.tags = tags;
@@ -65,7 +68,9 @@ public class Post{
 	public boolean isVideo() {
 		return isVideo;
 	}
-	
+	public boolean isYoutube() {
+		return youtube;
+	}
 	public ArrayList<Tag> getTags() {
 		return tags;
 	}

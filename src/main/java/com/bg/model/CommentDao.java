@@ -183,7 +183,7 @@ public class CommentDao {
 		public HashSet<Post> getCommentedPostsByUser(User u) throws SQLException{
 			Connection conn = db.getConn();
 			PreparedStatement ps = conn.prepareStatement("SELECT p.post_id, p.description, p.post_url, p.points, "
-					+ "p.upload_date, p.is_video FROM 9gag.posts as p  "
+					+ "p.upload_date, p.is_video, youtube FROM 9gag.posts as p  "
 					+ "JOIN 9gag.comments as c "
 					+ "ON p.post_id = c.post_id "
 					+ "WHERE c.user_id = ? "
@@ -201,6 +201,7 @@ public class CommentDao {
 								   rs.getInt("p.points"), 
 								   rs.getTimestamp("p.upload_date").toLocalDateTime(), 
 								   rs.getBoolean("is_video"),
+								   rs.getBoolean("youtube"),
 								   u, 
 								   ptd.getTagsForPost(rs.getLong("p.post_id")),
 								   null));
