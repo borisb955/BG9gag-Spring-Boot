@@ -345,8 +345,3 @@ public class UpvoteDao {
 	}
 	
 }
-
-
-
-
-//PostDao.getInstance().getPost(rs.getLong("post_id"), u), rs.getTimestamp("upvote_date").toLocalDateTime()

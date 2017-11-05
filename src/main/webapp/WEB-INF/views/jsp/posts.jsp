@@ -59,11 +59,21 @@
 					<div>
 						<h1><c:out value="${ post.description }">no description</c:out></h1><br>
 						
+						
 						<c:choose>
 						  <c:when test="${post.video}">
-						    <video class="video" controls>
-							  <source src="/MyProject/postpic?pictureUrl=${post.postUrl}&userName=${post.user.username}" type="video/mp4">
-							</video>
+							<c:choose>
+								<c:when test="${ post.youtube }">
+									<iframe width="420" height="315"
+										src="${ post.postUrl }">
+									</iframe>
+								</c:when>
+								<c:otherwise>
+									<video class="video" controls>
+									  <source src="/MyProject/postpic?pictureUrl=${post.postUrl}&userName=${post.user.username}" type="video/mp4">
+									</video>
+								</c:otherwise>
+							</c:choose>
 						  </c:when>
 						  <c:otherwise>
 						  	<img src="/MyProject/postpic?pictureUrl=${post.postUrl}&userName=${post.user.username}" width="100%" height="auto">

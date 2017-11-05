@@ -56,7 +56,8 @@ public class PostTagDao {
 							   rs.getString("post_url"), 
 							   rs.getInt("p.points"), 
 							   rs.getTimestamp("p.upload_date").toLocalDateTime(), 
-							   rs.getBoolean("is_video"),
+							   rs.getBoolean("p.is_video"),
+							   rs.getBoolean("p.youtube"),
 							   ud.getUserById(rs.getLong("p.user_id")),
 							   getTagsForPost(postId),null));
 		}
@@ -100,7 +101,8 @@ public class PostTagDao {
 					  rs.getString("p.post_url"), 
 					  rs.getInt("p.points"), 
 					  rs.getTimestamp("p.upload_date").toLocalDateTime(),
-					  rs.getBoolean("is_video"),
+					  rs.getBoolean("p.is_video"),
+					  rs.getBoolean("p.youtube"),
 					  ud.getUserById(rs.getLong("p.user_id")), 
 					  getTagsForPost(rs.getLong("p.post_id")), null));
 		}

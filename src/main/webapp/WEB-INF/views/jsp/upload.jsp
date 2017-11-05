@@ -17,7 +17,9 @@
 		<form action="upload" method="post" enctype="multipart/form-data">
 			<!-- TODO: Style this -->
 			<br>
-			Upload File: <input type="file" name="failche"><br><br>
+			Upload File: <input type="file" name="failche">
+			<p>Formats allowed: mp4, png, gif, jpg, jpeg, tiff, bmp</p>
+			YouTube: <input type="text" name="youtube" /><br><br>
 		    Description: <input type="text" name="description" /><br><br>
 		    Tags: <input type="text" placeholder="tags" name="tags"><br>
 		    <input type="submit" />

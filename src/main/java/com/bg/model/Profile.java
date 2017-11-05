@@ -14,6 +14,7 @@ public class Profile {
 	@Pattern(regexp="^[\\p{L} .'-]+$", message="Your name must contains only letters")
 	private String fullName;
 	@Size(max=10, message = "gender can't be more than {max} characters")
+	@Pattern(regexp="^[\\p{L} .'-]+$", message="Your gender must contains only letters")
 	private String gender;
 	@Past(message = "You have entered a date in the future ...")
 	@DateTimeFormat(pattern="dd/MM/yyyy")
