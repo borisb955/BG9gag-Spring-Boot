@@ -35,7 +35,7 @@ public class UserController {
 	
 	
 	@RequestMapping(value = "/logged", method = RequestMethod.POST)
-	public String logged(HttpServletRequest req, HttpSession s) throws SQLException {
+	public String logged(HttpServletRequest req, HttpSession s, Model m) throws SQLException {
 		String email = req.getParameter("email");
 		String pass = req.getParameter("pass");
 		
@@ -44,13 +44,12 @@ public class UserController {
 	
 		try {
 			if (!ud.emailExists(email)) {
-//				resp.getWriter().append("This email does not exist.");
-				System.out.println("nqma takav email");
+				m.addAttribute("error", "This email does not exist");
+				return "login";
 			} else if (!ud.passwordMatch(email, pass)) {
-//				resp.getWriter().append("Incorrect password.");
-				System.out.println("ne e sushtata parola");
+				m.addAttribute("error", "Password is incorect");
+				return "login";
 			} else {
-				System.out.println("VLIZAM");
 				User user = ud.getFullUserByEmail(email);
 				
 				s.setAttribute("user", user);

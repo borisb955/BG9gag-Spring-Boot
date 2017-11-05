@@ -9,12 +9,17 @@
 	<title>Insert title here</title>
 	<style>
 		body{background: white; margin: 0px;}
-		#header{width: 98%; height: 26px; background: black; padding: 10px; text-align: left;}
+		a:link {text-decoration: none;}
+		a:hover{color: white;}
+		#header{width: 98%; height: 30px; background: black; padding: 10px; text-align: left;}
 		#logo img{margin-top:-10px; height: 45px; widght: 45px; float: left; border:}
-		#loginReg{width: 155px; float: right; }
+		#loginReg{width: 165px; float: right; margin-top: -15px;}
 		#buttonsHeader{float: left; padding-left: 25px; display: inline-flex;}
 		.header-links{color: gray; padding-left: 35px; text-decoration: none; font-weight: bold;}
-		a:hover{color: white}
+		.languages{display: block;}
+		.languages a:link{float: right; color: #eaeaea;}
+		.languages a:hover{float: right; color: white;}
+		.search{margin-left: 200px;}
 	</style>
 </head>
 	<body>
@@ -28,14 +33,16 @@
 			<a class="header-links" href="/MyProject/posts/gifs">GIF</a>
 			<a class="header-links" href="/MyProject/posts/video">Videos</a>
 			<a class="header-links" href="/MyProject/posts/videoYoutube">YTvideos</a>
-			<form action="/MyProject/posts/search" method="get">
+			<form class="search" action="/MyProject/posts/search" method="get">
 				<input type="text" placeholder="<s:message code="search..."></s:message>" name="search">
 				<input type="submit" value="<s:message code="search"></s:message>">
 			</form>
 		</div>
 		
-		<a href="?language=bg">Български</a>
-		<a href="?language=en">English</a>	
+		<div class="languages">
+			<a href="?language=bg">Български</a><br>
+			<a href="?language=en">English</a>
+		</div>
 		
 		<div id="loginReg">
 			<button><a href="/MyProject/login"><s:message code="logIn"></s:message></a></button>

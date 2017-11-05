@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,6 +20,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.bg.model.Profile;
 import com.bg.model.User;
 import com.bg.model.UserDao;
+import com.bg.model.User.ChangeAccount;
+import com.bg.model.User.Register;
 import com.bg.util.NotificationService;
 
 
@@ -42,9 +45,8 @@ public class RegisterController {
 	private NotificationService notificationService;
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public String registered(@Valid @ModelAttribute("user") User u, BindingResult result) {
-		
-		
+	public String registered(@Validated({Register.class}) @ModelAttribute("user") User u, 
+			BindingResult result, Model m) {
 
 		if(result.hasErrors()) {
 			return "register";
@@ -58,7 +60,8 @@ public class RegisterController {
 				e.printStackTrace();
 			}
 		}
+		m.addAttribute("success", "You have been successfully registered. Please login");
 		
-		return "register";
+		return "login";
 	}
 }

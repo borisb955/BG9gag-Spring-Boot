@@ -1,0 +1,13 @@
+@charset "UTF-8";
+
+
+#container{width: 800px; margin: 40px auto 0 200px; position: relative; display: inline-flex; }
+#rightContainer{ margin-left: 200px;}
+#leftContainer{ padding-left: 0px; background-color: red;}
+
+.rightContainerHeader{font-size: 260%;}
+.ulLeft{list-style-type: none; position: absolute;}
+.errors{color: red;}
+
+
+		

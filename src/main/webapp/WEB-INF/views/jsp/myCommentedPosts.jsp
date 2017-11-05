@@ -11,7 +11,5 @@
 		<jsp:include page="profile.jsp"></jsp:include>
 		
 		<jsp:include page="posts.jsp"></jsp:include>
-
-		
 	</body>
 </html>

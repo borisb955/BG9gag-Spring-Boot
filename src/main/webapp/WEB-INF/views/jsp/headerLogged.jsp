@@ -9,7 +9,9 @@
 	<title>Insert title here</title>
 	<style>
 		body{background: white; margin: 0px;}
-		#header{width: 98%; height: 26px; background: black; padding: 10px; text-align: left;}
+		a:link {text-decoration: none;}
+		a:hover{color: white}
+		#header{width: 98%; height: 30px; background: black; padding: 10px; text-align: left;}
 		#logo img{margin-top:-10px; height: 45px; widght: 45px; float: left; border:}
 		#loginReg{width: 180px; float: right; }
 		#buttonsHeader{float: left; padding-left: 25px;display: inline-flex;}
@@ -17,9 +19,12 @@
 		.upload-button{background: blue; cursor: pointer; border: none; font-size: 16px;}
 		.button-links{color: white; text-decoration: none;}
 		.username{color: white}
-		.box{display: inline-flex;}
-		a:hover{color: white}
-		
+		.box{display: inline-flex; margin-top: -20px;}
+		.languages{display: block;}
+		.languages a:link{float: right; color: #eaeaea;}
+		.languages a:hover{float: right; color: white;}
+		.search{margin-left: 200px;}
+
 		
 			/* Dropdown Button */
 		.dropimg {
@@ -27,8 +32,8 @@
 		    color: black;
 		    font-size: 16px;
 		    border: none;
-		    width: 30px;
-		    height: 30px;
+		    width: 40px;
+		    height: 40px;
 		    cursor: pointer;
 		}
 		
@@ -79,14 +84,16 @@
 			<a class="header-links" href="/MyProject/posts/gifs">GIF</a>
 			<a class="header-links" href="/MyProject/posts/video">Video</a>
 			<a class="header-links" href="/MyProject/posts/videoYoutube">YTvideos</a>
-			<form action="/MyProject/posts/search" method="get">
+			<form class="search" action="/MyProject/posts/search" method="get">
 				<input type="text" placeholder="<s:message code="search..."></s:message>" name="search">
 				<input type="submit" value="<s:message code="search"></s:message>">
 			</form>
 		</div>
 		
-		<a href="?language=bg">Български</a>
-		<a href="?language=en">English</a>	
+		<div class="languages">
+			<a href="?language=bg">Български</a><br>
+			<a href="?language=en">English</a>
+		</div>
 		
 		<div id="loginReg">
 		

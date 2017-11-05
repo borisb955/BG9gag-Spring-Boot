@@ -6,11 +6,8 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title>Insert title here</title>
-		<style type="text/css">
-			#rightContainer{ margin-left: 200px;}
-			.rightContainerHeader{font-size: 260%;}
-		</style>
+		<title>Pass Settings</title>
+		<link href="<c:url value="css/ooo.css" />" rel="stylesheet" type="text/css">
 	</head>
 	
 	<body>

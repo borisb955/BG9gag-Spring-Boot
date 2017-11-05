@@ -5,18 +5,10 @@
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>Profile Settings</title>
-	<style type="text/css">
-		#container{width: 800px; margin: 40px auto 0 200px; position: relative; display: inline-flex; }
-		#leftContainer{ padding-left: 0px; background-color: red;}
-		#rightContainer{ margin-left: 200px;}
-		.ulLeft{list-style-type: none; position: absolute;}
-		.rightContainerHeader{font-size: 260%;}
-		.errors{color: red;}
-	</style>
-</head>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>Profile Settings</title>
+		<link href="<c:url value="css/ooo.css" />" rel="stylesheet" type="text/css">	</head>
 	<body>
 		<jsp:include page="sideBarSettings.jsp"></jsp:include>
 			
