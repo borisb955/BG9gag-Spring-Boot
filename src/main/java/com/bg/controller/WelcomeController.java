@@ -27,12 +27,6 @@ public class WelcomeController {
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String welcome(Model m, HttpSession s) {
-		
-	if(true) {
-		throw new NullPointerException();
-	}
-
-		
 		try {
 			HashSet<Post> posts = pd.getAllPosts();
 			m.addAttribute("posts", posts);

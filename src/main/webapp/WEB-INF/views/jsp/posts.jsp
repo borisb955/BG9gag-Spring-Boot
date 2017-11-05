@@ -7,6 +7,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+		
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>Posts</title>
 	<style type="text/css">
@@ -19,6 +20,35 @@
 		h1{
 		text-align:center;
 		}
+
+			*{
+			 font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Arial,Helvetica,Geneva,sans-serif;
+			}
+		.showRepliesButton{
+			 background-color: #008CBA;	/* Blue */
+			    border: none;
+			    padding: 7px 16px;
+			    text-align: center;
+			    text-decoration: none;
+			    font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Arial,Helvetica,Geneva,sans-serif;
+			    color:white;
+			    display: inline-block;
+			    font-size: 16px;
+			    border-radius:25px;
+			}
+			
+			.likeButton{
+			background-color: #008CBA;	/* Blue */
+			    border: none;
+			    padding: 7px 16px;
+			    text-align: center;
+			    text-decoration: none;
+			    font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Arial,Helvetica,Geneva,sans-serif;
+			    color:white;
+			    display: inline-block;
+			    font-size: 16px;
+			    border-radius:25px;
+			}
 	</style>
 </head>
 	<body>
@@ -38,8 +68,7 @@
 						  <c:otherwise>
 						  	<img src="/MyProject/postpic?pictureUrl=${post.postUrl}&userName=${post.user.username}" width="100%" height="auto">
 						  </c:otherwise>
-						</c:choose>
-						
+						</c:choose>						
 					</div>
 		
 					<div id="tags">
@@ -50,7 +79,7 @@
 						</c:forEach>
 					</div>
 					<br>
-					<div id="namePoints">
+					<div id="namePoints" class="showRepliesButton">
 						<p class="points"><s:message code="points"></s:message><span id=${ post.postId}><c:out value="${ post.points }"></span></c:out></p>
 						<p><s:message code="user"></s:message><c:out value="${ post.user.username }"></c:out></p>
 						<p><c:out value="${ post.dateTime }"></c:out></p>
@@ -79,12 +108,12 @@
 											if(this.readyState == 4 && this.status == 200){
 												let button = document.getElementById("likeButton"+postId);
 												button.innerHTML="Unlike";
-												button.style.backgroundColor  = "red";
+												button.style.backgroundColor  = "green";
 												document.getElementById(""+postId).innerHTML=request.responseText;
 												let button2 = document.getElementById("dislikeButton"+postId);
 												if(button2.innerHTML=="Undislike"){
 													button2.innerHTML="Dislike";
-													button2.style.backgroundColor = "red";
+													button2.style.backgroundColor = "#008CBA";
 												}
 											}									
 										}
@@ -97,7 +126,7 @@
 													if(this.readyState == 4 && this.status == 200){
 														let button = document.getElementById("likeButton"+postId);
 														button.innerHTML="Like";
-														button.style.backgroundColor = "green";
+														button.style.backgroundColor = "#008CBA";
 														document.getElementById(""+postId).innerHTML=request.responseText;
 													}												
 												}
@@ -111,12 +140,12 @@
 													if(this.readyState == 4 && this.status == 200){
 														let button = document.getElementById("dislikeButton"+postId);
 														button.innerHTML="Undislike";
-														button.style.backgroundColor  = "green";
+														button.style.backgroundColor  = "red";
 														document.getElementById(""+postId).innerHTML=request.responseText;
 														let button2 = document.getElementById("likeButton"+postId);
 														if(button2.innerHTML=="Unlike"){
 															button2.innerHTML="Like";
-															button2.style.backgroundColor = "green";
+															button2.style.backgroundColor = "#008CBA";
 														}
 													}												
 												}
@@ -129,16 +158,21 @@
 													if(this.readyState == 4 && this.status == 200){
 														let button = document.getElementById("dislikeButton"+postId);
 														button.innerHTML="Dislike";
-														button.style.backgroundColor  = "red";
+														button.style.backgroundColor  = "#008CBA";
 														document.getElementById(""+postId).innerHTML=request.responseText;
 													}												
 												}
 												request.open("post","/MyProject/undislikePost?postId="+postId,true);
 												request.send();
-												}						
+												}
+										  
+										  
+										  
+										  
+										  
 							</script>
 					
-					<a href="/MyProject/postWithComments/postId=${ post.postId }/userId=${post.user.id}">Comments</a>
+					<a href="/MyProject/postWithComments/postId=${ post.postId }/userId=${post.user.id}"><button class="showRepliesButton">Comments</button></a>
 					
 		<c:set var="isLiked" value="false" />
 		<c:set var="isDisliked" value="false" />
@@ -154,20 +188,16 @@
 		</c:forEach>
 		
 		<c:if test="${isLiked}">
-		<button id="likeButton${post.postId}"  style="background-color: green" onclick="handleLike(${post.postId})">Unlike</button>
-		<!--<a href="/MyProject/unlikePost?postId=${  post.postId }&userId=${sessionScope.user.id}">Unlike</a>-->
+		<button id="likeButton${post.postId}"  style="background-color: green" onclick="handleLike(${post.postId})" class="showRepliesButton">Unlike</button>
 		</c:if>
 		<c:if test="${!isLiked}">
-		<button id="likeButton${post.postId}" style="background-color: green" onclick="handleLike(${post.postId})">Like</button>
-		<!--  <a href="/MyProject/likePost?postId=${ post.postId }&userId=${sessionScope.user.id}">Like</a>-->
+		<button id="likeButton${post.postId}" style="background-color: #008CBA" onclick="handleLike(${post.postId})"  class="showRepliesButton">Like</button>
 		</c:if>
 		<c:if test="${isDisliked}">
-		<button id="dislikeButton${post.postId}"  style="background-color: green" onclick="handleDislike(${post.postId})">Undislike</button>
-		<!--<a href="/MyProject/undislikePost?postId=${  post.postId }&userId=${sessionScope.user.id }">Undislike</a>-->
+		<button id="dislikeButton${post.postId}"  style="background-color: red" onclick="handleDislike(${post.postId})"  class="showRepliesButton">Undislike</button>
 		</c:if>
 		<c:if test="${!isDisliked}">
-		<button id="dislikeButton${post.postId}" style="background-color: red" onclick="handleDislike(${post.postId})">Dislike</button>
-			<!--<a href="/MyProject/dislikePost?postId=${  post.postId }&userId=${sessionScope.user.id }">Dislike</a>-->
+		<button id="dislikeButton${post.postId}" style="background-color: #008CBA" onclick="handleDislike(${post.postId})"  class="showRepliesButton">Dislike</button>
 		</c:if>
 				<br>
 				<br>

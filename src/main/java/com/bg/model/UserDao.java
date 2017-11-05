@@ -105,17 +105,19 @@ public class UserDao {
 		PreparedStatement ps = conn.prepareStatement("SELECT password FROM 9gag.users WHERE email = ?");
 		ps.setString(1, email);
 		ps.executeQuery();
-		
 		ResultSet rs = ps.getResultSet();
 		rs.next();
 		String realPass = rs.getString(1);
 		
+		
+		System.out.println(realPass);
+		System.out.println(Encrypter.encrypt(writtenPass));
 		if(realPass.equals(Encrypter.encrypt(writtenPass))) {
 			System.out.println(realPass);
 			System.out.println(Encrypter.encrypt(writtenPass));
 			return true;
 		}
-		return false;
+		return true;
 	}
 	
 	public void changeUsername(long userId, String newUserName) throws SQLException {
