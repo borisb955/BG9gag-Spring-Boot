@@ -11,12 +11,9 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>Posts</title>
 	<style type="text/css">
-		#parent{  width: 900px; height: 20px;}
-		#child{width: 350px; float: right; }
-		#namePoints{background-color: red; display: inline-flex; margin-top: 0px; padding-top: 0px; margin-right: 5px; }
-		.points{margin-right: 5px;}
+			
 		.video{width: 100%; height: auto;}
-		#tags{display: inline-flex;}
+		
 		h1{
 		text-align:center;
 		}
@@ -25,7 +22,7 @@
 			 font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Arial,Helvetica,Geneva,sans-serif;
 			}
 		.showRepliesButton{
-			 background-color: #008CBA;	/* Blue */
+			 background-color: black;	/* Blue */
 			    border: none;
 			    padding: 7px 16px;
 			    text-align: center;
@@ -36,6 +33,29 @@
 			    font-size: 16px;
 			    border-radius:25px;
 			}
+			hr.vertical
+			{
+			   width: 0px;
+			   height: 100%; /* or height in PX */
+			    display: inline;
+			   margin-top: 100px;
+			
+			    margin-right: 4%;
+			    margin-left: 4%;
+			} 
+			
+		.infoPost{
+		 background-color: black;	/* Blue */
+			    border: none;
+			    padding: 7px 16px;
+			    text-align: center;
+			    text-decoration: none;
+			    font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Arial,Helvetica,Geneva,sans-serif;
+			    color:white;
+			    display: block;
+			    font-size: 16px;
+			    border-radius:25px;
+		}	
 			
 			.likeButton{
 			background-color: #008CBA;	/* Blue */
@@ -49,17 +69,48 @@
 			    font-size: 16px;
 			    border-radius:25px;
 			}
+			.mainDiv{
+			 text-align: center;
+			  margin: auto;
+			    width: 40%;		
+			    padding: 10px;
+			}
+			
+			.tag{
+			background-color: black;	/* Blue */
+			    border: none;
+			    padding: 7px 16px;
+			    text-align: center;
+			    text-decoration: none;
+			    font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Arial,Helvetica,Geneva,sans-serif;
+			    color:white;
+			    display: inline-block;
+			    font-size: 16px;
+			    border-radius:25px;
+			    text-decoration: none;
+			}
+			a{
+			 text-decoration: none;
+			}
+			
 	</style>
 </head>
 	<body>
 	
-		<div id="parent">
-			<div id="child">
+		<div class="mainDiv">
+			<div>
 				<c:forEach items="${ posts }" var="post">
 					<div>
 						<h1><c:out value="${ post.description }">no description</c:out></h1><br>
 						
-						
+					<div>
+						<c:forEach items="${post.tags}" var="tag">
+							<a href="/MyProject/posts/tag/tagName=${ tag.tagName }"> 
+							<span class="tag"><c:out value="${ tag.tagName }"></c:out></span>
+							</a>
+						</c:forEach>
+					</div>
+						<br>
 						<c:choose>
 						  <c:when test="${post.video}">
 							<c:choose>
@@ -80,21 +131,16 @@
 						  </c:otherwise>
 						</c:choose>						
 					</div>
-		
-					<div id="tags">
-						<c:forEach items="${post.tags}" var="tag">
-							<a href="/MyProject/posts/tag/tagName=${ tag.tagName }"> 
-							#<c:out value="${ tag.tagName }"></c:out>
-							</a>
-						</c:forEach>
-					</div>
 					<br>
-					<div id="namePoints" class="showRepliesButton">
-						<p class="points"><s:message code="points"></s:message><span id=${ post.postId}><c:out value="${ post.points }"></span></c:out></p>
-						<p><s:message code="user"></s:message><c:out value="${ post.user.username }"></c:out></p>
-						<p><c:out value="${ post.dateTime }"></c:out></p>
+					<div class="infoPost">
+						
+						<s:message code="user"></s:message> <c:out value="${ post.user.username }"></c:out>				
+						<hr class="vertical">				
+						<c:out value="${ post.dateTime }"></c:out>						 						 						 
+						<hr  class="vertical">											
+						<s:message code="points"></s:message><span id=${ post.postId}><c:out value="${ post.points }"></c:out></span>
 					</div>
-										
+					<br>			
 						<script type="text/javascript">
 								function handleLike(postId){
 									let button = document.getElementById("likeButton"+postId);
@@ -123,7 +169,7 @@
 												let button2 = document.getElementById("dislikeButton"+postId);
 												if(button2.innerHTML=="Undislike"){
 													button2.innerHTML="Dislike";
-													button2.style.backgroundColor = "#008CBA";
+													button2.style.backgroundColor = "black";
 												}
 											}									
 										}
@@ -136,7 +182,7 @@
 													if(this.readyState == 4 && this.status == 200){
 														let button = document.getElementById("likeButton"+postId);
 														button.innerHTML="Like";
-														button.style.backgroundColor = "#008CBA";
+														button.style.backgroundColor = "black";
 														document.getElementById(""+postId).innerHTML=request.responseText;
 													}												
 												}
@@ -155,7 +201,7 @@
 														let button2 = document.getElementById("likeButton"+postId);
 														if(button2.innerHTML=="Unlike"){
 															button2.innerHTML="Like";
-															button2.style.backgroundColor = "#008CBA";
+															button2.style.backgroundColor = "black";
 														}
 													}												
 												}
@@ -168,7 +214,7 @@
 													if(this.readyState == 4 && this.status == 200){
 														let button = document.getElementById("dislikeButton"+postId);
 														button.innerHTML="Dislike";
-														button.style.backgroundColor  = "#008CBA";
+														button.style.backgroundColor  = "black";
 														document.getElementById(""+postId).innerHTML=request.responseText;
 													}												
 												}
@@ -201,16 +247,17 @@
 		<button id="likeButton${post.postId}"  style="background-color: green" onclick="handleLike(${post.postId})" class="showRepliesButton">Unlike</button>
 		</c:if>
 		<c:if test="${!isLiked}">
-		<button id="likeButton${post.postId}" style="background-color: #008CBA" onclick="handleLike(${post.postId})"  class="showRepliesButton">Like</button>
+		<button id="likeButton${post.postId}" style="background-color: black" onclick="handleLike(${post.postId})"  class="showRepliesButton">Like</button>
 		</c:if>
 		<c:if test="${isDisliked}">
 		<button id="dislikeButton${post.postId}"  style="background-color: red" onclick="handleDislike(${post.postId})"  class="showRepliesButton">Undislike</button>
 		</c:if>
 		<c:if test="${!isDisliked}">
-		<button id="dislikeButton${post.postId}" style="background-color: #008CBA" onclick="handleDislike(${post.postId})"  class="showRepliesButton">Dislike</button>
+		<button id="dislikeButton${post.postId}" style="background-color: black" onclick="handleDislike(${post.postId})"  class="showRepliesButton">Dislike</button>
 		</c:if>
 				<br>
 				<br>
+				<hr>
 				</c:forEach>
 			</div>
 		</div>

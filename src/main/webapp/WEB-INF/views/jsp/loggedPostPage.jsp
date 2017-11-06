@@ -69,7 +69,7 @@
 			    border-radius:25px;
 			}
 			.dislikeButton{
-			background-color: black;	/* Blue */
+			background-color: black;
 			    border: none;
 			    padding: 7px 16px;
 			    text-align: center;
@@ -163,7 +163,7 @@
 		</c:if>
 		<c:if test="${!isLiked}">
 			<button id="likeButtonPost${sessionScope.postPostPage.postId}"
-				style="background-color: #008CBA"
+				style="background-color: black"
 				onclick="handleLike(${sessionScope.postPostPage.postId})" class="likeButton">Like</button>
 		</c:if>
 		<c:if test="${isDisliked}">
@@ -173,7 +173,7 @@
 		</c:if>
 		<c:if test="${!isDisliked}">
 			<button id="dislikeButtonPost${sessionScope.postPostPage.postId}"
-				style="background-color: #008CBA"
+				style="background-color: black"
 				onclick="handleDislike(${sessionScope.postPostPage.postId})"class="likeButton">Dislike</button>
 		</c:if>
 
@@ -259,7 +259,7 @@
 												let button2 = document.getElementById("dislikeButtonPost"+postId);
 												if(button2.innerHTML=="Undislike"){
 													button2.innerHTML="Dislike";
-													button2.style.backgroundColor = "#008CBA";
+													button2.style.backgroundColor = "black";
 												}
 											}									
 										}
@@ -277,7 +277,7 @@
 											let button2 = document.getElementById("dislikeButton"+commentId);
 											if(button2.innerHTML=="Undislike"){
 												button2.innerHTML="Dislike";
-												button2.style.backgroundColor = "#008CBA";
+												button2.style.backgroundColor = "black";
 											}
 										}									
 									}
@@ -290,7 +290,7 @@
 													if(this.readyState == 4 && this.status == 200){
 														let button = document.getElementById("likeButtonPost"+postId);
 														button.innerHTML="Like";
-														button.style.backgroundColor = "#008CBA";
+														button.style.backgroundColor = "black";
 														document.getElementById("post"+postId).innerHTML=request.responseText;
 													}												
 												}
@@ -303,7 +303,7 @@
 													if(this.readyState == 4 && this.status == 200){
 														let button = document.getElementById("likeButton"+commentId);
 														button.innerHTML="Like";
-														button.style.backgroundColor = "#008CBA";
+														button.style.backgroundColor = "black";
 														document.getElementById("comment"+commentId).innerHTML=request.responseText;
 													}												
 												}
@@ -322,7 +322,7 @@
 														let button2 = document.getElementById("likeButtonPost"+postId);
 														if(button2.innerHTML=="Unlike"){
 															button2.innerHTML="Like";
-															button2.style.backgroundColor = "#008CBA";
+															button2.style.backgroundColor = "black";
 														}
 													}												
 												}
@@ -340,7 +340,7 @@
 														let button2 = document.getElementById("likeButton"+commentId);
 														if(button2.innerHTML=="Unlike"){
 															button2.innerHTML="Like";
-															button2.style.backgroundColor = "#008CBA";
+															button2.style.backgroundColor = "black";
 														}
 													}												
 												}
@@ -353,7 +353,7 @@
 													if(this.readyState == 4 && this.status == 200){
 														let button = document.getElementById("dislikeButtonPost"+postId);
 														button.innerHTML="Dislike";
-														button.style.backgroundColor  = "#008CBA";
+														button.style.backgroundColor  = "black";
 														document.getElementById("post"+postId).innerHTML=request.responseText;
 													}												
 												}
@@ -366,7 +366,7 @@
 													if(this.readyState == 4 && this.status == 200){
 														let button = document.getElementById("dislikeButton"+commentId);
 														button.innerHTML="Dislike";
-														button.style.backgroundColor  = "#008CBA";
+														button.style.backgroundColor  = "black";
 														document.getElementById("comment"+commentId).innerHTML=request.responseText;
 													}												
 												}
@@ -416,7 +416,7 @@
 							</c:if>
 							<c:if test="${!isLiked}">
 								<button id="likeButton${comment.comment_id}"
-									style="background-color: #008CBA"
+									style="background-color: black"
 									onclick="handleLikeComment(${comment.comment_id})" class="likeButton">Like</button>
 							</c:if>
 							<c:if test="${isDisliked}">
@@ -427,7 +427,7 @@
 							</c:if>
 							<c:if test="${!isDisliked}">
 								<button id="dislikeButton${comment.comment_id}"
-									style="background-color: #008CBA" class="likeButton"
+									style="background-color: black" class="likeButton"
 									onclick="handleDislikeComment(${comment.comment_id})">Dislike</button>
 							</c:if>
 						
@@ -493,7 +493,7 @@
 												</c:if>
 												<c:if test="${!isLiked}">
 													<button id="likeButton${childComment.comment_id}"
-														style="background-color: #008CBA" class="likeButton"
+														style="background-color: black" class="likeButton"
 														onclick="handleLikeComment(${childComment.comment_id})">Like</button>
 												</c:if>
 												<c:if test="${isDisliked}">
@@ -503,7 +503,7 @@
 												</c:if>
 												<c:if test="${!isDisliked}">
 													<button id="dislikeButton${childComment.comment_id}"
-														style="background-color: #008CBA" class="likeButton"
+														style="background-color: black" class="likeButton"
 														onclick="handleDislikeComment(${childComment.comment_id})">Dislike</button>
 												</c:if>
 
