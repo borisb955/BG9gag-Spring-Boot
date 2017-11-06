@@ -22,7 +22,18 @@
 		
 		<div id="myHeader">
 			<img class="img" src="/MyProject/myProfile/avatar">
-			<p class="username"><c:out value="${ sessionScope.user.username }"></c:out></p>
+			
+<!-- 			Display username if the user hasn't set his full name -->
+			<c:choose>
+			    <c:when test="${empty sessionScope.user.profile.fullName}">
+			    	<p class="username"><c:out value="${ sessionScope.user.username }"></c:out></p>
+			    </c:when>
+			    <c:otherwise>
+			       <p class="username"><c:out value="${ sessionScope.user.profile.fullName }"></c:out></p>
+			    </c:otherwise>
+			</c:choose>
+			
+<!-- 			Display particular text if the user hasn't set info -->
 			<c:choose>
 			    <c:when test="${empty sessionScope.user.profile.info}">
 			    	<p class="funnyCollection">My funny collection</p>

@@ -21,15 +21,16 @@ public class User {
 	}
 	private long id;
 	@NotNull(message = "Please enter username", groups = {Register.class})
-	@Size(min=4, message="username must be at least 4 characters", groups = {ChangeAccount.class, Register.class})
+	@Pattern(regexp="^[A-Za-z][A-Za-z0-9]{3,19}$",
+	message="username must start with a letter, must be between [4-20] chars, and must not contain special chars", groups = {ChangeAccount.class, Register.class})
 	@isValidUsername(groups = {ChangeAccount.class, Register.class} )
 	private String username;
 	@NotNull(message = "Please enter password", groups = {Register.class})
 	@Size(min=5, message="password must be at least 5 characters", groups = {Register.class})
-	@Pattern(regexp="^(?=.*[0-9])(?=.*[a-z])([a-z0-9_-]+)$",
+	@Pattern(regexp="^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9_-]+)$",
 				message="password must contains at least 1 letter and number", groups = {Register.class})
 	private String password;
-	@NotNull(message = "Please enter email", groups = {ChangeAccount.class, Register.class})
+	@NotNull(message = "Please enter email", groups = {Register.class})
 	@isValidEmail(groups = {ChangeAccount.class, Register.class})
 	private String email;
 	private Profile profile;

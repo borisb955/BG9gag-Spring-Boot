@@ -32,6 +32,9 @@ public class UserDao {
 	@Autowired
 	ProfileDao profiled;
 	
+	/**
+	 * Inserting user in DB when signing up
+	 */
 	public void insertUser(User u) throws SQLException {
 		Connection conn = db.getConn();
 		PreparedStatement ps = conn.prepareStatement("INSERT INTO 9gag.users(username, password, email) "
@@ -53,10 +56,6 @@ public class UserDao {
 		ps.setLong(1, profileId);
 		ps.setLong(2, u.getId());
 		ps.executeUpdate();
-		
-		System.out.println("user");
-		System.out.println("user");
-		System.out.println("user");
 	}
 	
 	public boolean isValidEmailAddress(String email) {
@@ -117,7 +116,7 @@ public class UserDao {
 			System.out.println(Encrypter.encrypt(writtenPass));
 			return true;
 		}
-		return true;
+		return false;
 	}
 	
 	public void changeUsername(long userId, String newUserName) throws SQLException {
@@ -153,6 +152,9 @@ public class UserDao {
 		ps.executeUpdate();
 	}
 	
+	/**
+	 * Changing the password for a user before sending it back to his email
+	 */
 	public void forgottenPass(String email, String pass) throws SQLException {
 		Connection conn = db.getConn();
 		
@@ -165,23 +167,26 @@ public class UserDao {
 	}
 	
 	//TODO: do we really need all the info when reg (collections)?
-	public User getFullUser(String username) throws SQLException {
-		Connection conn = db.getConn();
-		
-		PreparedStatement ps = conn.prepareStatement("SELECT user_id , username, password, email, "
-									+ "upvotes_hidden, profile_id FROM 9gag.users WHERE username = ?");
-		ps.setString(1, username);
-		ResultSet rs = ps.executeQuery();
-		rs.next();
-		
-		User u = getUserById(rs.getLong("user_id"));
-		
-		u.setLikedPosts(ud.getLikedPosts(u));
-		u.setPosts(pd.getAllPostsForUser(u));
-		u.setComments(cd.getAllCommentsForUser(u));
-		return u;
-	}
+//	public User getFullUser(String username) throws SQLException {
+//		Connection conn = db.getConn();
+//		
+//		PreparedStatement ps = conn.prepareStatement("SELECT user_id , username, password, email, "
+//									+ "upvotes_hidden, profile_id FROM 9gag.users WHERE username = ?");
+//		ps.setString(1, username);
+//		ResultSet rs = ps.executeQuery();
+//		rs.next();
+//		
+//		User u = getUserById(rs.getLong("user_id"));
+//		
+//		u.setLikedPosts(ud.getLikedPosts(u));
+//		u.setPosts(pd.getAllPostsForUser(u));
+//		u.setComments(cd.getAllCommentsForUser(u));
+//		return u;
+//	}
 	
+	/**
+	 * Getting user when log in
+	 */
 	public User getFullUserByEmail(String email) throws SQLException {
 		Connection conn = db.getConn();
 		

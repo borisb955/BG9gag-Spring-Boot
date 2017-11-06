@@ -49,19 +49,18 @@ import com.bg.util.Validator;
 @Controller
 @RequestMapping(value = "/settings")
 public class SettingsController {
-	
 
 	@Autowired
 	UpvoteDao upvoteDao;
-	
-	@InitBinder
-	public void initBinder(WebDataBinder binder) {
-		
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyy");
-		binder.registerCustomEditor(Date.class, "dateOfBirth", new CustomDateEditor(sdf, false));
-	}
+	@Autowired
+	ProfileDao pd;
+	@Autowired
+	UserDao ud;
 
-	
+	/**
+	 * Passing ModelAttribute to a form with session user's username and email.
+	 * Use in saveSettings(...)
+	 */
 	@RequestMapping(value = "/account", method = RequestMethod.GET)
 	public String settings(Model m, HttpSession s) {
 		
@@ -78,20 +77,14 @@ public class SettingsController {
 		return "accountSettings";
 	}
 	
-	@Autowired
-	UserDao ud;
 	
 	@RequestMapping(value = "/account", method = RequestMethod.POST)
-	public String saveSettings(@Validated({ChangeAccount.class}) @ModelAttribute("user") User user, BindingResult result, HttpSession s) {
+	public String saveSettings( @ModelAttribute("user") User user, BindingResult result, 
+			HttpSession s, Model m) {
 
 
 		if(Validator.notLogged(s)) {
 			return "forward:/";
-		}
-		
-		
-		if(result.hasErrors()) {
-			return "accountSettings";
 		}
 		
 		User sessionUser = (User) s.getAttribute("user");
@@ -99,52 +92,89 @@ public class SettingsController {
 		String newUsername = user.getUsername();
 		String newEmail = user.getEmail();
 		
-		boolean uIsChanged = false;
-		boolean eIsChanged = false;
-		
-		if(newUsername != null && !newUsername.isEmpty()) {
-			try {
-				if(!ud.userExists(newUsername)) {
+		try {
+			if(!sessionUser.getUsername().equals(newUsername)) {
+				if(!ud.userExists(newUsername) && !newUsername.trim().isEmpty()) {
 					ud.changeUsername(sessionUser.getId(), newUsername);
-					uIsChanged = true;
+					File oldFile = new File(WebInitializer.LOCATION 
+											+File.separator+ "users"
+											+File.separator + sessionUser.getUsername());
+					File newFile = new File(WebInitializer.LOCATION 
+										 	+File.separator+ "users"
+										 	+File.separator + newUsername);
+					if(oldFile.exists()) {
+						oldFile.renameTo(newFile);
+					}
+					sessionUser.setUsername(newUsername);
 				}else {
-					//error pages ->
-					// User exists, please select another username
-					//email not valid
+					m.addAttribute("error", "User exists or user is empty");
+					return "accountSettings";
 				}
-			} catch (SQLException e) {
-				e.getMessage();
 			}
-		}
-		
-		if(newEmail != null && !newEmail.isEmpty()) {
-			try {
-				ud.changeEmail(sessionUser.getId(), newEmail);
-				eIsChanged = true;
-			} catch (SQLException e) {
-//				req.setAttribute("error", e.getMessage());
-//				req.getRequestDispatcher("WEB-INF/errorPage.jsp").forward(req, resp);
+			if(!sessionUser.getEmail().equals(newEmail)) {
+				if(ud.isValidEmailAddress(newEmail) && !ud.emailExists(newEmail)) {
+					ud.changeEmail(sessionUser.getId(), newEmail);
+					sessionUser.setEmail(newEmail);
+				}else {
+					m.addAttribute("error", "Email is not valid, or already exists");
+					return "accountSettings";
+				}
 			}
+		}catch (SQLException e) {
+			e.getMessage();
 		}
-		
-		
-		if(!uIsChanged) {
-			newUsername = sessionUser.getUsername();
-		}
-		if(!eIsChanged) {
-			newEmail = sessionUser.getEmail();
-		}
-		
-
-		user = new User(sessionUser.getId(), newUsername, sessionUser.getPassword(), newEmail, 
-				sessionUser.getProfile(), sessionUser.getLikedPosts(),sessionUser.getLikedComments());
 		
 		s.removeAttribute("user");
-		s.setAttribute("user", user);
+		s.setAttribute("user", sessionUser);
+		
+//		boolean uIsChanged = false;
+//		boolean eIsChanged = false;
+//		
+//		if(newUsername != null && !newUsername.isEmpty()) {
+//			try {
+//				if(!ud.userExists(newUsername)) {
+//					ud.changeUsername(sessionUser.getId(), newUsername);
+//					uIsChanged = true;
+//				}else {
+//					//error pages ->
+//					// User exists, please select another username
+//					//email not valid
+//				}
+//			} catch (SQLException e) {
+//				e.getMessage();
+//			}
+//		}
+//		
+//		if(newEmail != null && !newEmail.isEmpty()) {
+//			try {
+//				ud.changeEmail(sessionUser.getId(), newEmail);
+//				eIsChanged = true;
+//			} catch (SQLException e) {
+//				e.printStackTrace();
+//			}
+//		}
+//		
+//		
+//		if(!uIsChanged) {
+//			newUsername = sessionUser.getUsername();
+//		}
+//		if(!eIsChanged) {
+//			newEmail = sessionUser.getEmail();
+//		}
+//		
+//
+//		user = new User(sessionUser.getId(), newUsername, sessionUser.getPassword(), newEmail, 
+//				sessionUser.getProfile(), sessionUser.getLikedPosts(),sessionUser.getLikedComments());
+//		
+//		s.removeAttribute("user");
+//		s.setAttribute("user", user);
 	
 		return "forward:/";
 	}
 	
+	/**
+	 * Returning a page for changing password
+	 */
 	@RequestMapping(value="/password", method = RequestMethod.GET)
 	public String password(HttpSession s) {
 		if(Validator.notLogged(s)) {
@@ -154,6 +184,9 @@ public class SettingsController {
 		return "passwordSettings";
 	}
 	
+	/**
+	 * After some validations changing the password
+	 */
 	@RequestMapping(value="/password", method = RequestMethod.POST)
 	public String passwordChange(HttpSession s, HttpServletRequest req, Model m) {
 		
@@ -166,6 +199,7 @@ public class SettingsController {
 		String password1 = req.getParameter("pass1");
 		String password2 = req.getParameter("pass2");
 		
+		//validations
 		if(!password1.equals(password2)) {
 			m.addAttribute("error", "passwords mismatch");
 			return "passwordSettings";
@@ -176,20 +210,20 @@ public class SettingsController {
 			return "passwordSettings";
 		}
 		
-
+		//changing pass
 		try {
 			ud.changePassword(sessionUser.getId(), password1);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 
-
+		//WelcomeController
 		return "forward:/";
 	}
 	
-	@Autowired
-	ProfileDao pd;
-	
+	/**
+	 * Passing ModelAttribute to a form with session user's profile
+	 */
 	@RequestMapping(value="/profile", method = RequestMethod.GET)
 	public String profileSettings(Model m, HttpSession s) {
 		
@@ -209,8 +243,10 @@ public class SettingsController {
 		return "profileSettings";
 	}
 	
-	@Autowired
-	ProfileDao profileDao;
+	/**
+	 * Getting information from form and after some validations
+	 * setting or changing profile's fields
+	 */
 	@RequestMapping(value="/profile", method = RequestMethod.POST)
 	public String savePrSettings(@RequestParam("failche") MultipartFile file, 
 			@Valid @ModelAttribute("profile") Profile p, BindingResult result, 
@@ -225,25 +261,29 @@ public class SettingsController {
 		}
 		
 		User userSession = (User) s.getAttribute("user");
+		
+		//Path for avatar pic
 		String filePath =WebInitializer.LOCATION 
 				 +File.separator+ "users"
 				 +File.separator + userSession.getUsername()
 				 +File.separator + "avatar";
-		
-		
-	    File folders = new File( filePath );
-	    folders.mkdirs();
-	    File f = new File(filePath
-	    					+File.separator + "avatar.jpg");
+	    
+
 	    if(!file.isEmpty()) {
 		    try {
+			    File f = new File(filePath
+    					+File.separator + "avatar.jpg");
+			    
+		    	//Make folders if there is a file and directory doesn't exist
+			    File folders = new File( filePath );
+			    folders.mkdirs();
+		    	
+			    //getting the file's extension
 				MimeTypes allTypes = MimeTypes.getDefaultMimeTypes();
-				MimeType type;
+				MimeType type = allTypes.forName(file.getContentType());
+				String ext = type.getExtension(); 
 				
-					type = allTypes.forName(file.getContentType());
-				
-				String ext = type.getExtension(); // .whatever
-				
+				//validating file's ext
 				String[] allowedExt = new String[] {".jpg", "jpeg", ".png", ".bmp", ".gif", ".tiff" };
 				boolean isAllowed = false;
 				
@@ -261,44 +301,42 @@ public class SettingsController {
 		    	
 				file.transferTo(f);
 			} catch (IllegalStateException | IOException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			} catch (MimeTypeException e2) {
-				// TODO Auto-generated catch block
 				e2.printStackTrace();
 			}
 	    }
 
 		
-		
+		//Making new profile in DB if user modifies profile's info for the first time
 		if(userSession.getProfile() == null) {
 			userSession.setProfile(p);
 			try {
-				profileDao.insertProfile(p, userSession);
+				pd.insertProfile(p, userSession);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
+		//Some validations before inserting in DB
 		}else {
 			try {
-
 				if(!file.isEmpty()) {
-					profileDao.changeAvatar("avatar.jpg", userSession);
+					pd.changeAvatar("avatar.jpg", userSession);
 					userSession.getProfile().setAvatarUrl("avatar.jpg");
 				}
 				if(p.getFullName() != null && !p.getFullName().trim().isEmpty()) {
-					profileDao.changeFullName(p.getFullName(), userSession);
+					pd.changeFullName(p.getFullName(), userSession);
 					userSession.getProfile().setFullName(p.getFullName());
 				}
 				if(p.getGender() != null && !p.getGender().trim().isEmpty()) {
-					profileDao.changeGender(p.getGender(), userSession);
+					pd.changeGender(p.getGender(), userSession);
 					userSession.getProfile().setGender(p.getGender());
 				}
 				if(p.getDateOfBirth() != null) {
-					profileDao.changeDateOfBirth(p.getDateOfBirth(), userSession);
+					pd.changeDateOfBirth(p.getDateOfBirth(), userSession);
 					userSession.getProfile().setDateOfBirth(p.getDateOfBirth());
 				}
 				if(p.getInfo() != null && !p.getInfo().trim().isEmpty()) {
-					profileDao.changeInfo(p.getInfo(), userSession);
+					pd.changeInfo(p.getInfo(), userSession);
 					userSession.getProfile().setInfo(p.getInfo());
 				}
 			} catch (SQLException e) {

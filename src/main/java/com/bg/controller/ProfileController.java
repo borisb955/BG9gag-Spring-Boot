@@ -37,8 +37,12 @@ public class ProfileController {
 	@Autowired
 	UpvoteDao uvd;
 	
+	/**
+	 * Returning user's profile page
+	 */
 	@RequestMapping(method = RequestMethod.GET)
 	public String myProfile(HttpSession s, Model m) {
+		
 		if(Validator.notLogged(s)) {
 			return "forward:/";
 		}
@@ -49,6 +53,9 @@ public class ProfileController {
 		return "profile";
 	}
 	
+	/**
+	 * Returning user's posts page
+	 */
 	@RequestMapping(value ="/posts", method = RequestMethod.GET)
 	public String myPosts(Model m, HttpSession s) {
 		if(Validator.notLogged(s)) {
@@ -66,6 +73,9 @@ public class ProfileController {
 		return "myPosts";
 	}
 	
+	/**
+	 * Returning user's commented posts page
+	 */
 	@RequestMapping(value ="/myCommentedPosts", method = RequestMethod.GET)
 	public String myComments(HttpSession s, Model m) {
 		if(Validator.notLogged(s)) {
@@ -87,6 +97,9 @@ public class ProfileController {
 		return "myCommentedPosts";
 	}
 	
+	/**
+	 * Returning user's liked posts page
+	 */
 	@RequestMapping(value ="/myLikedPosts", method = RequestMethod.GET)
 	public String myLikes(HttpSession s, Model m) {
 		if(Validator.notLogged(s)) {
@@ -108,6 +121,9 @@ public class ProfileController {
 		return "myCommentedPosts";
 	}
 	
+	/**
+	 * Showing default pic in users' profiles if they haven't set their own yet
+	 */
 	@RequestMapping(value = "/avatar", method = RequestMethod.GET)
 	public void displayAvatar(HttpSession s, HttpServletResponse resp, HttpServletRequest req ) {
 		
@@ -135,8 +151,7 @@ public class ProfileController {
 		    Files.copy(path, out);
 		    out.flush();
 		} catch (IOException e) {
-//			req.setAttribute("error", e.getMessage());
-//			req.getRequestDispatcher("WEB-INF/errorPage.jsp").forward(req, resp);
+			e.printStackTrace();
 		}
 	}
 	

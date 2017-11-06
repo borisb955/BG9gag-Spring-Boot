@@ -19,6 +19,10 @@ import com.bg.model.User;
 import com.bg.model.UserDao;
 import com.bg.util.Validator;
 
+/**
+ * This controller checks whether you are logged or not
+ * and other methods forward to this controller 
+ */
 
 @Controller
 public class WelcomeController {

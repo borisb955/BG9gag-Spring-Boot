@@ -16,7 +16,7 @@
 			
 			<div id="rightContainer">
 				<h1 class="rightContainerHeader"><s:message code="account"></s:message></h1>
-				<f:errors calss="errors" path="user.*"/>
+				<c:out value="${ error }"></c:out>
 				
 				<f:form commandName="user">
 					<p><s:message code="changeUsername"></s:message></p>

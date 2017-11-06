@@ -37,6 +37,9 @@ public class ForgottenPassController {
 	@RequestMapping(method=RequestMethod.POST)
 	public String forgottenPassSend(@ModelAttribute("user") User u, Model m){
 		
+		/**
+		 * Validating email
+		 */
 		if(!ud.isValidEmailAddress(u.getEmail())) {
 			m.addAttribute("error", "Email is not valid");
 			return "forgottenPass";
@@ -47,6 +50,9 @@ public class ForgottenPassController {
 		String newPass = Integer.toString(randomNum);
 		
 		
+		/**
+		 * Changing and sending the new password for a user with that email
+		 */
 		try {
 			ud.forgottenPass(email, newPass);
 			sendNewPass.sendNewPass(email, newPass);
