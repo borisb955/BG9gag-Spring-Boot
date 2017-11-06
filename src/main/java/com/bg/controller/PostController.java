@@ -44,33 +44,34 @@ public class PostController {
 		
 	private static String URL = "D:" + File.separator + "postPics" + File.separator;
 	@RequestMapping(value="/addComment",method=RequestMethod.POST)
-	public String addComment(HttpServletRequest request){
+	public String addComment(HttpServletRequest request, Model m){
 		HttpSession s = request.getSession();
 		Object o = s.getAttribute("logged");
 		boolean logged = (o != null && ((boolean) o));
 		
 		if(s.isNew() || !logged) {
-			return "notLogged";
+			return "login";
 		}else {
-//			Post post = (Post) request.getAttribute("postPostPage");
-//			User user = (User) request.getAttribute("userPostPage");
+
 			Post post = (Post) s.getAttribute("postPostPage");
 			User user = (User) s.getAttribute("user");
 			String text = request.getParameter("commentText");
-		
-			if(text == null || text.trim().length() == 0){				
-				return "login";
+			long postId =  Long.parseLong(request.getParameter("postId"));
+			long userId =  Long.parseLong(request.getParameter("userId"));
+			
+			if(text == null || text.trim().length() == 0){	
+				s.setAttribute("error",  "You have not entered a comment");
+				return "redirect:/postWithComments/postId="+postId+"/userId="+userId;
 			}else{
 			try {
 				commentDao.insertComment(new Comment(text,LocalDateTime.now(),null,user,post));
 			} catch (SQLException e) {
 				request.setAttribute("error", e.getMessage());
 			}
-				
-			return "loggedPostPage";
+				s.removeAttribute("error");
+			return "redirect:/postWithComments/postId="+postId+"/userId="+userId;
 			}
-		}
-			
+		}		
 	}
 	
 	@RequestMapping(value="/addChildComment",method=RequestMethod.POST)
@@ -87,6 +88,14 @@ public class PostController {
 			int parentCommentUserId = Integer.parseInt(request.getParameter("parentCommentUserId"));
 			String commentText = request.getParameter("commentText");
 			
+			long postId =  Long.parseLong(request.getParameter("postId"));
+			long userId =  Long.parseLong(request.getParameter("userId"));
+			
+			if(commentText == null || commentText.trim().length() == 0){	
+				s.removeAttribute("error");
+				return "redirect:/postWithComments/postId="+postId+"/userId="+userId;
+			}else{
+			
 			Post post = (Post) s.getAttribute("postPostPage");
 			User user = (User) s.getAttribute("userPostPage");
 						
@@ -97,9 +106,9 @@ public class PostController {
 			} catch (SQLException e1) {
 				e1.printStackTrace();
 			}
-				
-			return "loggedPostPage";
-		
+			s.removeAttribute("error");
+			return "redirect:/postWithComments/postId="+postId+"/userId="+userId;
+			}
 		}
 			
 	}
@@ -135,6 +144,8 @@ public class PostController {
 
 	@RequestMapping(value = "/postWithComments/postId={postId}/userId={userId}", method = RequestMethod.GET)
 	public String showPostWithComment(@PathVariable("postId") int postId, @PathVariable("userId") int userId, HttpSession s, Model model) {
+		
+
 		try {
 			
 			User user = userDao.getUserById(userId);
@@ -142,6 +153,12 @@ public class PostController {
 			s.setAttribute("userPostPage", user);
 			s.setAttribute("postPostPage", post);
 			
+			System.out.println(userId);
+			System.out.println(postId);
+			System.out.println(userId);
+			System.out.println(postId);
+			System.out.println(userId);
+			System.out.println(postId);
 //			model.addAttribute("userPostPage", user);
 //			model.addAttribute("postPostPage", post);
 		} catch (SQLException e) {
@@ -150,6 +167,10 @@ public class PostController {
 		if (Validator.notLogged(s)) {
 			return "notLoggedPostPage";
 		}
+		
+
+		System.out.println("vliza");
+		System.out.println("vliza");
 		return "loggedPostPage";
 
 	}

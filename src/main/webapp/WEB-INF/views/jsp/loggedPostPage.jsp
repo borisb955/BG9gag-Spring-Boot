@@ -197,10 +197,13 @@
 			Comments
 		</h3>
 					<!-- 		MAINCOMMENTS -->
+		<p style="color:red;"><c:out value="${ error }"></c:out></p>
 		<form method="POST" action="/MyProject/addComment">
 			<textarea name="commentText" path="" id="commentText"
 				rows="6" cols="50" maxlength="1000"
 				style="resize: none;" placeholder="Comment here..." required></textarea>
+				<input name="postId" value="${ sessionScope.postPostPage.postId}" style="display:none">
+				<input name="userId" value="${ sessionScope.userPostPage.id }" style="display:none">
 			<input id="submitButton" type="submit" value="Comment" class="showRepliesButton"
 				onclick="postComment()">
 		</form>
@@ -482,6 +485,8 @@
 									 rows="6" cols="50" maxlength="1000"
 									style="resize: none;" placeholder="Comment here..." required></textarea>
 								<input type="submit" value="Comment" onclick="postComment()" class="showRepliesButton">
+								<input name="postId" value="${ sessionScope.postPostPage.postId}" style="display:none">
+								<input name="userId" value="${ sessionScope.userPostPage.id }" style="display:none">
 							</form>
 
 						</div>
@@ -555,6 +560,8 @@
 														name="parentCommentId" style="display: none"> <input
 														type="text" value="${ childComment.user.id}"
 														name="parentCommentUserId" style="display: none">
+														<input name="postId" value="${ sessionScope.postPostPage.postId}" style="display:none">
+														<input name="userId" value="${ sessionScope.userPostPage.id }" style="display:none">
 													<textarea name="commentText" path="" id="commentText"
 														 rows="6" cols="50" maxlength="1000"
 														style="resize: none;" placeholder="Comment here..." required></textarea>
