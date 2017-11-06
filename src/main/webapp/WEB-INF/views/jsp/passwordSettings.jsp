@@ -7,7 +7,15 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>Pass Settings</title>
-		<link href="<c:url value="css/ooo.css" />" rel="stylesheet" type="text/css">
+		<style type="text/css">
+			#container{width: 800px; margin: 40px auto 0 200px; position: relative; display: inline-flex; }
+			#rightContainer{ margin-left: 200px;}
+			#leftContainer{ padding-left: 0px; background-color: red;}
+			.par{font-size: 120%;}
+			.rightContainerHeader{font-size: 260%;}
+			.ulLeft{list-style-type: none; position: absolute;}
+			.errors{color: red;}
+		</style>
 	</head>
 	
 	<body>
@@ -18,9 +26,9 @@
 				<c:out value="${error}"></c:out>
 				
 				<form action="password" method="post">
-					<p><s:message code="newPass"></s:message></p>
+					<p class="par"><s:message code="newPass"></s:message></p>
 					<input type="password" placeholder="<s:message code="newPass"></s:message>" name="pass1">
-					<p><s:message code="reNewPass"></s:message></p>
+					<p class="par"><s:message code="reNewPass"></s:message></p>
 					<input type="password" placeholder="<s:message code="reNewPass"></s:message>" name="pass2">
 					
 					<input type="submit">

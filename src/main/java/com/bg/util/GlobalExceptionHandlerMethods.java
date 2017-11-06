@@ -27,7 +27,7 @@ public class GlobalExceptionHandlerMethods {
 	}
 	
 
-	@ExceptionHandler(value = MySQLSyntaxErrorException.class)
+	@ExceptionHandler(value = SQLException.class)
 	public String SQLException(Exception e, Model m) {
 		
 		System.out.println("SQLException : " + e);
@@ -36,7 +36,7 @@ public class GlobalExceptionHandlerMethods {
 	}
 	
 	@ResponseStatus(value = HttpStatus.NOT_FOUND)
-	@ExceptionHandler(value = IOException.class)
+	@ExceptionHandler(value = Throwable.class)
 	public String PageNotFound(Exception e, Model m) {
 		
 		System.out.println("Page not found: " + e);

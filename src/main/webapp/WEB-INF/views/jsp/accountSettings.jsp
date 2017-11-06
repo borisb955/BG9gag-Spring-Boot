@@ -8,7 +8,15 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>Account Settings</title>
-		<link href="<c:url value="/css/ooo.css" />" rel="stylesheet" type="text/css">
+		<style type="text/css">
+			#container{width: 800px; margin: 40px auto 0 200px; position: relative; display: inline-flex; }
+			#rightContainer{ margin-left: 200px;}
+			#leftContainer{ padding-left: 0px; background-color: red;}
+			.par{font-size: 120%;}
+			.rightContainerHeader{font-size: 260%;}
+			.ulLeft{list-style-type: none; position: absolute;}
+			.errors{color: red;}
+		</style>
 	</head>
 	<body>
 		<jsp:include page="sideBarSettings.jsp"></jsp:include>
@@ -19,10 +27,10 @@
 				<c:out value="${ error }"></c:out>
 				
 				<f:form commandName="user">
-					<p><s:message code="changeUsername"></s:message></p>
+					<p  class="par"><s:message code="changeUsername"></s:message></p>
 					<f:input path="username"/>
 					
-					<p><s:message code="changeEmail"></s:message></p>
+					<p  class="par"><s:message code="changeEmail"></s:message></p>
 					<f:input path="email"/><br><br>
 					
 					<input type="submit" value="<s:message code="saveChanges"></s:message>">

@@ -8,7 +8,15 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>Profile Settings</title>
-		<link href="<c:url value="css/ooo.css" />" rel="stylesheet" type="text/css">	</head>
+		<style type="text/css">
+			#container{width: 800px; margin: 40px auto 0 200px; position: relative; display: inline-flex; }
+			#rightContainer{ margin-left: 200px;}
+			#leftContainer{ padding-left: 0px; background-color: red;}
+			.par{font-size: 120%;}
+			.rightContainerHeader{font-size: 260%;}
+			.ulLeft{list-style-type: none; position: absolute;}
+			.errors{color: red;}
+		</style>
 	<body>
 		<jsp:include page="sideBarSettings.jsp"></jsp:include>
 			
@@ -18,21 +26,21 @@
 				<p class="errors"><c:out value="${ error }"></c:out></p>
 				
 				<f:form commandName="profile" enctype="multipart/form-data">
-						<p><s:message code="upAvatar"></s:message></p>
+						<p class="par"><s:message code="upAvatar"></s:message></p>
 						<input type="file" name="failche">
 						
-						<p><s:message code="yourName"></s:message></p>
+						<p class="par"><s:message code="yourName"></s:message></p>
 						<f:input path="fullName"/>
 						
-						<p><s:message code="Gender"></s:message></p>
+						<p class="par"><s:message code="Gender"></s:message></p>
 						<f:input path="gender"/>
 						
-						<p><s:message code="Birthday"></s:message></p>
+						<p class="par"><s:message code="Birthday"></s:message></p>
 						<f:input path="dateOfBirth"/>
 						
-						<p><s:message code="Description"></s:message></p>
+						<p class="par"><s:message code="Description"></s:message></p>
 						<f:input path="info"/>
-						
+						<br><br>
 						<input type="submit" value="Save Changes">
 				</f:form>	
 			</div>

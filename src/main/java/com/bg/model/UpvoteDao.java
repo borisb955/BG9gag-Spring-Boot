@@ -21,6 +21,8 @@ public class UpvoteDao {
 	PostDao pd;
 	@Autowired
 	CommentDao cd;
+	@Autowired
+	UserDao ud;
 	
 	public void undislikePost(User user, Post post) throws SQLException{
 			Connection conn = db.getConn();		
@@ -288,15 +290,17 @@ public class UpvoteDao {
 	
 	public HashSet<Post> getLikedPosts(User user) throws SQLException{
 		Connection conn = db.getConn();
-		PreparedStatement ps = conn.prepareStatement("SELECT post_id FROM 9gag.upvotes "
-													+ "WHERE user_id = ? and type = 1;");
+		PreparedStatement ps = conn.prepareStatement("SELECT u.post_id, p.user_id FROM 9gag.upvotes as u "
+													+"JOIN 9gag.posts as p "
+													+ "ON u.post_id = p.post_id "
+													+ "WHERE u.user_id = ? and type = 1;");
 		ps.setLong(1, user.getId());
 		ResultSet rs = ps.executeQuery();
 		
 		
 		HashSet<Post> likedPosts = new HashSet<>();
 		while(rs.next()) {
-			likedPosts.add(pd.getPost(rs.getLong("post_id"), user));
+			likedPosts.add(pd.getPost(rs.getLong("post_id"), ud.getUserById(rs.getLong("p.user_id"))));
 		}
 		return likedPosts;
 	}
