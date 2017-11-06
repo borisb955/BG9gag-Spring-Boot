@@ -128,10 +128,18 @@
 
 		<c:choose>
 			<c:when test="${sessionScope.postPostPage.video}">
-				<video class="video" controls> <source
-					src="/MyProject/postpic?pictureUrl=${sessionScope.postPostPage.postUrl}&userName=${sessionScope.userPostPage.username}"
-					type="video/mp4"></video>
-			</c:when>
+							<c:choose>
+								<c:when test="${ sessionScope.postPostPage.youtube }">
+									<iframe width="420" height="315" src="${ sessionScope.postPostPage.postUrl }">
+									</iframe>
+								</c:when>
+								<c:otherwise>
+									<video class="video" controls>
+									  <source src="/MyProject/postpic?pictureUrl=${sessionScope.postPostPage.postUrl}&userName=${sessionScope.userPostPage.username}" type="video/mp4">
+									</video>
+								</c:otherwise>
+							</c:choose>
+						  </c:when>
 			<c:otherwise>
 				<img
 					src="/MyProject/postpic?pictureUrl=${sessionScope.postPostPage.postUrl}&userName=${sessionScope.userPostPage.username}"
@@ -420,8 +428,6 @@
 									onclick="handleLikeComment(${comment.comment_id})" class="likeButton">Like</button>
 							</c:if>
 							<c:if test="${isDisliked}">
-								<a
-									href="/MyProject/undislikeComment?commentId=${  comment.comment_id }&userId=${ sessionScope.user.id }">Undislike</a>
 								<button id="dislikeButton${comment.comment_id}" style="background-color: red" class="likeButton"
 									onclick="handleDislikeComment(${comment.comment_id})">Undislike</button>
 							</c:if>
