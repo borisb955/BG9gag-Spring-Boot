@@ -140,6 +140,7 @@
 								</c:otherwise>
 							</c:choose>
 						  </c:when>
+						  
 			<c:otherwise>
 				<img
 					src="/MyProject/postpic?pictureUrl=${sessionScope.postPostPage.postUrl}&userName=${sessionScope.userPostPage.username}"
