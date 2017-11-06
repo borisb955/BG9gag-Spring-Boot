@@ -30,6 +30,9 @@ public class CollectionController {
 	@Autowired
 	PostTagDao ptd;
 	
+	/**
+	 * Returns the newest posts in a new page
+	 */
 	@RequestMapping(value = "fresh", method = RequestMethod.GET)
 	public String fresh(Model m) {
 		
@@ -60,6 +63,9 @@ public class CollectionController {
 		return "fresh";
 	}
 	
+	/**
+	 * Returns only gifs in a new page
+	 */
 	@RequestMapping(value = "/gifs", method = RequestMethod.GET)
 	public String gifs(Model m) {
 		
@@ -77,6 +83,9 @@ public class CollectionController {
 		return "gifs";
 	}
 	
+	/**
+	 * Returns only uploaded videos from users in a new page
+	 */
 	@RequestMapping(value = "/video", method = RequestMethod.GET)
 	public String video(Model m) {
 		
@@ -93,6 +102,9 @@ public class CollectionController {
 		return "videos";
 	}
 	
+	/**
+	 * Returns only youtube videos in a new page
+	 */
 	@RequestMapping(value = "/videoYoutube", method = RequestMethod.GET)
 	public String videoYoutube(Model m) {
 		
@@ -109,6 +121,9 @@ public class CollectionController {
 		return "videos";
 	}
 	
+	/**
+	 * Returns all posts for the particular tag in a new page
+	 */
 	@RequestMapping(value = "/tag/tagName={tagName}", method = RequestMethod.GET)
 	public String tag(Model m, HttpServletRequest req, 
 			@PathVariable("tagName") String tagName) {
@@ -126,6 +141,9 @@ public class CollectionController {
 		return "tagPosts";
 	}
 	
+	/**
+	 * Returns all posts containing the searchedWord in itself 
+	 */
 	@RequestMapping(value="/search", method = RequestMethod.GET)
 	public String search(HttpServletRequest req, Model m) {
 		String searchedWord = req.getParameter("search");
@@ -140,6 +158,9 @@ public class CollectionController {
 		return "searchByDesc";
 	}
 	
+	/**
+	 * Returns the posts with higher points in the top
+	 */
 	@RequestMapping(value = "hot", method = RequestMethod.GET)
 	public String hot(Model m) {
 		

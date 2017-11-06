@@ -11,12 +11,12 @@
 		body{background: white; margin: 0px;}
 		a:link {text-decoration: none;}
 		a:hover{color: white;}
-		#header{width: 98%; height: 30px; background: black; padding: 10px; text-align: left;}
-		#logo img{margin-top:-10px; height: 45px; widght: 45px; float: left; border:}
-		#loginReg{width: 165px; float: right; margin-top: -15px;}
+		#header{width: 98%; height: 37px; background: black; padding: 10px; text-align: left;}
+		#logo img{margin-top:-10px; height: 45px; widght: 45px; float: left;}
+		#loginReg{width: 165px; float: right; }
 		#buttonsHeader{float: left; padding-left: 25px; display: inline-flex;}
 		.header-links{color: gray; padding-left: 35px; text-decoration: none; font-weight: bold;}
-		.languages{display: block;}
+		.languages{display: block; float:right;}
 		.languages a:link{float: right; color: #eaeaea;}
 		.languages a:hover{float: right; color: white;}
 		.search{margin-left: 200px;}

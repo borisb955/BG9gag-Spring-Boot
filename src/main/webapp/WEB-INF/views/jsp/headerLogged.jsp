@@ -11,7 +11,7 @@
 		body{background: white; margin: 0px;}
 		a:link {text-decoration: none;}
 		a:hover{color: white}
-		#header{width: 98%; height: 30px; background: black; padding: 10px; text-align: left;}
+		#header{width: 98%; height: 37px; background: black; padding: 10px; text-align: left;}
 		#logo img{margin-top:-10px; height: 45px; widght: 45px; float: left; border:}
 		#loginReg{width: 180px; float: right; }
 		#buttonsHeader{float: left; padding-left: 25px;display: inline-flex;}

@@ -35,16 +35,23 @@ public class UploadController {
 	@Autowired
 	PostDao pd;
 	
+	/**
+	 * Returning the upload page
+	 */
 	@RequestMapping(method=RequestMethod.GET)
-	public String kachiSnimka(HttpSession s){
+	public String upload(HttpSession s){
 		if(Validator.notLogged(s)) {
 			return "forward:/";
 		}
 		return "upload";
 	}
 	
+	/**
+	 * Getting info from upload page and after some validations, uploaded file is
+	 * saved either as local uploaded or as a YouTube link
+	 */
 	@RequestMapping(method=RequestMethod.POST)
-	public String zapishiSnimka(@RequestParam("failche") MultipartFile file, HttpServletRequest req,
+	public String uploading(@RequestParam("failche") MultipartFile file, HttpServletRequest req,
 			 HttpSession s, Model m){
 		if(Validator.notLogged(s)) {
 			return "forward:/";
@@ -52,9 +59,13 @@ public class UploadController {
 		
 		User u = (User) s.getAttribute("user");
 		String description = req.getParameter("description");
+		//full YouTube link provided by the user
 		String youtube = req.getParameter("youtube");
+		//Getting only the id of the YouTube link
 		String linkId = youtube.substring(youtube.lastIndexOf("=")+1);
+		//Splitting provided tags by space
 		String[] tags = req.getParameter("tags").split(" ");
+		//Local directory where the files will be saved
 		String filePath =WebInitializer.LOCATION 
 						 +File.separator+ "users"
 						 +File.separator + u.getUsername()
@@ -79,13 +90,17 @@ public class UploadController {
 		
 		try {
 			Post post = null;
+			//Save a local uploaded file
 			if(!file.isEmpty()) {
-	
+				
+				//Getting the extension of the file
 				MimeTypes allTypes = MimeTypes.getDefaultMimeTypes();
 				MimeType type = allTypes.forName(file.getContentType());
-				String ext = type.getExtension(); // .whatever
+				String ext = type.getExtension(); 
 				
-				String[] allowedExt = new String[] {".mp4", ".jpg", "jpeg", ".png", ".bmp", ".gif", ".tiff" };
+				String[] allowedExt = new String[] {".mp4", ".jpg", "jpeg", ".png", ".bmp",
+													".gif", ".tiff" };
+				//Check if uploaded file's ext is allowed
 				boolean isAllowed = false;
 				
 				for (String string : allowedExt) {
@@ -98,7 +113,8 @@ public class UploadController {
 					m.addAttribute("error", "You must upload a pic or video from one of the given extensions");
 					return "upload";
 				}
-	
+				
+				//Making directories if doesn't exist
 			    File folders = new File( filePath );
 			    folders.mkdirs();
 			    
@@ -119,14 +135,15 @@ public class UploadController {
 				
 			    post = new Post(description, f.getName(), LocalDateTime.now(), isVideo, false, u);
 			    
-				
+			//upload a YouTube video
 			}else {
 				if(youtube.contains("https://www.youtube.com/watch?") && linkId.length() == 11) {
 					String fullLink = "https://www.youtube.com/embed/" + linkId;
 					post = new Post(description, fullLink, LocalDateTime.now(), true, true, u);
 					
 				}else {
-					m.addAttribute("error", "Please copy the link from a youtube video");
+					m.addAttribute("error", "Please copy the link from a youtube video. "
+											+ "Videos from collections not allowed.");
 					return "upload";
 				}
 			}

@@ -123,7 +123,7 @@
 						<label class="login-field-icon fui-lock" for="login-pass"></label>
 					</div>
 					
-					<input class="btn btn-primary btn-large btn-block" type="submit">
+					<input class="btn btn-primary btn-large btn-block" type="submit" value="sign up">
 				</div>
 			
 			</f:form>

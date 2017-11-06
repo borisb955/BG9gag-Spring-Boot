@@ -119,8 +119,8 @@
 					</div>
 	
 					
-					<input class="btn btn-primary btn-large btn-block" type="submit">
-					<a class="login-link" href="/MyProject/forgottenPass">Forgot your password?</a>
+					<input class="btn btn-primary btn-large btn-block" type="submit" value="<s:message code="logIn"></s:message>">
+					<a class="login-link" href="/MyProject/forgottenPass"><s:message code="forgottenPass"></s:message></a>
 				</div>
 			
 			</form>

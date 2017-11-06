@@ -33,7 +33,12 @@ public class RegisterController {
 
 	@Autowired
 	UserDao ud;
+	@Autowired
+	private NotificationService notificationService;
 	
+	/**
+	 * Returning the sign up page
+	 */
 	@RequestMapping(method = RequestMethod.GET)
 	public String register(Model m) {
 		User u = new User();
@@ -41,25 +46,25 @@ public class RegisterController {
 		return "register";
 	}
 	
-	@Autowired
-	private NotificationService notificationService;
-	
+	/**
+	 * If user details are valid insert the user in DB, send him welcome email and
+	 * redirect to login
+	 */
 	@RequestMapping(method = RequestMethod.POST)
-	public String registered(@Validated({Register.class}) @ModelAttribute("user") User u, 
+	public String signUp(@Validated({Register.class}) @ModelAttribute("user") User u, 
 			BindingResult result, Model m) {
 
 		if(result.hasErrors()) {
 			return "register";
 		}
 		
-		if(!u.getUsername().isEmpty() && !u.getEmail().isEmpty() && !u.getPassword().isEmpty()) {
-			try {
-				ud.insertUser(u);
-				notificationService.sendNotification(u);
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+		try {
+			ud.insertUser(u);
+			notificationService.sendNotification(u);
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
+
 		m.addAttribute("success", "You have been successfully registered. Please login");
 		
 		return "login";

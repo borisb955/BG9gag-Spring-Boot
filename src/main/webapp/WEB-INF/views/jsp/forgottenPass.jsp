@@ -93,13 +93,13 @@
 	</head>
 	<body>
 	
-		<jsp:include page="headerNotLogged.jsp"></jsp:include>
+	<jsp:include page="headerNotLogged.jsp"></jsp:include>
 		
 		
 	<div class="login">
 		<div class="login-screen">
 			<div class="app-title">
-				<h1>Forgotten Password</h1>
+				<h1><s:message code="forgottenPass"></s:message></h1>
 			</div>
 			
 			<p class="error"><c:out value="${ error }"></c:out></p>
@@ -115,7 +115,7 @@
 						<label class="login-field-icon fui-user" for="login-name"></label>
 					</div>
 					
-					<input class="btn btn-primary btn-large btn-block" type="submit" value="Send new password">
+					<input class="btn btn-primary btn-large btn-block" type="submit" value="<s:message code="sendNewPass"></s:message>">
 				</div>
 			
 			</f:form>
