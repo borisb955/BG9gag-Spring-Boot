@@ -35,14 +35,12 @@ public class ForgottenPassController {
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)
-	public String forgottenPassSend(@ModelAttribute("user") User u,
-							BindingResult result){
+	public String forgottenPassSend(@ModelAttribute("user") User u, Model m){
 		
-		
-		if(result.hasErrors()) {
+		if(!ud.isValidEmailAddress(u.getEmail())) {
+			m.addAttribute("error", "Email is not valid");
 			return "forgottenPass";
 		}
-		
 
 		String email = u.getEmail();
 		int randomNum = new Random().nextInt(2_000_000_000);

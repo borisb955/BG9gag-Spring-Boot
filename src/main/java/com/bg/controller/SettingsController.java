@@ -42,7 +42,7 @@ import com.bg.model.ProfileDao;
 import com.bg.model.UpvoteDao;
 import com.bg.model.User;
 import com.bg.model.UserDao;
-import com.bg.model.User.changeAccount;
+import com.bg.model.User.ChangeAccount;
 import com.bg.util.Validator;
 
 
@@ -82,7 +82,7 @@ public class SettingsController {
 	UserDao ud;
 	
 	@RequestMapping(value = "/account", method = RequestMethod.POST)
-	public String saveSettings(@Validated({changeAccount.class}) @ModelAttribute("user") User user, BindingResult result, HttpSession s) {
+	public String saveSettings(@Validated({ChangeAccount.class}) @ModelAttribute("user") User user, BindingResult result, HttpSession s) {
 
 
 		if(Validator.notLogged(s)) {
@@ -308,10 +308,6 @@ public class SettingsController {
 		
 		s.removeAttribute("user");
 		s.setAttribute("user", userSession);
-		System.out.println("i");
-		System.out.println("i");
-		System.out.println("i");
-		System.out.println("i");
 		return "redirect:profile";
 	}
 }

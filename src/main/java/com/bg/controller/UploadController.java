@@ -144,6 +144,7 @@ public class UploadController {
 			e.printStackTrace();
 		}
 		
+		m.addAttribute("success", "You have successfully uploaded your file");
 		return "upload";
 	}
 }
