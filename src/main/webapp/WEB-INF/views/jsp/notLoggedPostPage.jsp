@@ -103,7 +103,27 @@
 						<a href=""><span class="tag"><c:out value="${ tag.tagName }"></c:out></span></a>
 		</c:forEach>
 		<br>
-		<img src="/MyProject/postpic?pictureUrl=${sessionScope.postPostPage.postUrl}&userName=${sessionScope.userPostPage.username}" width="50%" height="auto">
+		<br>
+		<c:choose>
+			<c:when test="${sessionScope.postPostPage.video}">
+							<c:choose>
+								<c:when test="${ sessionScope.postPostPage.youtube }">
+									<iframe width="420" height="315" src="${ sessionScope.postPostPage.postUrl }">
+									</iframe>
+								</c:when>
+								<c:otherwise>
+									<video class="video" controls>
+									  <source src="/MyProject/postpic?pictureUrl=${sessionScope.postPostPage.postUrl}&userName=${sessionScope.userPostPage.username}" type="video/mp4">
+									</video>
+								</c:otherwise>
+							</c:choose>
+						  </c:when>  
+			<c:otherwise>
+				<img
+					src="/MyProject/postpic?pictureUrl=${sessionScope.postPostPage.postUrl}&userName=${sessionScope.userPostPage.username}"
+					width="100%" height="auto">
+			</c:otherwise>
+		</c:choose>
 		<br>
 		<span class="tag">Points:<c:out value="${ sessionScope.postPostPage.points }"></c:out></span>
 		<button id="likeButtonPost${sessionScope.postPostPage.postId}" style="background-color: black" onclick="handleLike(${sessionScope.postPostPage.postId})" class="likeButton">Like</button>
@@ -173,7 +193,11 @@
 						button2.innerHTML="Dislike";
 						button2.style.backgroundColor = "black";
 					}
-				}									
+				}else{
+					if(this.readyState == 4 && this.status != 200){
+						alert("Please, log in!");
+						}
+					}									
 			}
 			request.open("post","/MyProject/likePost?postId="+postId,true);
 			request.send();				
@@ -191,7 +215,11 @@
 					button2.innerHTML="Dislike";
 					button2.style.backgroundColor = "black";
 				}
-			}									
+			}else{
+				if(this.readyState == 4 && this.status != 200){
+					alert("Please, log in!");
+					}
+				}									
 		}
 		request.open("post","/MyProject/likeComment?commentId="+commentId,true);
 		request.send();				
@@ -204,7 +232,11 @@
 							button.innerHTML="Like";
 							button.style.backgroundColor = "black";
 							document.getElementById("post"+postId).innerHTML=request.responseText;
-						}												
+						}else{
+							if(this.readyState == 4 && this.status != 200){
+								alert("Please, log in!");
+								}
+							}												
 					}
 					request.open("post","/MyProject/unlikePost?postId="+postId,true);
 					request.send();
@@ -217,7 +249,11 @@
 							button.innerHTML="Like";
 							button.style.backgroundColor = "black";
 							document.getElementById("comment"+commentId).innerHTML=request.responseText;
-						}												
+						}else{
+							if(this.readyState == 4 && this.status != 200){
+								alert("Please, log in!");
+								}
+							}												
 					}
 					request.open("post","/MyProject/unlikeComment?commentId="+commentId,true);
 					request.send();
@@ -236,7 +272,11 @@
 								button2.innerHTML="Like";
 								button2.style.backgroundColor = "black";
 							}
-						}												
+						}else{
+							if(this.readyState == 4 && this.status != 200){
+								alert("Please, log in!");
+								}
+							}												
 					}
 					request.open("post","/MyProject/dislikePost?postId="+postId,true);
 					request.send();
@@ -254,7 +294,11 @@
 								button2.innerHTML="Like";
 								button2.style.backgroundColor = "black";
 							}
-						}												
+						}else{
+							if(this.readyState == 4 && this.status != 200){
+								alert("Please, log in!");
+								}
+							}												
 					}
 					request.open("post","/MyProject/dislikeComment?commentId="+commentId,true);
 					request.send();
@@ -267,7 +311,11 @@
 							button.innerHTML="Dislike";
 							button.style.backgroundColor  = "black";
 							document.getElementById("post"+postId).innerHTML=request.responseText;
-						}												
+						}else{
+							if(this.readyState == 4 && this.status != 200){
+								alert("Please, log in!");
+								}
+							}												
 					}
 					request.open("post","/MyProject/undislikePost?postId="+postId,true);
 					request.send();
@@ -280,7 +328,11 @@
 							button.innerHTML="Dislike";
 							button.style.backgroundColor  = "black";
 							document.getElementById("comment"+commentId).innerHTML=request.responseText;
-						}												
+						}else{
+							if(this.readyState == 4 && this.status != 200){
+								alert("Please, log in!");
+								}
+							}												
 					}
 					request.open("post","/MyProject/undislikeComment?commentId="+commentId,true);
 					request.send();
@@ -329,11 +381,10 @@
 									onclick="handleDislikeComment(${comment.comment_id})">Dislike</button>
 		</div>
 					</div>
+			
 				</c:forEach>
 				</div>
-				<br>
-				<hr>
-				<br>
+				
 			</c:if>
 			<br>
 			<br>

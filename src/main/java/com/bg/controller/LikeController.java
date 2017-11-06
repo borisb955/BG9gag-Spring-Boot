@@ -1,5 +1,6 @@
 package com.bg.controller;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.HashSet;
 
@@ -68,7 +69,7 @@ public class LikeController {
 	@RequestMapping(value="/unlikePost", method=RequestMethod.POST)
 	@ResponseBody
 	public String unlikePost(HttpServletResponse resp, HttpSession session, HttpServletRequest request){
-		if(Validator.notLogged(session)) {
+		if(Validator.notLogged(session)) {	
 			resp.setStatus(401);
 		}
 		

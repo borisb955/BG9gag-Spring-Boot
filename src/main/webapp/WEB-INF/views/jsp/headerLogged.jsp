@@ -91,8 +91,8 @@
 		</div>
 		
 		<div class="languages">
-			<a href="?language=bg">Български</a><br>
-			<a href="?language=en">English</a>
+			<a href="?language=bg" style="color:white">Български</a><br>
+			<a href="?language=en" style="color:white">English</a>
 		</div>
 		
 		<div id="loginReg">

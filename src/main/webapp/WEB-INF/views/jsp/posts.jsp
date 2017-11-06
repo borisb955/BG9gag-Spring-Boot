@@ -171,7 +171,11 @@
 													button2.innerHTML="Dislike";
 													button2.style.backgroundColor = "black";
 												}
-											}									
+											}else{
+												if(this.readyState == 4 && this.status != 200){
+													alert("Please, log in!");
+													}
+												}									
 										}
 										request.open("post","/MyProject/likePost?postId="+postId,true);
 										request.send();				
@@ -184,7 +188,11 @@
 														button.innerHTML="Like";
 														button.style.backgroundColor = "black";
 														document.getElementById(""+postId).innerHTML=request.responseText;
-													}												
+													}else{
+														if(this.readyState == 4 && this.status != 200){
+															alert("Please, log in!");
+															}
+														}												
 												}
 												request.open("post","/MyProject/unlikePost?postId="+postId,true);
 												request.send();
@@ -203,7 +211,11 @@
 															button2.innerHTML="Like";
 															button2.style.backgroundColor = "black";
 														}
-													}												
+													}else{
+														if(this.readyState == 4 && this.status != 200){
+															alert("Please, log in!");
+															}
+														}												
 												}
 												request.open("post","/MyProject/dislikePost?postId="+postId,true);
 												request.send();
@@ -216,6 +228,10 @@
 														button.innerHTML="Dislike";
 														button.style.backgroundColor  = "black";
 														document.getElementById(""+postId).innerHTML=request.responseText;
+													}else{
+														if(this.readyState == 4 && this.status != 200){
+														alert("Please, log in!");
+														}
 													}												
 												}
 												request.open("post","/MyProject/undislikePost?postId="+postId,true);

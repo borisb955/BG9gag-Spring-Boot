@@ -55,8 +55,12 @@ public class PostController {
 //			Post post = (Post) request.getAttribute("postPostPage");
 //			User user = (User) request.getAttribute("userPostPage");
 			Post post = (Post) s.getAttribute("postPostPage");
-			User user = (User) s.getAttribute("userPostPage");
-			String text = request.getParameter("commentText");			
+			User user = (User) s.getAttribute("user");
+			String text = request.getParameter("commentText");
+		
+			if(text == null || text.trim().length() == 0){				
+				return "login";
+			}else{
 			try {
 				commentDao.insertComment(new Comment(text,LocalDateTime.now(),null,user,post));
 			} catch (SQLException e) {
@@ -64,7 +68,7 @@ public class PostController {
 			}
 				
 			return "loggedPostPage";
-		
+			}
 		}
 			
 	}

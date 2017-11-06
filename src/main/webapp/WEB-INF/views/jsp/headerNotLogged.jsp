@@ -17,7 +17,7 @@
 		#buttonsHeader{float: left; padding-left: 25px; display: inline-flex;}
 		.header-links{color: gray; padding-left: 35px; text-decoration: none; font-weight: bold;}
 		.languages{display: block; float:right;}
-		.languages a:link{float: right; color: #eaeaea;}
+		.languages a:link{float: right; color: white;}
 		.languages a:hover{float: right; color: white;}
 		.search{margin-left: 200px;}
 	</style>
