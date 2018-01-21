@@ -21,7 +21,7 @@
 		<jsp:include page="headerLogged.jsp"></jsp:include>
 		
 		<div id="myHeader">
-			<img class="img" src="/MyProject/myProfile/avatar">
+			<img class="img" src="/BG9GAG/myProfile/avatar">
 			
 <!-- 			Display username if the user hasn't set his full name -->
 			<c:choose>
@@ -47,13 +47,13 @@
 		
 		<div id="navigation">
 			<div class="navButtons">
-				<form action="/MyProject/myProfile/posts">
+				<form action="/BG9GAG/myProfile/posts">
 					<input type="submit" value="<s:message code="POSTS"></s:message>">
 				</form>
-				<form action="/MyProject/myProfile/myLikedPosts">
+				<form action="/BG9GAG/myProfile/myLikedPosts">
 					<input type="submit" value="<s:message code="UPVOTES"></s:message>">
 				</form>
-				<form action="/MyProject/myProfile/myCommentedPosts">
+				<form action="/BG9GAG/myProfile/myCommentedPosts">
 					<input type="submit" value="<s:message code="COMMENTS"></s:message>">
 				</form>
 			</div>

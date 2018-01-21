@@ -105,7 +105,7 @@
 						
 					<div>
 						<c:forEach items="${post.tags}" var="tag">
-							<a href="/MyProject/posts/tag/tagName=${ tag.tagName }"> 
+							<a href="/BG9GAG/posts/tag/tagName=${ tag.tagName }"> 
 							<span class="tag"><c:out value="${ tag.tagName }"></c:out></span>
 							</a>
 						</c:forEach>
@@ -121,13 +121,13 @@
 								</c:when>
 								<c:otherwise>
 									<video class="video" controls>
-									  <source src="/MyProject/postpic?pictureUrl=${post.postUrl}&userName=${post.user.username}" type="video/mp4">
+									  <source src="/BG9GAG/postpic?pictureUrl=${post.postUrl}&userName=${post.user.username}" type="video/mp4">
 									</video>
 								</c:otherwise>
 							</c:choose>
 						  </c:when>
 						  <c:otherwise>
-						  	<img src="/MyProject/postpic?pictureUrl=${post.postUrl}&userName=${post.user.username}" width="100%" height="auto">
+						  	<img src="/BG9GAG/postpic?pictureUrl=${post.postUrl}&userName=${post.user.username}" width="100%" height="auto">
 						  </c:otherwise>
 						</c:choose>						
 					</div>
@@ -177,7 +177,7 @@
 													}
 												}									
 										}
-										request.open("post","/MyProject/likePost?postId="+postId,true);
+										request.open("post","/BG9GAG/likePost?postId="+postId,true);
 										request.send();				
 								}
 										  function unlikePost(postId) {
@@ -194,7 +194,7 @@
 															}
 														}												
 												}
-												request.open("post","/MyProject/unlikePost?postId="+postId,true);
+												request.open("post","/BG9GAG/unlikePost?postId="+postId,true);
 												request.send();
 												}
 										  
@@ -217,7 +217,7 @@
 															}
 														}												
 												}
-												request.open("post","/MyProject/dislikePost?postId="+postId,true);
+												request.open("post","/BG9GAG/dislikePost?postId="+postId,true);
 												request.send();
 												}
 										  function undislikePost(postId) {
@@ -234,7 +234,7 @@
 														}
 													}												
 												}
-												request.open("post","/MyProject/undislikePost?postId="+postId,true);
+												request.open("post","/BG9GAG/undislikePost?postId="+postId,true);
 												request.send();
 												}
 										  
@@ -244,7 +244,7 @@
 										  
 							</script>
 					
-					<a href="/MyProject/postWithComments/postId=${ post.postId }/userId=${post.user.id}"><button class="showRepliesButton">Comments</button></a>
+					<a href="/BG9GAG/postWithComments/postId=${ post.postId }/userId=${post.user.id}"><button class="showRepliesButton">Comments</button></a>
 					
 		<c:set var="isLiked" value="false" />
 		<c:set var="isDisliked" value="false" />

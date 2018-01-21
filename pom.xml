@@ -4,11 +4,9 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.bg</groupId>
-	<artifactId>MyProject</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 
-	<name>MyProject</name>
 	<description>Demo project for Spring Boot</description>
 
 	<repositories>
@@ -112,4 +110,6 @@
 	</build>
 
 
+	<artifactId>BG9GAG</artifactId>
+	<name>BG9GAG</name>
 </project>

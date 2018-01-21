@@ -19,9 +19,9 @@
 		<div id="container">
 			<div id="leftContainer">
 				<ul class="ulLeft">
-					<li><a href="/MyProject/settings/account"><s:message code="account"></s:message></a></li>
-					<li><a href="/MyProject/settings/password"><s:message code="Password"></s:message></a></li>
-					<li><a href="/MyProject/settings/profile"><s:message code="Profile"></s:message></a></li>
+					<li><a href="/BG9GAG/settings/account"><s:message code="account"></s:message></a></li>
+					<li><a href="/BG9GAG/settings/password"><s:message code="Password"></s:message></a></li>
+					<li><a href="/BG9GAG/settings/profile"><s:message code="Profile"></s:message></a></li>
 				</ul>
 			</div>
 	</body>

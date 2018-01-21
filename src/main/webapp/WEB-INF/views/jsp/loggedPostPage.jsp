@@ -135,7 +135,7 @@
 								</c:when>
 								<c:otherwise>
 									<video class="video" controls>
-									  <source src="/MyProject/postpic?pictureUrl=${sessionScope.postPostPage.postUrl}&userName=${sessionScope.userPostPage.username}" type="video/mp4">
+									  <source src="/BG9GAG/postpic?pictureUrl=${sessionScope.postPostPage.postUrl}&userName=${sessionScope.userPostPage.username}" type="video/mp4">
 									</video>
 								</c:otherwise>
 							</c:choose>
@@ -143,7 +143,7 @@
 						  
 			<c:otherwise>
 				<img
-					src="/MyProject/postpic?pictureUrl=${sessionScope.postPostPage.postUrl}&userName=${sessionScope.userPostPage.username}"
+					src="/BG9GAG/postpic?pictureUrl=${sessionScope.postPostPage.postUrl}&userName=${sessionScope.userPostPage.username}"
 					width="50%" height="auto">
 			</c:otherwise>
 		</c:choose>
@@ -198,7 +198,7 @@
 		</h3>
 					<!-- 		MAINCOMMENTS -->
 		<p style="color:red;"><c:out value="${ error }"></c:out></p>
-		<form method="POST" action="/MyProject/addComment">
+		<form method="POST" action="/BG9GAG/addComment">
 			<textarea name="commentText" path="" id="commentText"
 				rows="6" cols="50" maxlength="1000"
 				style="resize: none;" placeholder="Comment here..." required></textarea>
@@ -279,7 +279,7 @@
 													}
 												}									
 										}
-										request.open("post","/MyProject/likePost?postId="+postId,true);
+										request.open("post","/BG9GAG/likePost?postId="+postId,true);
 										request.send();				
 								}
 								function likeComment(commentId) {
@@ -301,7 +301,7 @@
 												}
 											}									
 									}
-									request.open("post","/MyProject/likeComment?commentId="+commentId,true);
+									request.open("post","/BG9GAG/likeComment?commentId="+commentId,true);
 									request.send();				
 							}
 										  function unlikePost(postId) {
@@ -318,7 +318,7 @@
 															}
 														}												
 												}
-												request.open("post","/MyProject/unlikePost?postId="+postId,true);
+												request.open("post","/BG9GAG/unlikePost?postId="+postId,true);
 												request.send();
 												}
 										  function unlikeComment(commentId) {
@@ -335,7 +335,7 @@
 															}
 														}												
 												}
-												request.open("post","/MyProject/unlikeComment?commentId="+commentId,true);
+												request.open("post","/BG9GAG/unlikeComment?commentId="+commentId,true);
 												request.send();
 												}
 										  
@@ -358,7 +358,7 @@
 															}
 														}												
 												}
-												request.open("post","/MyProject/dislikePost?postId="+postId,true);
+												request.open("post","/BG9GAG/dislikePost?postId="+postId,true);
 												request.send();
 												}
 										  function dislikeComment(commentId) {
@@ -380,7 +380,7 @@
 															}
 														}												
 												}
-												request.open("post","/MyProject/dislikeComment?commentId="+commentId,true);
+												request.open("post","/BG9GAG/dislikeComment?commentId="+commentId,true);
 												request.send();
 												}
 										  function undislikePost(postId) {
@@ -397,7 +397,7 @@
 															}
 														}												
 												}
-												request.open("post","/MyProject/undislikePost?postId="+postId,true);
+												request.open("post","/BG9GAG/undislikePost?postId="+postId,true);
 												request.send();
 												}		
 										  function undislikeComment(commentId) {
@@ -414,7 +414,7 @@
 															}
 														}												
 												}
-												request.open("post","/MyProject/undislikeComment?commentId="+commentId,true);
+												request.open("post","/BG9GAG/undislikeComment?commentId="+commentId,true);
 												request.send();
 												}			
 							</script>
@@ -475,7 +475,7 @@
 						
 							<br>
 							<br>
-							<form method="POST" action="/MyProject/addChildComment"
+							<form method="POST" action="/BG9GAG/addChildComment"
 								id="${ comment.comment_id}" style="display: none">
 								<input type="text" value="${comment.comment_id}"
 									name="parentCommentId" style="display: none"> <input
@@ -554,7 +554,7 @@
 													<br>
 													<br>
 
-												<form method="POST" action="/MyProject/addChildComment"
+												<form method="POST" action="/BG9GAG/addChildComment"
 													id="${ childComment.comment_id }" style="display: none">
 													<input type="text" value="${comment.comment_id}"
 														name="parentCommentId" style="display: none"> <input

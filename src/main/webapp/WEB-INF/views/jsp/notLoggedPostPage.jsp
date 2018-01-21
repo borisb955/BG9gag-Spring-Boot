@@ -113,14 +113,14 @@
 								</c:when>
 								<c:otherwise>
 									<video class="video" controls>
-									  <source src="/MyProject/postpic?pictureUrl=${sessionScope.postPostPage.postUrl}&userName=${sessionScope.userPostPage.username}" type="video/mp4">
+									  <source src="/BG9GAG/postpic?pictureUrl=${sessionScope.postPostPage.postUrl}&userName=${sessionScope.userPostPage.username}" type="video/mp4">
 									</video>
 								</c:otherwise>
 							</c:choose>
 						  </c:when>  
 			<c:otherwise>
 				<img
-					src="/MyProject/postpic?pictureUrl=${sessionScope.postPostPage.postUrl}&userName=${sessionScope.userPostPage.username}"
+					src="/BG9GAG/postpic?pictureUrl=${sessionScope.postPostPage.postUrl}&userName=${sessionScope.userPostPage.username}"
 					width="100%" height="auto">
 			</c:otherwise>
 		</c:choose>
@@ -199,7 +199,7 @@
 						}
 					}									
 			}
-			request.open("post","/MyProject/likePost?postId="+postId,true);
+			request.open("post","/BG9GAG/likePost?postId="+postId,true);
 			request.send();				
 	}
 	function likeComment(commentId) {
@@ -221,7 +221,7 @@
 					}
 				}									
 		}
-		request.open("post","/MyProject/likeComment?commentId="+commentId,true);
+		request.open("post","/BG9GAG/likeComment?commentId="+commentId,true);
 		request.send();				
 }
 			  function unlikePost(postId) {
@@ -238,7 +238,7 @@
 								}
 							}												
 					}
-					request.open("post","/MyProject/unlikePost?postId="+postId,true);
+					request.open("post","/BG9GAG/unlikePost?postId="+postId,true);
 					request.send();
 					}
 			  function unlikeComment(commentId) {
@@ -255,7 +255,7 @@
 								}
 							}												
 					}
-					request.open("post","/MyProject/unlikeComment?commentId="+commentId,true);
+					request.open("post","/BG9GAG/unlikeComment?commentId="+commentId,true);
 					request.send();
 					}
 			  
@@ -278,7 +278,7 @@
 								}
 							}												
 					}
-					request.open("post","/MyProject/dislikePost?postId="+postId,true);
+					request.open("post","/BG9GAG/dislikePost?postId="+postId,true);
 					request.send();
 					}
 			  function dislikeComment(commentId) {
@@ -300,7 +300,7 @@
 								}
 							}												
 					}
-					request.open("post","/MyProject/dislikeComment?commentId="+commentId,true);
+					request.open("post","/BG9GAG/dislikeComment?commentId="+commentId,true);
 					request.send();
 					}
 			  function undislikePost(postId) {
@@ -317,7 +317,7 @@
 								}
 							}												
 					}
-					request.open("post","/MyProject/undislikePost?postId="+postId,true);
+					request.open("post","/BG9GAG/undislikePost?postId="+postId,true);
 					request.send();
 					}		
 			  function undislikeComment(commentId) {
@@ -334,7 +334,7 @@
 								}
 							}												
 					}
-					request.open("post","/MyProject/undislikeComment?commentId="+commentId,true);
+					request.open("post","/BG9GAG/undislikeComment?commentId="+commentId,true);
 					request.send();
 					}
 				

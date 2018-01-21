@@ -76,15 +76,15 @@
 </head>
 		<div id="header">
 		<div id="logo">
-			<a href="/MyProject"><img src="https://upload.wikimedia.org/wikipedia/commons/9/97/9GAG_new_logo.svg" ></a>
+			<a href="/BG9GAG"><img src="https://upload.wikimedia.org/wikipedia/commons/9/97/9GAG_new_logo.svg" ></a>
 		</div>
 		<div id="buttonsHeader">
-			<a class="header-links" href="/MyProject/posts/hot"><s:message code="hot"></s:message></a>
-			<a class="header-links" href="/MyProject/posts/fresh"><s:message code="fresh"></s:message></a>
-			<a class="header-links" href="/MyProject/posts/gifs">GIF</a>
-			<a class="header-links" href="/MyProject/posts/video">Video</a>
-			<a class="header-links" href="/MyProject/posts/videoYoutube">YTvideos</a>
-			<form class="search" action="/MyProject/posts/search" method="get">
+			<a class="header-links" href="/BG9GAG/posts/hot"><s:message code="hot"></s:message></a>
+			<a class="header-links" href="/BG9GAG/posts/fresh"><s:message code="fresh"></s:message></a>
+			<a class="header-links" href="/BG9GAG/posts/gifs">GIF</a>
+			<a class="header-links" href="/BG9GAG/posts/video">Video</a>
+			<a class="header-links" href="/BG9GAG/posts/videoYoutube">YTvideos</a>
+			<form class="search" action="/BG9GAG/posts/search" method="get">
 				<input type="text" placeholder="<s:message code="search..."></s:message>" name="search">
 				<input type="submit" value="<s:message code="search"></s:message>">
 			</form>
@@ -99,21 +99,21 @@
 		
 		<div class="box">
 			<div class="dropdown">
-			  <img class="dropimg" src="/MyProject/myProfile/avatar">
+			  <img class="dropimg" src="/BG9GAG/myProfile/avatar">
 				<div class="dropdown-content">
-					<form action="/MyProject/myProfile" method="get">
+					<form action="/BG9GAG/myProfile" method="get">
 						<input type="submit" value="<s:message code="myProfile"></s:message>"/>
 					</form>
-			    	<form action="/MyProject/settings/account" method="get">
+			    	<form action="/BG9GAG/settings/account" method="get">
 			    		<input type="submit" value="<s:message code="settings"></s:message>"/>
 			    	</form>
-			    	<form action="/MyProject/logout" method="post">
+			    	<form action="/BG9GAG/logout" method="post">
 			    		<input type="submit" value="<s:message code="logout"></s:message>"/>
 			    	</form>
 				</div>
 			</div>
 
-			<form action="/MyProject/upload" method="get">
+			<form action="/BG9GAG/upload" method="get">
 	    		<input style="background-color: blue;" class="button-links" type="submit" value="+ <s:message code="upload"></s:message>"/>
 	    	</form>
 		</div>

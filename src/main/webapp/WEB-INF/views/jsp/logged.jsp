@@ -20,7 +20,7 @@
 				
 				<div>
 					<h1><c:out value="${ post.description }">no description</c:out></h1><br>
-				<img src="/MyProject/postpic?pictureUrl=${post.postUrl}&userName=${post.user.username}" width="50%" height="auto">
+				<img src="/BG9GAG/postpic?pictureUrl=${post.postUrl}&userName=${post.user.username}" width="50%" height="auto">
 				</div>
 
 				<div id="tags">
@@ -34,10 +34,10 @@
 					<p>user: <c:out value="${ post.user.username }"></c:out></p>
 				</div>
 				<a href="postWithComments/postId=${ post.postId }/userId=${post.user.id}">Comments</a>
-				<a href="/MyProject/likePost?postId=${ post.postId }&userId=${sessionScope.user.id}">Like</a>
-				<a href="/MyProject/unlikePost?postId=${ post.postId }&userId=${sessionScope.user.id}">Unlike</a>
-				<a href="/MyProject/dislikePost?postId=${ post.postId }&userId=${sessionScope.user.id }">Dislike</a>
-				<a href="/MyProject/undislikePost?postId=${ post.postId }&userId=${sessionScope.user.id }">Undislike</a>
+				<a href="/BG9GAG/likePost?postId=${ post.postId }&userId=${sessionScope.user.id}">Like</a>
+				<a href="/BG9GAG/unlikePost?postId=${ post.postId }&userId=${sessionScope.user.id}">Unlike</a>
+				<a href="/BG9GAG/dislikePost?postId=${ post.postId }&userId=${sessionScope.user.id }">Dislike</a>
+				<a href="/BG9GAG/undislikePost?postId=${ post.postId }&userId=${sessionScope.user.id }">Undislike</a>
 				
 				</c:forEach>
 			</div>

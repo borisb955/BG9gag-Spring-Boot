@@ -25,15 +25,15 @@
 	<body>
 	<div id="header">
 		<div id="logo">
-			<a href="/MyProject"><img src="https://upload.wikimedia.org/wikipedia/commons/9/97/9GAG_new_logo.svg" ></a>
+			<a href="/BG9GAG"><img src="https://upload.wikimedia.org/wikipedia/commons/9/97/9GAG_new_logo.svg" ></a>
 		</div>
 		<div id="buttonsHeader">
-			<a class="header-links" href="/MyProject/posts/hot"><s:message code="hot"></s:message></a>
-			<a class="header-links" href="/MyProject/posts/fresh"><s:message code="fresh"></s:message></a>
-			<a class="header-links" href="/MyProject/posts/gifs">GIF</a>
-			<a class="header-links" href="/MyProject/posts/video">Videos</a>
-			<a class="header-links" href="/MyProject/posts/videoYoutube">YTvideos</a>
-			<form class="search" action="/MyProject/posts/search" method="get">
+			<a class="header-links" href="/BG9GAG/posts/hot"><s:message code="hot"></s:message></a>
+			<a class="header-links" href="/BG9GAG/posts/fresh"><s:message code="fresh"></s:message></a>
+			<a class="header-links" href="/BG9GAG/posts/gifs">GIF</a>
+			<a class="header-links" href="/BG9GAG/posts/video">Videos</a>
+			<a class="header-links" href="/BG9GAG/posts/videoYoutube">YTvideos</a>
+			<form class="search" action="/BG9GAG/posts/search" method="get">
 				<input type="text" placeholder="<s:message code="search..."></s:message>" name="search">
 				<input type="submit" value="<s:message code="search"></s:message>">
 			</form>
@@ -45,8 +45,8 @@
 		</div>
 		
 		<div id="loginReg">
-			<button><a href="/MyProject/login"><s:message code="logIn"></s:message></a></button>
-			<button><a href="/MyProject/register"><s:message code="signUp"></s:message></a></button>	
+			<button><a href="/BG9GAG/login"><s:message code="logIn"></s:message></a></button>
+			<button><a href="/BG9GAG/register"><s:message code="signUp"></s:message></a></button>	
 		</div>
 	</div>
 	</body>
