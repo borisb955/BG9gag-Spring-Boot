@@ -45,6 +45,6 @@
 				</f:form>	
 			</div>
 			
-		</div>
+		
 	</body>
 </html>

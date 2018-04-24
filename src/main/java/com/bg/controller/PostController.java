@@ -146,31 +146,18 @@ public class PostController {
 	public String showPostWithComment(@PathVariable("postId") int postId, @PathVariable("userId") int userId, HttpSession s, Model model) {
 		
 
-		try {
-			
+		try {		
 			User user = userDao.getUserById(userId);
 			Post post = postDao.getPost(postId, user);
 			s.setAttribute("userPostPage", user);
 			s.setAttribute("postPostPage", post);
-			
-			System.out.println(userId);
-			System.out.println(postId);
-			System.out.println(userId);
-			System.out.println(postId);
-			System.out.println(userId);
-			System.out.println(postId);
-//			model.addAttribute("userPostPage", user);
-//			model.addAttribute("postPostPage", post);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		if (Validator.notLogged(s)) {
 			return "notLoggedPostPage";
 		}
-		
 
-		System.out.println("vliza");
-		System.out.println("vliza");
 		return "loggedPostPage";
 
 	}

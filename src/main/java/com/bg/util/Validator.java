@@ -1,6 +1,5 @@
 package com.bg.util;
 
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpSession;
 
 import com.bg.model.User;
